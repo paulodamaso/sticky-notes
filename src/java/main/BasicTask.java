@@ -1,4 +1,7 @@
-public final BasicTask implements Task {
+package main;
+import java.util.Date;
+
+public final class BasicTask implements Task {
     private final Date date;
     private final String description;
     
@@ -12,6 +15,6 @@ public final BasicTask implements Task {
     }
     
     public Date date() {
-      return date();
+      return this.date;
     }
 }
