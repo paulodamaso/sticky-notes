@@ -8,19 +8,16 @@ public class Main {
 	public static void main(String[] args) {
 	
 		/*
-<<<<<<< HEAD
-		 * @TODO #2 essa instanciação da lista de tarefas não está legal, 
-=======
-		 * @TODO #0001 essa instanciação da lista de tarefas não está legal, 
->>>>>>> branch 'master' of https://github.com/paulodamaso/donkey-tasks/
-		 * melhor seria a utilização de uma interface aqui 
+
+		 * @TODO #2 essa instanciaÃ§Ã£o da lista de tarefas nÃ£o estÃ¡ legal
+		 * melhor seria a utilizaÃ§Ã£o de uma interface aqui 
 		 * 
 		 */
 		ConsoleTaskList tarefas = new ConsoleTaskList(new MemoryTasks(Arrays.asList(
-				new BasicTask(1, new Date(), "Fazer a lição"),
+				new BasicTask(1, new Date(), "Fazer a liï¿½ï¿½o"),
 				new BasicTask(2, new Date(), "Limpar a lancheira"),
-				new BasicTask(3, new Date(), "Guardar os tênis"),
-				new BasicTask(4, new Date(), "Juntar roupa do banheiro após o banho"),
+				new BasicTask(3, new Date(), "Guardar os tï¿½nis"),
+				new BasicTask(4, new Date(), "Juntar roupa do banheiro apï¿½s o banho"),
 				new BasicTask(5, new Date(), "Arrumar a mesa"),
 				new BasicTask(6, new Date(), "Assistir TV :D")
 				)));
