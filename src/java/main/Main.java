@@ -8,7 +8,6 @@ public class Main {
 	public static void main(String[] args) {
 	
 		/*
-
 		 * @todo #2 essa instanciação da lista de tarefas não está legal
 		 * melhor seria a utilização de uma interface aqui 
 		 * 
