@@ -9,7 +9,7 @@ public class Main {
 	
 		/*
 
-		 * @TODO #2 essa instanciação da lista de tarefas não está legal
+		 * @todo #2 essa instanciação da lista de tarefas não está legal
 		 * melhor seria a utilização de uma interface aqui 
 		 * 
 		 */
