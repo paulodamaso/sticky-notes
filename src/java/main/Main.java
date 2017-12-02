@@ -9,7 +9,7 @@ public class Main {
 	
 		/*
 		 * @todo #2 essa instanciação da lista de tarefas não está legal
-		 * melhor seria a utilização de uma interface aqui 
+		 *  melhor seria a utilização de uma interface aqui 
 		 * 
 		 */
 		ConsoleTaskList tarefas = new ConsoleTaskList(new MemoryTasks(Arrays.asList(

@@ -19,9 +19,9 @@ public final class ConsoleTaskList implements Printable, Tasks {
 	}
 
 	/*
-	 * @TODO #2 ainda  não sei qual a melhor maneira de fazer essa impressão:
-	 * - PrintableTask.print(), e chamando uma tarefa printable ConsolePrintableTask() (bridge)?
-	 * - ConsoleTaskList.print(), imprimindo as tarefas de acordo com essa  lógica aqui
+	 * @todo #2 ainda  não sei qual a melhor maneira de fazer essa impressão:
+	 *  - PrintableTask.print(), e chamando uma tarefa printable ConsolePrintableTask() (bridge)?
+	 *  - ConsoleTaskList.print(), imprimindo as tarefas de acordo com essa  lógica aqui
 	 */
 	@Override
 	public void print() {
