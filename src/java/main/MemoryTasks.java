@@ -14,6 +14,10 @@ public final class MemoryTasks implements Tasks {
       return this.tasks;
     }
     
+    
+    /*
+     * @TODO #2 arrumar essa implementação sem usar classe anônima
+     */
     public Tasks add(Task task) {
     	return new MemoryTasks(new ArrayList<Task>((Collection<Task>)tasks) {{add(task);}});
     }
