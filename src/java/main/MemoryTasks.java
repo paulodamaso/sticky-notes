@@ -16,7 +16,11 @@ public final class MemoryTasks implements Tasks {
     
     
     /*
+<<<<<<< HEAD
      * @TODO #2 arrumar essa implementação sem usar classe anônima
+=======
+     * @TODO #0001 arrumar essa implementação sem usar classe anônima
+>>>>>>> branch 'master' of https://github.com/paulodamaso/donkey-tasks/
      */
     public Tasks add(Task task) {
     	return new MemoryTasks(new ArrayList<Task>((Collection<Task>)tasks) {{add(task);}});

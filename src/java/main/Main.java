@@ -8,7 +8,11 @@ public class Main {
 	public static void main(String[] args) {
 	
 		/*
+<<<<<<< HEAD
 		 * @TODO #2 essa instanciação da lista de tarefas não está legal, 
+=======
+		 * @TODO #0001 essa instanciação da lista de tarefas não está legal, 
+>>>>>>> branch 'master' of https://github.com/paulodamaso/donkey-tasks/
 		 * melhor seria a utilização de uma interface aqui 
 		 * 
 		 */

@@ -19,7 +19,11 @@ public final class ConsoleTaskList implements Printable, Tasks {
 	}
 
 	/*
+<<<<<<< HEAD
 	 * @TODO #2 ainda não sei qual a melhor maneira de fazer essa impressão:
+=======
+	 * @TODO #0001 ainda não sei qual a melhor maneira de fazer essa impressão:
+>>>>>>> branch 'master' of https://github.com/paulodamaso/donkey-tasks/
 	 * - PrintableTask.print(), e chamando uma tarefa printable ConsolePrintableTask() (bridge)?
 	 * - ConsoleTaskList.print(), imprimindo as tarefas de acordo com essa lógica aqui
 	 */

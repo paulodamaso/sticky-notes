@@ -1,6 +1,9 @@
 /build/
 /bin/
+<<<<<<< HEAD
 /target/
+=======
+>>>>>>> branch 'master' of https://github.com/paulodamaso/donkey-tasks/
 /.classpath
 /.project
 /.settings
