@@ -14,10 +14,10 @@ public class Main {
 		 * 
 		 */
 		ConsoleTaskList tarefas = new ConsoleTaskList(new MemoryTasks(Arrays.asList(
-				new BasicTask(1, new Date(), "Fazer a li��o"),
+				new BasicTask(1, new Date(), "Fazer a lição"),
 				new BasicTask(2, new Date(), "Limpar a lancheira"),
-				new BasicTask(3, new Date(), "Guardar os t�nis"),
-				new BasicTask(4, new Date(), "Juntar roupa do banheiro ap�s o banho"),
+				new BasicTask(3, new Date(), "Guardar os tênis"),
+				new BasicTask(4, new Date(), "Juntar roupa do banheiro após o banho"),
 				new BasicTask(5, new Date(), "Arrumar a mesa"),
 				new BasicTask(6, new Date(), "Assistir TV :D")
 				)));
