@@ -7,11 +7,7 @@ import java.util.Date;
  * @author paulodamaso
  *
  */
-/* 
- * @todo #2 i am not so sure about extending the printable interface here, but it would be
- *  worse to typecast it in my tasks implementations.  
- */
-public interface Task extends Printable {
+public interface Task  {
 	
 	public int id();
 	

@@ -35,8 +35,8 @@ public final class ConsoleTaskList implements Printable, Tasks {
 				System.out.println(title);
 				System.out.println("==============================================");
 			}
-			
-			task.print();
+			ConsoleTask tsk = new ConsoleTask(task);
+			tsk.print();
 			count++;
 		}
 		if (count != 0) {

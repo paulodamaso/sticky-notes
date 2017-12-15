@@ -7,7 +7,7 @@ import java.util.Date;
  * @author paulodamaso
  *
  */
-public final class SimpleTask implements Task {
+public final class SimpleTask implements Task{
 	
 	private final int id;
     private final Date date;
@@ -30,10 +30,4 @@ public final class SimpleTask implements Task {
     public Date date() {
       return this.date;
     }
-
-	@Override
-	public void print() {
-		System.out.println(id +" - " + description);
-	}
-
 }
