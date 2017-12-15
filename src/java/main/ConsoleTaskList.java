@@ -6,6 +6,10 @@ package main;
  * @author paulodamaso
  *
  */
+/* 
+ * @todo #6 still smelly, it's a bridge in disguise: ConsoleTasks only handle ConsoleTask
+ * 
+ */
 public final class ConsoleTaskList implements Printable, Tasks {
 	
 	private final Tasks tasks;

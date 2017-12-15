@@ -1,5 +1,15 @@
 package main;
 
+/**
+ * <p> A {@link Tasks} representation of {@link PostItTask}.
+ * 
+ * @author paulodamaso
+ *
+ */
+/* 
+ * @todo #6 still smelly, it's a bridge in disguise: PostItTasks only handle PostItTask
+ * 
+ */
 public final class PostItTasks implements Tasks, Printable {
 	
 	private final Tasks tasks;

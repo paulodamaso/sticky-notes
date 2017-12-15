@@ -31,9 +31,4 @@ public final class ConsoleTask implements Task, Printable {
 		return task.description();
 	}
 
-	@Override
-	public Date date() {
-		return task.date();
-	}
-
 }

@@ -9,6 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 
+/**
+ * <p> A {@link Task} modeled like a Post-It sticker.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class PostItTask extends JFrame implements Task, Printable {
 	
 	private final JTextArea txtDescription;
@@ -40,11 +46,6 @@ public final class PostItTask extends JFrame implements Task, Printable {
 	@Override
 	public String description() {
 		return task.description();
-	}
-
-	@Override
-	public Date date() {
-		return task.date();
 	}
 
 }
