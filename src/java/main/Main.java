@@ -12,13 +12,16 @@ public class Main {
 		 *  melhor seria a utilização de uma interface aqui 
 		 * 
 		 */
-		ConsoleTaskList tarefas = new ConsoleTaskList(new MemoryTasks(Arrays.asList(
-				new BasicTask(1, new Date(), "Fazer a lição"),
-				new BasicTask(2, new Date(), "Limpar a lancheira"),
-				new BasicTask(3, new Date(), "Guardar os tênis"),
-				new BasicTask(4, new Date(), "Juntar roupa do banheiro após o banho"),
-				new BasicTask(5, new Date(), "Arrumar a mesa"),
-				new BasicTask(6, new Date(), "Assistir TV :D")
+		/*
+		 *  @todo #4 implement an swing task list 
+		 */
+		SimpleTaskList tarefas = new SimpleTaskList(new MemoryTasks(Arrays.asList(
+				new SwingTask(new SimpleTask(1, new Date(), "Fazer a lição")),
+				new SwingTask(new SimpleTask(2, new Date(), "Limpar a lancheira")),
+				new SwingTask(new SimpleTask(3, new Date(), "Guardar os tênis")),
+				new SwingTask(new SimpleTask(4, new Date(), "Juntar roupa do banheiro após o banho")),
+				new SwingTask(new SimpleTask(5, new Date(), "Arrumar a mesa")),
+				new SwingTask(new SimpleTask(6, new Date(), "Assistir TV :D"))
 				)));
 		
 		tarefas.print();

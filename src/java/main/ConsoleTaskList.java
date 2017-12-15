@@ -1,11 +1,19 @@
 package main;
 
+/**
+ * <p> A list of {@link Task} printed in console output.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class ConsoleTaskList implements Printable, Tasks {
 	
 	private final Tasks tasks;
+	private final String title; 
 	
-	public ConsoleTaskList(Tasks tasks) {
+	public ConsoleTaskList(Tasks tasks, String title) {
 		this.tasks = tasks;
+		this.title = title;
 	}
 
 	@Override
@@ -15,29 +23,27 @@ public final class ConsoleTaskList implements Printable, Tasks {
 
 	@Override
 	public Tasks add(Task task) {
-		return tasks.add(task);
+		return new ConsoleTaskList(tasks, title).add(task);
 	}
 
-	/*
-	 * @todo #2 ainda  não sei qual a melhor maneira de fazer essa impressão:
-	 *  - PrintableTask.print(), e chamando uma tarefa printable ConsolePrintableTask() (bridge)?
-	 *  - ConsoleTaskList.print(), imprimindo as tarefas de acordo com essa  lógica aqui
-	 */
+
 	@Override
 	public void print() {
 		int count = 0;
 		for(Task task : iterate()) {
 			if (count == 0) {
-				System.out.println("Lista de tarefas do pequeno asno");
+				System.out.println(title);
 				System.out.println("==============================================");
 			}
 			
-			System.out.println(task.id() + " " + task.description() );
+			task.print();
 			count++;
 		}
 		if (count != 0) {
 			System.out.println("==============================================");
 			System.out.println(count + " tarefas no total");
+		} else {
+			System.out.println("Lista vazia");
 		}
 		
 	}
