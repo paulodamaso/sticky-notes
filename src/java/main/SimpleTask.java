@@ -1,5 +1,4 @@
 package main;
-import java.util.Date;
 
 /**
  * <p> A simple implementation for {@link Task}.
@@ -10,12 +9,10 @@ import java.util.Date;
 public final class SimpleTask implements Task{
 	
 	private final int id;
-    private final Date date;
     private final String description;
     
-    SimpleTask(int id, Date date, String description){
+    public SimpleTask(int id, String description){
     	this.id = id;
-    	this.date = date;
     	this.description = description;
     }
     
@@ -25,9 +22,6 @@ public final class SimpleTask implements Task{
     
     public String description() {
       return this.description;
-    }
-    
-    public Date date() {
-      return this.date;
-    }
+    }   
+
 }

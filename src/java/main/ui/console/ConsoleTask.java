@@ -1,6 +1,7 @@
-package main;
+package main.ui.console;
 
-import java.util.Date;
+import main.Printable;
+import main.Task;
 
 /**
  * <p> A {@link Task} which prints itself to console.

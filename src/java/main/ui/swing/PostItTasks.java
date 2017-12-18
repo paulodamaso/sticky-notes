@@ -1,4 +1,8 @@
-package main;
+package main.ui.swing;
+
+import main.Printable;
+import main.Task;
+import main.Tasks;
 
 /**
  * <p> A {@link Tasks} representation of {@link PostItTask}.

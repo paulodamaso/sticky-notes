@@ -1,0 +1,19 @@
+----------------------------------------------------------------
+Mon Dec 18 11:47:21 BRST 2017:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instância a816c00e-0160-69e1-0054-00001d6665f8
+no diretório de banco de dados C:\workspace\donkey-tasks\resources\donkey-tasks 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_152-b16
+user.dir=c:\workspace\donkey-tasks\resources
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Dec 18 11:47:39 BRST 2017: Shutting down Derby engine
+----------------------------------------------------------------
+Mon Dec 18 11:47:39 BRST 2017:
+Encerrando a instância a816c00e-0160-69e1-0054-00001d6665f8
+----------------------------------------------------------------

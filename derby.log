@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Dec 18 17:53:57 BRST 2017:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instância a816c00e-0160-6b30-a21f-00001c4bc218
+no diretório de banco de dados C:\workspace\donkey-tasks\resources\donkey-tasks 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_152-b16
+user.dir=C:\workspace\donkey-tasks
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''

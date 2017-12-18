@@ -1,7 +1,10 @@
 package main;
 
 import java.util.Arrays;
-import java.util.Date;
+
+import main.ui.swing.PostItTask;
+import main.ui.swing.PostItTasks;
+import persistence.DerbyTasks;
 
 public class Main {
 
@@ -12,23 +15,29 @@ public class Main {
 		 *  melhor seria a utilização de uma interface aqui 
 		 * 
 		 */
-		/*
-		 *  @todo #4 implement an swing task list 
+
+		/* @todo #6 implement a complete application, with taskbar icon and persisting postit tasks
+		 * 
 		 */
 		PostItTasks tarefas = new PostItTasks(
 				new MemoryTasks(
 						Arrays.asList(
-								new PostItTask(new SimpleTask(1, new Date(), "Fazer a lição")),
-								new PostItTask(new SimpleTask(2, new Date(), "Limpar a lancheira")),
-								new PostItTask(new SimpleTask(3, new Date(), "Guardar os tênis")),
-								new PostItTask(new SimpleTask(4, new Date(), "Juntar roupa do banheiro após o banho")),
-								new PostItTask(new SimpleTask(5, new Date(), "Arrumar a mesa")),
-								new PostItTask(new SimpleTask(6, new Date(), "Assistir TV :D"))
-								)
+								new PostItTask(new SimpleTask(1, "Fazer a lição de memória")),
+								new PostItTask(new SimpleTask(2,  "Limpar a lancheira de memória")),
+								new PostItTask(new SimpleTask(3,  "Guardar os tênis de memória")),
+								new PostItTask(new SimpleTask(4,  "Juntar roupa do banheiro após o banho de memória")),
+								new PostItTask(new SimpleTask(5,  "Arrumar a mesa de memória")),
+								new PostItTask(new SimpleTask(6,  "Assistir TV :D de mem[oria"))								)
 						));
 		
 		
 		tarefas.print();
+		
+		PostItTasks tarefasEmBanco = new PostItTasks(new DerbyTasks());
+		
+		tarefasEmBanco.print();
+		
+		
 		
 		// TODO Auto-generated method stub
 

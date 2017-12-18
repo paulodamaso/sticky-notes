@@ -1,12 +1,15 @@
-package main;
+package main.ui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+
+import main.Printable;
+import main.Task;
 
 
 /**
@@ -17,10 +20,7 @@ import javax.swing.border.EmptyBorder;
  */
 /* @todo #6 it would be interesting to allow the use to change some features (font, font size, fonr style, backcolor) 
  */
-/* @todo #6 remove minimize and maximize buttons.
- * 
- */
-public final class PostItTask extends JFrame implements Task, Printable {
+public final class PostItTask extends JDialog implements Task, Printable {
 	
 	private final JTextArea txtDescription;
 	private final Task task;
