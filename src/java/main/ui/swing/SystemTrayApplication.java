@@ -84,7 +84,7 @@ public final class SystemTrayApplication {
         	 */
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				//PostItTask pst = new PostItTask(new SimpleTask(0, "Escreva seu novo texto aqui")); 
+
 				PostItTask pst = new PostItTask(tasks.add("Escreva seu novo texto aqui"));
                 pst.print();
 			}
