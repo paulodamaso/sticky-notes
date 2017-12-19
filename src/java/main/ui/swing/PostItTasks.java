@@ -1,7 +1,7 @@
 package main.ui.swing;
 
-import main.Printable;
 import main.PrintableTask;
+import main.PrintableTasks;
 import main.Task;
 import main.Tasks;
 
@@ -15,7 +15,7 @@ import main.Tasks;
  * @todo #6 still smelly, it's a bridge in disguise: PostItTasks only handle PostItTask
  * 
  */
-public final class PostItTasks implements Tasks, Printable {
+public final class PostItTasks implements PrintableTasks {
 	
 	private final Tasks tasks;
 

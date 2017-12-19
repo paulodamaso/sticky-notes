@@ -1,17 +1,19 @@
-package main;
+package main.persistence.memory;
+
+import main.Task;
 
 /**
- * <p> A simple implementation for {@link Task}.
+ * <p> A simple implementation for {@link Task} representing a {@link Task} with data held in memory.
  * 
  * @author paulodamaso
  *
  */
-public final class SimpleTask implements Task{
+public final class MemoryTask implements Task{
 	
 	private final int id;
     private final String description;
     
-    public SimpleTask(int id, String description){
+    public MemoryTask(int id, String description){
     	this.id = id;
     	this.description = description;
     }

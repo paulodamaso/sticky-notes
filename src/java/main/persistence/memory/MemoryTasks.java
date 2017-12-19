@@ -1,10 +1,13 @@
-package main;
+package main.persistence.memory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import main.Task;
+import main.Tasks;
+
 /**
- * <p> {@link Tasks} interface read from memory. 
+ * <p> {@link Tasks} interface which store data in memory. 
  * 
  * @author paulodamaso
  *
@@ -26,7 +29,8 @@ public final class MemoryTasks implements Tasks {
      * 
      */
     public Task add(String description) {
-    	tasks.add(description);
+    	MemoryTask task = new MemoryTask(tasks.size(), description);
+    	tasks.add(task);
     	return task;
     }
 

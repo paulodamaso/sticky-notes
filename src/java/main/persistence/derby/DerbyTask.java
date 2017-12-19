@@ -1,4 +1,4 @@
-package persistence;
+package main.persistence.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +19,7 @@ public final class DerbyTask implements Task {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing derby driver
+			/* @todo #12 implement better exception handling in choosing derby driver here
 			 * 
 			 */
 			e.printStackTrace();

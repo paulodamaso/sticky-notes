@@ -1,4 +1,4 @@
-package persistence;
+package main.persistence.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

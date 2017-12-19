@@ -15,9 +15,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.SimpleTask;
+import main.Task;
 import main.Tasks;
-import persistence.DerbyTasks;
+import main.persistence.derby.DerbyTasks;
+import main.persistence.memory.MemoryTask;
 
 public final class SystemTrayApplication {
 	
@@ -84,8 +85,8 @@ public final class SystemTrayApplication {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
 				//PostItTask pst = new PostItTask(new SimpleTask(0, "Escreva seu novo texto aqui")); 
-                tasks.add("Escreva seu novo texto aqui");
-                //pst.print();
+				PostItTask pst = new PostItTask(tasks.add("Escreva seu novo texto aqui"));
+                pst.print();
 			}
 		});
          

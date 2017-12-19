@@ -1,6 +1,6 @@
 package main.ui.console;
 
-import main.Printable;
+import main.PrintableTasks;
 import main.Task;
 import main.Tasks;
 
@@ -14,7 +14,7 @@ import main.Tasks;
  * @todo #6 still smelly, it's a bridge in disguise: ConsoleTasks only handle ConsoleTask
  * 
  */
-public final class ConsoleTaskList implements Printable, Tasks {
+public final class ConsoleTaskList implements PrintableTasks {
 	
 	private final Tasks tasks;
 	private final String title; 
@@ -31,7 +31,7 @@ public final class ConsoleTaskList implements Printable, Tasks {
 
 	@Override
 	public Task add(String description) {
-		return new ConsoleTask(task);
+		return tasks.add(description);
 	}
 
 
