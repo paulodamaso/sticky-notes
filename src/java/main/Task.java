@@ -1,5 +1,4 @@
 package main;
-import java.util.Date;
 
 /**
  * <p> A task.
@@ -12,6 +11,5 @@ public interface Task  {
 	public int id();
 	
 	public String description();
-	
-	//public Date date();
+
 }

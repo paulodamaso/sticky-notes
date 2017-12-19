@@ -6,20 +6,16 @@ import main.Task;
 import main.Tasks;
 
 /**
- * <p> A {@link Tasks} representation of {@link PostItTask}.
+ * <p> A {@link Tasks} representation of {@link SimpleStickerTask}.
  * 
  * @author paulodamaso
  *
  */
-/* 
- * @todo #6 still smelly, it's a bridge in disguise: PostItTasks only handle PostItTask
- * 
- */
-public final class PostItTasks implements PrintableTasks {
+public final class StickerTasks implements PrintableTasks {
 	
 	private final Tasks tasks;
 
-	public PostItTasks(Tasks tasks) {
+	public StickerTasks(Tasks tasks) {
 		super();
 		this.tasks = tasks;
 	}

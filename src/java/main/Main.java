@@ -1,57 +1,61 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.Arrays;
 
-import main.persistence.derby.DerbyTasks;
 import main.persistence.memory.MemoryTask;
 import main.persistence.memory.MemoryTasks;
-import main.ui.swing.PostItTask;
-import main.ui.swing.PostItTasks;
+import main.ui.swing.TaskWithColor;
+
+import main.ui.swing.SimpleStickerTask;
+import main.ui.swing.TaskWithPosition;
+import main.ui.swing.TaskWithSize;
+import main.ui.swing.StickerTasks;
 import main.ui.swing.SystemTrayApplication;
+import main.ui.swing.TaskWithFont;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception{
 	
-		/*
-		 * @todo #2 essa instanciação da lista de tarefas não está legal
-		 *  melhor seria a utilização de uma interface aqui 
-		 * 
-		 */
 
 		/* @todo #6 implement a complete application, with taskbar icon and persisting postit tasks
 		 * 
 		 */
-//		PostItTasks tarefas = new PostItTasks(
-//				new MemoryTasks(
-//						Arrays.asList(
-//								new PostItTask(new SimpleTask(1, "Fazer a lição de memória")),
-//								new PostItTask(new SimpleTask(2,  "Limpar a lancheira de memória")),
-//								new PostItTask(new SimpleTask(3,  "Guardar os tênis de memória")),
-//								new PostItTask(new SimpleTask(4,  "Juntar roupa do banheiro após o banho de memória")),
-//								new PostItTask(new SimpleTask(5,  "Arrumar a mesa de memória")),
-//								new PostItTask(new SimpleTask(6,  "Assistir TV :D de mem[oria"))								)
-//						));
-//		
-//		
-//		tarefas.print();
-//		
-//		PostItTasks tarefasEmBanco = new PostItTasks(new DerbyTasks("resources/donkey-tasks"));
-//		
-//		tarefasEmBanco.print();
 		
-//		SystemTrayApplication app = new SystemTrayApplication(new PostItTasks(new DerbyTasks("resources/donkey-tasks")););
-//		app.init();
-		
-		SystemTrayApplication app = new SystemTrayApplication(new PostItTasks(
+		SystemTrayApplication app = new SystemTrayApplication(new StickerTasks(
 				new MemoryTasks(
 				Arrays.asList(
-						new PostItTask(new MemoryTask(1, "Fazer a lição de memória")),
-						new PostItTask(new MemoryTask(2,  "Limpar a lancheira de memória")),
-						new PostItTask(new MemoryTask(3,  "Guardar os tênis de memória")),
-						new PostItTask(new MemoryTask(4,  "Juntar roupa do banheiro após o banho de memória")),
-						new PostItTask(new MemoryTask(5,  "Arrumar a mesa de memória")),
-						new PostItTask(new MemoryTask(6,  "Assistir TV :D de mem[oria"))
+						new TaskWithColor(
+								new SimpleStickerTask(
+										new MemoryTask(1, "Tis' a task with red color")
+										) ,new Color(255, 0, 0)
+								),
+						new TaskWithFont(
+								new SimpleStickerTask(
+										new MemoryTask(2,  "A task with a beautiful font")
+										),								
+								new Font("Comic Sans MS", Font.BOLD, 24) 
+								),
+						new TaskWithPosition(
+								new SimpleStickerTask(
+										new MemoryTask(3,  "A task positioned in the middle of the screen")
+										), Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 350 / 2,Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 50
+								),
+						new TaskWithSize(
+								new SimpleStickerTask(
+										new MemoryTask(4,  "A big, beautiful task filling the whole screen")
+										), Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height
+								),
+						new TaskWithFont (
+								new TaskWithColor(
+										new SimpleStickerTask(
+												new MemoryTask(5, "A beautiful green task with a radical font")
+												) ,new Color(0, 255, 0)
+										), new Font("Segoe", Font.ITALIC, 20)
+								)
 						)
 				)
 			)

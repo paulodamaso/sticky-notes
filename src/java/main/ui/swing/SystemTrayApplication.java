@@ -1,6 +1,7 @@
 package main.ui.swing;
 
 
+
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -22,7 +23,7 @@ import main.persistence.memory.MemoryTask;
 
 public final class SystemTrayApplication {
 	
-	private final PostItTasks tasks;
+	private final StickerTasks tasks;
 	
 	public void init() throws Exception {
 		
@@ -75,16 +76,10 @@ public final class SystemTrayApplication {
          
 
         newTaskItem.addActionListener(new ActionListener() {
-			
-        	
-        	/* @todo #6 this is not working: i must be able to add a new PostIt task without an id?
-        	 *  it must be decoupled from persistence, so who handles this id? i need to create a
-        	 *  empty task to decorate with a PostItTask or save it at will?
-        	 * 
-        	 */
+
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				new PostItTask(tasks.add("Escreva seu novo texto aqui")).print();
+				new SimpleStickerTask(tasks.add("Escreva seu novo texto aqui")).print();
 			}
 		});
          
@@ -115,6 +110,6 @@ public final class SystemTrayApplication {
 
     
     public SystemTrayApplication(Tasks tasks) {
-		this.tasks = new PostItTasks(tasks);
+		this.tasks = new StickerTasks(tasks);
 	}
 }
