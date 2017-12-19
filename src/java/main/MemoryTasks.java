@@ -10,7 +10,9 @@ import java.util.Collection;
  *
  */
 public final class MemoryTasks implements Tasks {
-    private final Iterable<Task> tasks;
+    private final ArrayList<Task> tasks;
+    //private final Tasks tasks;
+    
     
     public MemoryTasks (Iterable<Task> tasks) {
       this.tasks = new ArrayList<Task>((Collection<Task>)tasks);
@@ -20,9 +22,12 @@ public final class MemoryTasks implements Tasks {
       return this.tasks;
     }
     
-
-    public Tasks add(Task task) {
-    	return new MemoryTasks(new ArrayList<Task>((Collection<Task>)tasks)).add(task);
+    /* @todo #12 how do i add a task to a immutable iterable?
+     * 
+     */
+    public Task add(Task task) {
+    	tasks.add(task);
+    	return task;
     }
 
 }

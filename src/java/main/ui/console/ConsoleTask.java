@@ -1,6 +1,6 @@
 package main.ui.console;
 
-import main.Printable;
+import main.PrintableTask;
 import main.Task;
 
 /**
@@ -9,7 +9,7 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class ConsoleTask implements Task, Printable {
+public final class ConsoleTask implements PrintableTask {
 	
 	private final Task task;
 	

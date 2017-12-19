@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.Printable;
+import main.PrintableTask;
 import main.Task;
 
 
@@ -20,7 +21,7 @@ import main.Task;
  */
 /* @todo #6 it would be interesting to allow the use to change some features (font, font size, fonr style, backcolor) 
  */
-public final class PostItTask extends JDialog implements Task, Printable {
+public final class PostItTask extends JDialog implements PrintableTask {
 	
 	private final JTextArea txtDescription;
 	private final Task task;
@@ -44,8 +45,10 @@ public final class PostItTask extends JDialog implements Task, Printable {
 
 	@Override
 	public void print() {
-		this.pack();
-		this.setVisible(true);
+		if (!this.isVisible()) {
+			this.pack();
+			this.setVisible(true);
+		}
 	}
 
 	@Override

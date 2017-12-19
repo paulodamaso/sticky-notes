@@ -30,8 +30,8 @@ public final class ConsoleTaskList implements Printable, Tasks {
 	}
 
 	@Override
-	public Tasks add(Task task) {
-		return new ConsoleTaskList(tasks, title).add(task);
+	public Task add(Task task) {
+		return new ConsoleTask(task);
 	}
 
 

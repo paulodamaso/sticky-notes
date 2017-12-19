@@ -1,6 +1,7 @@
 package main.ui.swing;
 
 import main.Printable;
+import main.PrintableTask;
 import main.Task;
 import main.Tasks;
 
@@ -26,7 +27,7 @@ public final class PostItTasks implements Tasks, Printable {
 	@Override
 	public void print() {
 		for(Task tsk : iterate()) {
-			new PostItTask(tsk).print();
+			((PrintableTask)tsk).print();
 		}
 	}
 
@@ -36,8 +37,8 @@ public final class PostItTasks implements Tasks, Printable {
 	}
 
 	@Override
-	public Tasks add(Task task) {
-		return new PostItTasks(tasks).add(task);
+	public Task add(Task task) {
+		return new PostItTask(task);
 	}
 
 }

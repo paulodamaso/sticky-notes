@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import main.SimpleTask;
 import main.Task;
 import main.Tasks;
 
@@ -18,12 +17,13 @@ import main.Tasks;
  */
 public final class DerbyTasks implements Tasks {
 	
-//	private final Tasks tasks;
+	private final String database;
 
-	public DerbyTasks() {
+	public DerbyTasks(String database) {
+		this.database = database;
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			
+			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling.
 			 * 
@@ -33,33 +33,13 @@ public final class DerbyTasks implements Tasks {
 	}
 
 	
+	//database: resources/donkey-tasks
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:resources/donkey-tasks;");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-//	private final String select_query = "select * from task where id=?";
-//	@Override
-//	public void save() {
-//		try {
-//			Connection conn = connect();
-//			PreparedStatement ps = conn.prepareStatement(select_query);
-//			ps.setInt(0, this.id);
-//			ResultSet rs = ps.executeQuery();
-//			
-//			while(rs.next()) {
-//				it.add(new SimpleTask(rs.getInt("id"), rs.getString("description")));
-//			}
-//		}catch (Exception e) {
-//			/* @todo #12 implement exception handling.
-//			 * 
-//			 */
-//		}
-//		return it;
-//
-//	}
-
-	private final String iterate_query = "select * from task";
+	private final String iterate_query = "select id from task";
 	@Override
 	public Iterable<Task> iterate() {
 		ArrayList<Task> it = new ArrayList<Task>();
@@ -69,7 +49,7 @@ public final class DerbyTasks implements Tasks {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				it.add(new SimpleTask(rs.getInt("id"), rs.getString("description")));
+				it.add(new DerbyTask(database, rs.getInt(0)));
 			}
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling.
@@ -82,20 +62,34 @@ public final class DerbyTasks implements Tasks {
 
 	private final String insert_query = "insert into task (description) values (?)";
 	@Override
-	public Tasks add(Task task) {
+	public Task add(Task task) {
+		Connection conn = null;
 		try {
-			Connection conn = connect();
-			PreparedStatement ps = conn.prepareStatement(insert_query);
+			conn = connect();
+			PreparedStatement ps = conn.prepareStatement(insert_query,  new String[] { "id"});
 			ps.setString(0, task.description());
 			ps.executeUpdate();
-
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			return new DerbyTask(database, rs.getInt(0));
+			
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling.
 			 * 
 			 */
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				/* @todo #12 implement better exception handling.
+				 * 
+				 */
+				e.printStackTrace();
+			}
 		}
-		return this;
+		return null;
 	}
 
 }

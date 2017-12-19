@@ -20,8 +20,8 @@ public final class SimpleTasks implements Tasks{
 	}
 
 	@Override
-	public Tasks add(Task task) {
-		return new SimpleTasks(tasks).add(task);
+	public Task add(Task task) {
+		return tasks.add(task);
 	}
 
 }

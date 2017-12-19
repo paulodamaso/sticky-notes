@@ -1,4 +1,4 @@
-package main;
+package main.ui.swing;
 
 
 import java.awt.AWTException;
@@ -15,15 +15,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.ui.swing.PostItTask;
-import main.ui.swing.PostItTasks;
+import main.SimpleTask;
+import main.Tasks;
 import persistence.DerbyTasks;
 
-public class SwingApplication {
+public final class SystemTrayApplication {
 	
-	private static PostItTasks tasks;
+	private final PostItTasks tasks;
 	
-	public static void main (String [] args) throws Exception {
+	public void init() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
@@ -32,20 +32,20 @@ public class SwingApplication {
 		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("../images/bulb.gif", "tray icon"));
+                new TrayIcon(createImage("../../../images/bulb.gif", "tray icon"));
         
 
         final SystemTray tray = SystemTray.getSystemTray();
          
         // Create a popup menu components
         MenuItem aboutItem = new MenuItem("About");
-        MenuItem newItem = new MenuItem("New Task...");
+        MenuItem newTaskItem = new MenuItem("New Task...");
         MenuItem exitItem = new MenuItem("Exit");
          
         //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
-        popup.add(newItem);
+        popup.add(newTaskItem);
         popup.addSeparator();
         popup.add(exitItem);
          
@@ -72,41 +72,15 @@ public class SwingApplication {
             }
         });
          
-//        ActionListener listener = new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                MenuItem item = (MenuItem)e.getSource();
-//                //TrayIcon.MessageType type = null;
-//                System.out.println(item.getLabel());
-//                if ("Error".equals(item.getLabel())) {
-//                    //type = TrayIcon.MessageType.ERROR;
-//                    trayIcon.displayMessage("Sun TrayIcon Demo",
-//                            "This is an error message", TrayIcon.MessageType.ERROR);
-//                     
-//                } else if ("Warning".equals(item.getLabel())) {
-//                    //type = TrayIcon.MessageType.WARNING;
-//                    trayIcon.displayMessage("Sun TrayIcon Demo",
-//                            "This is a warning message", TrayIcon.MessageType.WARNING);
-//                     
-//                } else if ("Info".equals(item.getLabel())) {
-//                    //type = TrayIcon.MessageType.INFO;
-//                    trayIcon.displayMessage("Sun TrayIcon Demo",
-//                            "This is an info message", TrayIcon.MessageType.INFO);
-//                     
-//                } else if ("None".equals(item.getLabel())) {
-//                    //type = TrayIcon.MessageType.NONE;
-//                    trayIcon.displayMessage("Sun TrayIcon Demo",
-//                            "This is an ordinary message", TrayIcon.MessageType.NONE);
-//                }
-//            }
-//        };
 
-        newItem.addActionListener(new ActionListener() {
+        newTaskItem.addActionListener(new ActionListener() {
 			
         	
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Gecko");
-                tasks.add(new PostItTask(new SimpleTask(8, "")));
+				PostItTask pst = new PostItTask(new SimpleTask(0, "Escreva seu novo texto aqui")); 
+                tasks.add(pst);
+                pst.print();
 			}
 		});
          
@@ -116,13 +90,15 @@ public class SwingApplication {
                 System.exit(0);
             }
         });
+        
+        tasks.print();
 		
 	}
 	
     //Obtain the image URL
     protected static Image createImage(String path, String description) throws Exception{
         
-        InputStream is = SwingApplication.class.getResourceAsStream(path);
+        InputStream is = SystemTrayApplication.class.getResourceAsStream(path);
         Image image = ImageIO.read(is);
          
         if (image == null) {
@@ -134,7 +110,7 @@ public class SwingApplication {
     }
 
     
-    public SwingApplication() {
-		tasks = new PostItTasks(new DerbyTasks());
+    public SystemTrayApplication(Tasks tasks) {
+		this.tasks = new PostItTasks(tasks);
 	}
 }
