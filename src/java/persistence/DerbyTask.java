@@ -19,7 +19,7 @@ public final class DerbyTask implements Task {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling.
+			/* @todo #12 implement better exception handling in choosing derby driver
 			 * 
 			 */
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public final class DerbyTask implements Task {
 			ResultSet rs = ps.executeQuery();
 			return rs.getString(0);
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling.
+			/* @todo #12 implement better exception handling when returning description.
 			 * 
 			 */
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public final class DerbyTask implements Task {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling.
+				/* @todo #12 implement better exception handling here.
 				 * 
 				 */
 				e.printStackTrace();
