@@ -62,12 +62,12 @@ public final class DerbyTasks implements Tasks {
 
 	private final String insert_query = "insert into task (description) values (?)";
 	@Override
-	public Task add(Task task) {
+	public Task add(String description) {
 		Connection conn = null;
 		try {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(insert_query,  new String[] { "id"});
-			ps.setString(0, task.description());
+			ps.setString(0, description);
 			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();

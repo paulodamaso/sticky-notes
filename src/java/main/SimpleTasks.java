@@ -20,8 +20,8 @@ public final class SimpleTasks implements Tasks{
 	}
 
 	@Override
-	public Task add(Task task) {
-		return tasks.add(task);
+	public Task add(String description) {
+		return tasks.add(description);
 	}
 
 }

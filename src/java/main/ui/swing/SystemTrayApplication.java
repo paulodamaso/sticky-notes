@@ -76,11 +76,16 @@ public final class SystemTrayApplication {
         newTaskItem.addActionListener(new ActionListener() {
 			
         	
+        	/* @todo #6 this is not working: i must be able to add a new PostIt task without an id?
+        	 *  it must be decoupled from persistence, so who handles this id? i need to create a
+        	 *  empty task to decorate with a PostItTask or save it at will?
+        	 * 
+        	 */
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				PostItTask pst = new PostItTask(new SimpleTask(0, "Escreva seu novo texto aqui")); 
-                tasks.add(pst);
-                pst.print();
+				//PostItTask pst = new PostItTask(new SimpleTask(0, "Escreva seu novo texto aqui")); 
+                tasks.add("Escreva seu novo texto aqui");
+                //pst.print();
 			}
 		});
          

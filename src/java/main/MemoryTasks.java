@@ -25,8 +25,8 @@ public final class MemoryTasks implements Tasks {
     /* @todo #12 how do i add a task to a immutable iterable?
      * 
      */
-    public Task add(Task task) {
-    	tasks.add(task);
+    public Task add(String description) {
+    	tasks.add(description);
     	return task;
     }
 

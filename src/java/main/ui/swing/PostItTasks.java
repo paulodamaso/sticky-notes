@@ -37,8 +37,8 @@ public final class PostItTasks implements Tasks, Printable {
 	}
 
 	@Override
-	public Task add(Task task) {
-		return new PostItTask(task);
+	public Task add(String description) {
+		return tasks.add(description);
 	}
 
 }
