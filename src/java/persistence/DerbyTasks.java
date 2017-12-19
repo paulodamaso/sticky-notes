@@ -25,7 +25,7 @@ public final class DerbyTasks implements Tasks {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling.
+			/* @todo #12 implement better exception handling in choosing derby driver
 			 * 
 			 */
 			e.printStackTrace();
@@ -43,8 +43,9 @@ public final class DerbyTasks implements Tasks {
 	@Override
 	public Iterable<Task> iterate() {
 		ArrayList<Task> it = new ArrayList<Task>();
+		Connection conn = null;
 		try {
-			Connection conn = connect();
+			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(iterate_query);
 			ResultSet rs = ps.executeQuery();
 			
@@ -52,10 +53,16 @@ public final class DerbyTasks implements Tasks {
 				it.add(new DerbyTask(database, rs.getInt(0)));
 			}
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling.
+			/* @todo #12 implement better exception handling when getting Iterable<Task>.
 			 * 
 			 */
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return it;
 	}
@@ -75,7 +82,7 @@ public final class DerbyTasks implements Tasks {
 			return new DerbyTask(database, rs.getInt(0));
 			
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling.
+			/* @todo #12 implement better exception handling when inserting task.
 			 * 
 			 */
 			e.printStackTrace();
@@ -83,9 +90,6 @@ public final class DerbyTasks implements Tasks {
 			try {
 				conn.close();
 			}catch (Exception e) {
-				/* @todo #12 implement better exception handling.
-				 * 
-				 */
 				e.printStackTrace();
 			}
 		}
