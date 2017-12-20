@@ -20,10 +20,14 @@ public final class StickerTasks implements PrintableTasks {
 		this.tasks = tasks;
 	}
 
+	/*
+	 * @todo #6 this implementation does not convince me yet, it needs to be tested
+	 *  with decorated simplestickertask
+	 */
 	@Override
 	public void print() {
 		for(Task tsk : iterate()) {
-			((PrintableTask)tsk).print();
+			new SimpleStickerTask(tsk).print();
 		}
 	}
 

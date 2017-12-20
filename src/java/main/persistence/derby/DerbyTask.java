@@ -43,8 +43,10 @@ public final class DerbyTask implements Task {
 		try {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(description_query);
+			ps.setInt(1, id());
 			ResultSet rs = ps.executeQuery();
-			return rs.getString(0);
+			rs.next();
+			return rs.getString(1);
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when returning description.
 			 * 

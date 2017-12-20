@@ -50,7 +50,7 @@ public final class DerbyTasks implements Tasks {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				it.add(new DerbyTask(database, rs.getInt(0)));
+				it.add(new DerbyTask(database, rs.getInt(1)));
 			}
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling when getting Iterable<Task>.
@@ -73,13 +73,14 @@ public final class DerbyTasks implements Tasks {
 		Connection conn = null;
 		try {
 			conn = connect();
-			PreparedStatement ps = conn.prepareStatement(insert_query,  new String[] { "id"});
-			ps.setString(0, description);
+			PreparedStatement ps = conn.prepareStatement(insert_query,  PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, description);
 			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
 			
-			return new DerbyTask(database, rs.getInt(0));
+			return new DerbyTask(database, rs.getInt(1));
 			
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling when inserting task.

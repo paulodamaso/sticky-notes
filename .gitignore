@@ -8,3 +8,4 @@
 /.project
 /.settings
 /.dbeaver-data-sources.xml
+/derby.log
