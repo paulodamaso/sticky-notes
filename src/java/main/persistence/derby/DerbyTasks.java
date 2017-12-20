@@ -33,7 +33,7 @@ public final class DerbyTasks implements Tasks {
 	}
 
 	
-	//database: resources/donkey-tasks
+
 	private Connection connect() throws Exception {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");

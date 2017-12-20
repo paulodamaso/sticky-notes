@@ -32,6 +32,8 @@ public final class SystemTrayApplication {
             return;
         }
 		
+		System.out.println("Creating popupmenu");
+		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
                 new TrayIcon(createImage("../../../images/bulb.gif", "tray icon"));
@@ -53,13 +55,17 @@ public final class SystemTrayApplication {
          
         trayIcon.setPopupMenu(popup);
         
+        System.out.println("Setting trayicon");
+        
         try {
             tray.add(trayIcon);
+            System.out.println("Added trayicon");
         } catch (AWTException e) {
             System.out.println("TrayIcon could not be added.");
             return;
         }
          
+        System.out.println("Adding listeners");
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
@@ -89,6 +95,8 @@ public final class SystemTrayApplication {
                 System.exit(0);
             }
         });
+        
+        System.out.println("Added listeners, printing tasks");
         
         tasks.print();
 		

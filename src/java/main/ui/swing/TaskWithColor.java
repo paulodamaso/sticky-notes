@@ -14,12 +14,12 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class TaskWithColor implements StickerTask {
+public final class TaskWithColor extends StickerTask {
 	
 	private final StickerTask task;
 	
 	public TaskWithColor (StickerTask task, Color color) {
-
+		super(task);
 		this.task = task;
 		
 		//adding color to the textarea

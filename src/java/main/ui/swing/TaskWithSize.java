@@ -1,6 +1,5 @@
 package main.ui.swing;
 
-import main.PrintableTask;
 import main.Task;
 
 /**
@@ -8,13 +7,13 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class TaskWithSize implements PrintableTask {
+public final class TaskWithSize extends StickerTask {
 	
-	private final SimpleStickerTask task;
+	private final StickerTask task;
 
-	public TaskWithSize(Task task, int width, int height) {
-
-		this.task= new SimpleStickerTask(task);
+	public TaskWithSize(StickerTask task, int width, int height) {
+		super(task);
+		this.task= task;
 		this.task.setSize(width, height);
 	}
 	

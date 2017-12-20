@@ -26,7 +26,6 @@ public final class DerbyTask implements Task {
 		}
 	}
 	
-	//database: resources/donkey-tasks
 	private Connection connect() throws Exception {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");

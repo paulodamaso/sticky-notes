@@ -12,13 +12,13 @@ import javax.swing.JTextArea;
  * @author paulodamaso
  *
  */
-public final class TaskWithFont implements StickerTask {
+public final class TaskWithFont extends StickerTask {
 	
 	private final StickerTask task;
 
 	public TaskWithFont(StickerTask task, Font font) {
-
-		this.task = new SimpleStickerTask(task);
+		super(task);
+		this.task = task;
 		txtDescription().setFont(font);
 		
         //setting the popup menu to show font select option
