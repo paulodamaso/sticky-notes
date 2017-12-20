@@ -1,7 +1,6 @@
 package main.ui.swing;
 
-import main.PrintableTask;
-import main.PrintableTasks;
+import main.Printable;
 import main.Task;
 import main.Tasks;
 
@@ -11,7 +10,7 @@ import main.Tasks;
  * @author paulodamaso
  *
  */
-public final class StickerTasks implements PrintableTasks {
+public final class StickerTasks implements Printable, Tasks {
 	
 	private final Tasks tasks;
 
@@ -22,12 +21,23 @@ public final class StickerTasks implements PrintableTasks {
 
 	/*
 	 * @todo #6 this implementation does not convince me yet, it needs to be tested
-	 *  with decorated simplestickertask
+	 *  with decorated simplestickertask saved to database
+	 */	
+	
+	/* 
+	 * @ todo #23 awful way to avoid ClassCastExceptions when we have a non-printable task and
+	 *  avoid losing decorations when we have a decorated StickerTask. i dunno what behavior
+	 *  should happen here; probably it'll be decided when deciding how to store StickerTask visual properties
 	 */
 	@Override
 	public void print() {
 		for(Task tsk : iterate()) {
-			new SimpleStickerTask(tsk).print();
+			try {
+			((StickerTask)tsk).print();
+			}catch (ClassCastException cce) {
+				//it is not a sticker task; make it a sticker task and print it 
+				new SimpleStickerTask(tsk).print();
+			}
 		}
 	}
 

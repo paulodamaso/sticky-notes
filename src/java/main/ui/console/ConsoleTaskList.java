@@ -1,6 +1,6 @@
 package main.ui.console;
 
-import main.PrintableTasks;
+import main.Printable;
 import main.Task;
 import main.Tasks;
 
@@ -14,7 +14,7 @@ import main.Tasks;
  * @todo #6 still smelly, it's a bridge in disguise: ConsoleTasks only handle ConsoleTask
  * 
  */
-public final class ConsoleTaskList implements PrintableTasks {
+public final class ConsoleTaskList implements Printable, Tasks {
 	
 	private final Tasks tasks;
 	private final String title; 

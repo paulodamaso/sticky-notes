@@ -5,17 +5,19 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.Arrays;
 
-import main.persistence.derby.DerbyTasks;
+import main.persistence.derby.DerbyTask;
+import main.persistence.derby.DerbyTaskWithColor;
+import main.persistence.derby.DerbyTaskWithPosition;
+import main.persistence.derby.SimpleDerbyTasks;
 import main.persistence.memory.MemoryTask;
 import main.persistence.memory.MemoryTasks;
-import main.ui.swing.TaskWithColor;
-
 import main.ui.swing.SimpleStickerTask;
-import main.ui.swing.TaskWithPosition;
-import main.ui.swing.TaskWithSize;
 import main.ui.swing.StickerTasks;
 import main.ui.swing.SystemTrayApplication;
+import main.ui.swing.TaskWithColor;
 import main.ui.swing.TaskWithFont;
+import main.ui.swing.TaskWithPosition;
+import main.ui.swing.TaskWithSize;
 
 public class Main {
 
@@ -26,17 +28,21 @@ public class Main {
 		 * 
 		 */
 		
-		Tasks tsk = new DerbyTasks("resources/database/donkey-tasks-db");
-		tsk.add("Derby task #1");
-		tsk.add("Derby task #2");
-		tsk.add("Derby task #3");
-		tsk.add("Derby task #4");
-		tsk.add("Derby task #5");
-		tsk.add("Derby task #6");
-		tsk.add("Derby task #7");
-		tsk.add("Derby task #8");
+//		Tasks tsk = new DerbyTasks("resources/database/donkey-tasks-db");
+		//new StickerTasks(tsk));
 		
-		SystemTrayApplication app = new SystemTrayApplication(new StickerTasks(tsk));
+				
+		SystemTrayApplication app = new SystemTrayApplication(//new StickerTasks(tsk));
+		new StickerTasks(
+				new MemoryTasks(
+						Arrays.asList(
+							new DerbyTaskWithColor(new DerbyTask("resources/database/donkey-tasks-db", 0), new Color (0,255,0)),
+							new DerbyTaskWithPosition(new DerbyTask("resources/database/donkey-tasks-db", 0), 
+									Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 350 / 2,Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 50)
+							)
+						)
+				)
+		);
 //				new MemoryTasks(
 //				Arrays.asList(
 //						new TaskWithColor(
@@ -69,7 +75,7 @@ public class Main {
 //								)
 //						)
 //				)
-//			)
+//		)
 //		);
 		app.init();
 		

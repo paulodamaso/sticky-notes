@@ -1,68 +1,18 @@
 package main.persistence.derby;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
+import main.Persistent;
 import main.Task;
 
-public final class DerbyTask implements Task {
+/**
+ * <p> Derby-persisten interface for {@link Task} 
+ * 
+ * @author paulodamaso
+ *
+ */
+public interface DerbyTask extends  Task, Persistent {
 	
-	private final String database;
-	private final int id;
 	
-	public DerbyTask(String database, int id) {
-		this.database = database;
-		this.id = id;
-		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			
-		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing derby driver here
-			 * 
-			 */
-			e.printStackTrace();
-		}
-	}
-	
-	private Connection connect() throws Exception {
-		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
-	}
-
-	@Override
-	public int id() {
-		return id;
-	}
-
-	private final String description_query = "select description from task where id = ?";
-	@Override
-	public String description() {
-		Connection conn = null;
-		try {
-			conn = connect();
-			PreparedStatement ps = conn.prepareStatement(description_query);
-			ps.setInt(1, id());
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getString(1);
-		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when returning description.
-			 * 
-			 */
-			e.printStackTrace();
-		}finally {
-			try {
-				conn.close();
-			}catch(Exception e) {
-				/* @todo #12 implement better exception handling here.
-				 * 
-				 */
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
+	public Connection connect() throws Exception;
 }

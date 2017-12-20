@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 
 import main.Task;
 import main.Tasks;
-import main.persistence.derby.DerbyTasks;
+import main.persistence.derby.SimpleDerbyTasks;
 import main.persistence.memory.MemoryTask;
 
 public final class SystemTrayApplication {
@@ -91,6 +91,9 @@ public final class SystemTrayApplication {
          
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	for (Task tsk : tasks.iterate()) {
+            		//tsk.
+            	}
                 tray.remove(trayIcon);
                 System.exit(0);
             }
