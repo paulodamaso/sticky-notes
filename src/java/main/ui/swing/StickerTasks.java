@@ -14,8 +14,16 @@ import main.ui.PrintableTasks;
  * @author paulodamaso
  *
  */
-public interface StickerTasks <T extends StickerTask> extends PrintableTasks<PrintableTask> {
+public interface StickerTasks <T extends StickerTask> extends PrintableTasks<T> {
 	
+	@Override
 	public Iterable<T> iterate();
+	
+	public T add(T task);
+	
+	@Override
+	public T add(String description);
+
+
 
 }

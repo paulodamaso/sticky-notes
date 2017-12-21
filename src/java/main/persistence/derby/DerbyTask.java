@@ -3,7 +3,6 @@ package main.persistence.derby;
 import java.sql.Connection;
 
 import main.Task;
-import main.persistence.Persistent;
 import main.persistence.PersistentTask;
 
 /**

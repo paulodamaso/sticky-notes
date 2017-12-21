@@ -14,12 +14,12 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class TaskWithColor extends StickerTask implements main.ui.TaskWithColor {
+public final class StickerTaskWithColor extends StickerTask implements main.ui.TaskWithColor {
 	
 	private final StickerTask task;
 	private final Color color;
 	
-	public TaskWithColor (StickerTask task, Color color) {
+	public StickerTaskWithColor (StickerTask task, Color color) {
 		super(task);
 		this.task = task;
 		this.color = color;

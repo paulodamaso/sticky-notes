@@ -8,6 +8,6 @@ import main.Tasks;
  * @author paulodamaso
  *
  */
-public interface PersistentTasks<T extends PersistentTask> extends Persistent, Tasks {
+public interface PersistentTasks<T extends PersistentTask> extends Persistent, Tasks<T> {
 
 }

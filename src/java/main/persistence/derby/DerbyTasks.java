@@ -2,9 +2,7 @@ package main.persistence.derby;
 
 import java.sql.Connection;
 
-import main.Task;
 import main.Tasks;
-import main.persistence.PersistentTask;
 import main.persistence.PersistentTasks;
 
 /**
@@ -13,7 +11,7 @@ import main.persistence.PersistentTasks;
  * @author paulodamaso
  *
  */
-public interface DerbyTasks<T extends DerbyTask> extends PersistentTasks<PersistentTask> {
+public interface DerbyTasks<T extends DerbyTask> extends PersistentTasks<T> {
 	
 	public Connection connect() throws Exception;
 	

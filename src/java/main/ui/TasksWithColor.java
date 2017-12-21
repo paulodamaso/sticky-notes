@@ -15,5 +15,8 @@ public interface TasksWithColor<T extends TaskWithColor> extends Tasks<Task> {
 	
 	@Override
 	public T add(String description);
+	
+	@Override
+	public Iterable<Task> iterate();
 
 }

@@ -21,7 +21,7 @@ import main.ui.swing.SimpleStickerTask;
 import main.ui.swing.SimpleStickerTasks;
 import main.ui.swing.StickerTasks;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.TaskWithColor;
+import main.ui.swing.StickerTaskWithColor;
 import main.ui.swing.TaskWithFont;
 import main.ui.swing.TaskWithPosition;
 import main.ui.swing.TaskWithSize;
@@ -41,6 +41,7 @@ public class Main {
 		//setting PersistentTasks configuration:
 		//- derbytask decorated with derbytaskwithcolor
 		PersistentTasks<PersistentTask> pTasks = new DerbyTasksWithColor(new SimpleDerbyTasks("resources/database/donkey-tasks-db"));
+		PersistentTasks<PersistentTask> zTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
 		//pTasks.add("New task " + new Date());
 		
 		//setting Printable configuration

@@ -13,9 +13,9 @@ import main.ui.PrintableTasks;
  */
 public final class SimpleStickerTasks implements StickerTasks<SimpleStickerTask> {
 	
-	private final PrintableTasks<PrintableTask> tasks;
+	private final StickerTasks<SimpleStickerTask> tasks;
 
-	public SimpleStickerTasks(PrintableTasks<PrintableTask> tasks) {
+	public SimpleStickerTasks(StickerTasks<SimpleStickerTask> tasks) {
 		super();
 		this.tasks = tasks;
 	}
@@ -32,7 +32,7 @@ public final class SimpleStickerTasks implements StickerTasks<SimpleStickerTask>
 	 */
 	@Override
 	public void print() {
-		for(PrintableTask tsk : iterate()) {
+		for(SimpleStickerTask tsk : iterate()) {
 			try {
 				tsk.print();
 			}catch (ClassCastException cce) {
@@ -48,8 +48,15 @@ public final class SimpleStickerTasks implements StickerTasks<SimpleStickerTask>
 	}
 
 	@Override
-	public Task add(String description) {
-		return tasks.add(description);
+	public SimpleStickerTask add(SimpleStickerTask task) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SimpleStickerTask add(String description) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

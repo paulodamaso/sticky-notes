@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import main.Task;
 import main.persistence.Persistent;
-import main.ui.TasksWithColor;
+import main.ui.swing.SimpleStickerTask;
+import main.ui.swing.StickerTasks;
 
 public final class DerbyTasksWithColor implements DerbyTasks<DerbyTaskWithColor> {
 	
