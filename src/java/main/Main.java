@@ -1,30 +1,10 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.util.Arrays;
-import java.util.Date;
-
-import main.persistence.PersistentTask;
-import main.persistence.PersistentTasks;
-import main.persistence.derby.DerbyTask;
-import main.persistence.derby.DerbyTaskWithColor;
-import main.persistence.derby.DerbyTaskWithPosition;
-import main.persistence.derby.DerbyTasksWithColor;
-import main.persistence.derby.SimpleDerbyTasks;
-import main.persistence.memory.MemoryTask;
-import main.persistence.memory.MemoryTasks;
-import main.ui.PrintableTask;
-import main.ui.PrintableTasks;
-import main.ui.swing.SimpleStickerTask;
-import main.ui.swing.SimpleStickerTasks;
-import main.ui.swing.StickerTasks;
+import main.persistence.jdbc.derby.SimpleDerbyTasks;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.StickerTaskWithColor;
-import main.ui.swing.TaskWithFont;
-import main.ui.swing.TaskWithPosition;
-import main.ui.swing.TaskWithSize;
+import main.ui.swing.sticker.DerbyStickersWithColor;
+import main.ui.swing.sticker.SimpleStickers;
+import main.ui.swing.sticker.Stickers;
 
 public class Main {
 
@@ -39,16 +19,16 @@ public class Main {
 		//new StickerTasks(tsk));
 		
 		//setting PersistentTasks configuration:
-		//- derbytask decorated with derbytaskwithcolor
-		PersistentTasks<PersistentTask> pTasks = new DerbyTasksWithColor(new SimpleDerbyTasks("resources/database/donkey-tasks-db"));
-		PersistentTasks<PersistentTask> zTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
-		//pTasks.add("New task " + new Date());
+		//get simpletasks from derby database ("resources/database/donkey-tasks-db")
+		Tasks persistedTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
 		
-		//setting Printable configuration
-		//
-		PrintableTasks<PrintableTask> ptTasks = new SimpleStickerTasks(pTasks);
+		//setting Stickers configuration (presentation only)
+		//make simplestickers
+		// + put color if it have color (from database "resources/database/donkey-tasks-db")
+		Stickers stickerTasks = new DerbyStickersWithColor(new SimpleStickers(persistedTasks), "resources/database/donkey-tasks-db");
+		
 				
-		SystemTrayApplication app = new SystemTrayApplication(ptTasks);
+		SystemTrayApplication app = new SystemTrayApplication(stickerTasks);
 				
 //				(//new StickerTasks(tsk));
 //		new StickerTasks(

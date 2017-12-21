@@ -1,4 +1,4 @@
-package main.persistence.derby;
+package main.ui.swing;
 
 import java.awt.Color;
 import java.sql.Connection;
@@ -8,14 +8,15 @@ import java.util.ArrayList;
 
 import main.Task;
 import main.persistence.Persistent;
-import main.ui.swing.SimpleStickerTask;
+import main.persistence.jdbc.JdbcTask;
+import main.persistence.jdbc.JdbcTasks;
 import main.ui.swing.StickerTasks;
 
-public final class DerbyTasksWithColor implements DerbyTasks<DerbyTaskWithColor> {
+public final class DerbyTasksWithColor implements JdbcTasks<DerbyTaskWithColor> {
 	
-	private final DerbyTasks<DerbyTask> tasks;
+	private final JdbcTasks<JdbcTask> tasks;
 
-	public DerbyTasksWithColor(DerbyTasks<DerbyTask> tasks) {
+	public DerbyTasksWithColor(JdbcTasks<JdbcTask> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -32,7 +33,7 @@ public final class DerbyTasksWithColor implements DerbyTasks<DerbyTaskWithColor>
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				for (DerbyTask tsk : tasks.iterate()) {
+				for (JdbcTask tsk : tasks.iterate()) {
 					int id = rs.getInt(1);
 					if (id == tsk.id()) {
 						it.add(new DerbyTaskWithColor(tsk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4))));

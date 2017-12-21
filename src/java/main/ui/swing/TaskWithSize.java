@@ -1,17 +1,18 @@
 package main.ui.swing;
 
 import main.Task;
+import main.ui.swing.sticker.Sticker;
 
 /**
  * <p> {@link Task} whose size can be set.
  * @author paulodamaso
  *
  */
-public final class TaskWithSize extends StickerTask {
+public final class TaskWithSize extends Sticker {
 	
-	private final StickerTask task;
+	private final Sticker task;
 
-	public TaskWithSize(StickerTask task, int width, int height) {
+	public TaskWithSize(Sticker task, int width, int height) {
 		super(task);
 		this.task= task;
 		this.task.setSize(width, height);

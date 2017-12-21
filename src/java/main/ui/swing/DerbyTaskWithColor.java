@@ -1,24 +1,24 @@
-package main.persistence.derby;
+package main.ui.swing;
 
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.ui.TaskWithColor;
+import main.persistence.jdbc.JdbcTask;
 
 /**
- * <p> {@link DerbyTask} decorator for a task with color information saved in the database ('taskwithcolor' table)
+ * <p> {@link JdbcTask} decorator for a task with color information saved in the database ('taskwithcolor' table)
  * 
  * @author paulodamaso
  *
  */
-public final class DerbyTaskWithColor implements DerbyTask, TaskWithColor {
+public final class DerbyTaskWithColor implements JdbcTask, TaskWithColor {
 	
 	private final Color color;
-	private final DerbyTask task;
+	private final JdbcTask task;
 
-	public DerbyTaskWithColor(DerbyTask task, Color color) {
+	public DerbyTaskWithColor(JdbcTask task, Color color) {
 		this.color = color;
 		this.task = task;
 	}

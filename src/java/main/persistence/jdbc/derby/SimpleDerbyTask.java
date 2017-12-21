@@ -1,4 +1,4 @@
-package main.persistence.derby;
+package main.persistence.jdbc.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import main.Task;
+import main.persistence.Persistent;
+import main.persistence.PersistentTask;
 
 /**
  * <p> Simple derby {@link Task} implementation ('task' table)
@@ -13,7 +15,7 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class SimpleDerbyTask implements DerbyTask {
+public final class SimpleDerbyTask implements PersistentTask {
 	
 	private final String database;
 	private final int id;
@@ -78,11 +80,12 @@ public final class SimpleDerbyTask implements DerbyTask {
 		try {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(save_query);
-			ps.setInt(1, id());
+			ps.setString(1, description());
+			ps.setInt(2, id());
 			ps.executeUpdate();
 
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving simplederbytask
+			/* @todo #12 implement better exception handling when saving derbytask
 			 * 
 			 */
 			e.printStackTrace();
@@ -90,7 +93,7 @@ public final class SimpleDerbyTask implements DerbyTask {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closin connection after saving simplederbytask.
+				/* @todo #12 implement better exception handling closing connection after saving derbytask.
 				 * 
 				 */
 				e.printStackTrace();

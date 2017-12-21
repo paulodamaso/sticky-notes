@@ -1,7 +1,7 @@
 package main;
 
 /**
- * <p> A task.
+ * <p> Top-level interface representing a task.
  * 
  * @author paulodamaso
  *

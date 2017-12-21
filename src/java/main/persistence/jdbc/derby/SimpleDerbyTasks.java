@@ -1,4 +1,4 @@
-package main.persistence.derby;
+package main.persistence.jdbc.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,15 +7,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import main.Task;
+import main.Tasks;
 import main.persistence.Persistent;
 
 /**
- * <p> {@link SimpleDerbyTask} collection of {@link Task} persisted in a Derby database ('task' table).
+ * <p> Implemented Collection of {@link Task} persisted in a Derby database ('task' table). 
  * 
  * @author paulodamaso
  *
  */
-public final class SimpleDerbyTasks implements DerbyTasks<DerbyTask> {
+public final class SimpleDerbyTasks implements Tasks, Persistent {
 	
 	private final String database;
 
@@ -33,15 +34,15 @@ public final class SimpleDerbyTasks implements DerbyTasks<DerbyTask> {
 	}
 	
 
-	public Connection connect() throws Exception {
+	private Connection connect() throws Exception {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
 	private final String iterate_query = "select id from task";
 	@Override
-	public Iterable<DerbyTask> iterate() {
-		ArrayList<DerbyTask> it = new ArrayList<DerbyTask>();
+	public Iterable<Task> iterate() {
+		ArrayList<Task> it = new ArrayList<Task>();
 		Connection conn = null;
 		try {
 			conn = connect();
@@ -98,6 +99,7 @@ public final class SimpleDerbyTasks implements DerbyTasks<DerbyTask> {
 
 	/* 
 	 * @ todo #12 trying to save this task, but what if it's not persistent?
+	 *  worst,  how do we get the description to save?
 	 */
 	@Override
 	public void save() {
@@ -109,12 +111,32 @@ public final class SimpleDerbyTasks implements DerbyTasks<DerbyTask> {
 			}
 		}
 	}
-
-
-	@Override
-	public SimpleDerbyTask add(DerbyTask task) {
-		// TODO Auto-generated method stub
+	
+	private final String update_query = "update task set description = ? where id = ?";
+	public Task save(Task task) {
+		Connection conn = null;
+		try {
+			conn = connect();
+			PreparedStatement ps = conn.prepareStatement(update_query,  PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, task.description());
+			ps.setInt(2, task.id());
+			
+			ps.executeUpdate();
+			
+			return new SimpleDerbyTask(database, task.id());
+			
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when inserting task.
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
-
 }

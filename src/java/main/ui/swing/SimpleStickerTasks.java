@@ -2,8 +2,9 @@ package main.ui.swing;
 
 import main.Task;
 import main.Tasks;
-import main.ui.PrintableTask;
-import main.ui.PrintableTasks;
+import main.ui.Printable;
+import main.ui.swing.sticker.Sticker;
+
 
 /**
  * <p> {@link SimpleSticker} collection of {@link Task} 
@@ -11,13 +12,12 @@ import main.ui.PrintableTasks;
  * @author paulodamaso
  *
  */
-public final class SimpleStickerTasks implements StickerTasks<SimpleStickerTask> {
+public final class SimpleStickerTasks implements Tasks<Task> {
 	
-	private final StickerTasks<SimpleStickerTask> tasks;
+	private Tasks<Task> tasks;
 
-	public SimpleStickerTasks(StickerTasks<SimpleStickerTask> tasks) {
-		super();
-		this.tasks = tasks;
+	public SimpleStickerTasks(Tasks<? extends Task> tasks) {
+		this.tasks = (Tasks<Task>) tasks;
 	}
 
 	/*
@@ -32,31 +32,25 @@ public final class SimpleStickerTasks implements StickerTasks<SimpleStickerTask>
 	 */
 	@Override
 	public void print() {
-		for(SimpleStickerTask tsk : iterate()) {
+		for(Task  tsk : iterate()) {
 			try {
-				tsk.print();
+				((PrintableTask)tsk).print();
 			}catch (ClassCastException cce) {
 				//it is not a printable task; make it a sticker task and print it 
-				new SimpleStickerTask(tsk).print();
+				new SimpleSticker(tsk).print();
 			}
 		}
 	}
-
+	
 	@Override
-	public Iterable<SimpleStickerTask> iterate() {
-		return tasks.iterate(); 
-	}
-
-	@Override
-	public SimpleStickerTask add(SimpleStickerTask task) {
+	public Sticker add(String description) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public SimpleStickerTask add(String description) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<Task> iterate() {
+		return tasks.iterate();
 	}
 
 }

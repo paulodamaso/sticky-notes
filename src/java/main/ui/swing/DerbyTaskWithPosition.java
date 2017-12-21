@@ -1,15 +1,17 @@
-package main.persistence.derby;
+package main.ui.swing;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class DerbyTaskWithPosition implements DerbyTask {
+import main.persistence.jdbc.JdbcTask;
+
+public class DerbyTaskWithPosition implements JdbcTask {
 
 	private final int x;
 	private final int y;
-	private final DerbyTask task;
+	private final JdbcTask task;
 
-	public DerbyTaskWithPosition(DerbyTask task, int x, int y) {
+	public DerbyTaskWithPosition(JdbcTask task, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.task = task;

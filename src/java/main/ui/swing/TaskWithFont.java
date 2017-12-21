@@ -6,17 +6,19 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
+import main.ui.swing.sticker.Sticker;
+
 /**
- * <p> {@link SimpleStickerTask} whose font can be set. 
+ * <p> {@link SimpleSticker} whose font can be set. 
  * 
  * @author paulodamaso
  *
  */
-public final class TaskWithFont extends StickerTask {
+public final class TaskWithFont extends Sticker {
 	
-	private final StickerTask task;
+	private final Sticker task;
 
-	public TaskWithFont(StickerTask task, Font font) {
+	public TaskWithFont(Sticker task, Font font) {
 		super(task);
 		this.task = task;
 		txtDescription().setFont(font);

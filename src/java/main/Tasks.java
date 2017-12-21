@@ -1,15 +1,17 @@
 package main;
 
 /**
- * <p> A group of {@link Task} objects.
+ * <p> Top-level interface modeling group of {@link Task} objects.
  * 
  * @author paulodamaso
  *
  */
-public interface Tasks<T extends Task>  {
+public interface Tasks  {
 	
-	public Iterable<T> iterate();
+	public Iterable<Task> iterate();
 	
-	public T add(String description);
+	public Task add(String description);
+	
+	public Task save(Task task);
 
 }

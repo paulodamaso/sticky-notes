@@ -1,7 +1,5 @@
 package main.ui.swing;
 
-
-
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -16,16 +14,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.Task;
-import main.Tasks;
-import main.persistence.derby.SimpleDerbyTasks;
-import main.persistence.memory.MemoryTask;
-import main.ui.PrintableTask;
-import main.ui.PrintableTasks;
+import main.ui.swing.sticker.Stickers;
 
 public final class SystemTrayApplication {
-	
-	private final PrintableTasks<PrintableTask> tasks;
+
+	private final Stickers stickers;
 	
 	public void init() throws Exception {
 		
@@ -56,8 +49,7 @@ public final class SystemTrayApplication {
         popup.add(exitItem);
          
         trayIcon.setPopupMenu(popup);
-        
-        System.out.println("Setting trayicon");
+
         
         try {
             tray.add(trayIcon);
@@ -81,14 +73,16 @@ public final class SystemTrayApplication {
         });
          
 
+        // action listener to newTaskItem: add a new sticker with a 
+        // default task and print it
         newTaskItem.addActionListener(new ActionListener() {
-
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				new SimpleStickerTask(tasks.add("Escreva seu novo texto aqui")).print();
+				stickers.add("Type your text here").print();
 			}
 		});
-         
+
+        // closing application, saves all stickers?
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 //            	for (Task tsk : tasks.iterate()) {
@@ -99,9 +93,7 @@ public final class SystemTrayApplication {
             }
         });
         
-        System.out.println("Added listeners, printing tasks");
-        
-        tasks.print();
+        stickers.print();
 		
 	}
 	
@@ -119,8 +111,8 @@ public final class SystemTrayApplication {
         }
     }
 
-    
-    public SystemTrayApplication(PrintableTasks<PrintableTask> tasks) {
-		this.tasks = tasks;
+
+    public SystemTrayApplication(Stickers stickers) {
+		this.stickers = stickers;
 	}
 }
