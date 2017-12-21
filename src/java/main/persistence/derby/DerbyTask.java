@@ -2,16 +2,17 @@ package main.persistence.derby;
 
 import java.sql.Connection;
 
-import main.Persistent;
 import main.Task;
+import main.persistence.Persistent;
+import main.persistence.PersistentTask;
 
 /**
- * <p> Derby-persisten interface for {@link Task} 
+ * <p> Derby-persistent interface for {@link Task} 
  * 
  * @author paulodamaso
  *
  */
-public interface DerbyTask extends  Task, Persistent {
+public interface DerbyTask extends  PersistentTask {
 	
 	
 	public Connection connect() throws Exception;

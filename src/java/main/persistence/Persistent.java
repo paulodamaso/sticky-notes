@@ -1,4 +1,4 @@
-package main;
+package main.persistence;
 
 /**
  * <p> Interface defining behavior for persistent objects 

@@ -20,10 +20,12 @@ import main.Task;
 import main.Tasks;
 import main.persistence.derby.SimpleDerbyTasks;
 import main.persistence.memory.MemoryTask;
+import main.ui.PrintableTask;
+import main.ui.PrintableTasks;
 
 public final class SystemTrayApplication {
 	
-	private final StickerTasks tasks;
+	private final PrintableTasks<PrintableTask> tasks;
 	
 	public void init() throws Exception {
 		
@@ -59,13 +61,11 @@ public final class SystemTrayApplication {
         
         try {
             tray.add(trayIcon);
-            System.out.println("Added trayicon");
         } catch (AWTException e) {
             System.out.println("TrayIcon could not be added.");
             return;
         }
          
-        System.out.println("Adding listeners");
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
@@ -91,9 +91,9 @@ public final class SystemTrayApplication {
          
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	for (Task tsk : tasks.iterate()) {
-            		//tsk.
-            	}
+//            	for (Task tsk : tasks.iterate()) {
+//            		//tsk.
+//            	}
                 tray.remove(trayIcon);
                 System.exit(0);
             }
@@ -120,7 +120,7 @@ public final class SystemTrayApplication {
     }
 
     
-    public SystemTrayApplication(Tasks tasks) {
-		this.tasks = new StickerTasks(tasks);
+    public SystemTrayApplication(PrintableTasks<PrintableTask> tasks) {
+		this.tasks = tasks;
 	}
 }

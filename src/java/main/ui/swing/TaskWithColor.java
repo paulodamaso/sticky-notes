@@ -14,16 +14,19 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class TaskWithColor extends StickerTask {
+public final class TaskWithColor extends StickerTask implements main.ui.TaskWithColor {
 	
 	private final StickerTask task;
+	private final Color color;
 	
 	public TaskWithColor (StickerTask task, Color color) {
 		super(task);
 		this.task = task;
+		this.color = color;
 		
 		//adding color to the textarea
         txtDescription().setBackground(color);
+        txtDescription().setText(txtDescription().getText() + color.toString());
         
         //setting the popup menu to show color select option
         popUpMenu().add(new JMenuItem("Cor..."));
@@ -49,6 +52,11 @@ public final class TaskWithColor extends StickerTask {
 	@Override
 	public JPopupMenu popUpMenu() {
 		return this.task.popUpMenu();
+	}
+
+	@Override
+	public Color color() {
+		return color;
 	}
 
 }

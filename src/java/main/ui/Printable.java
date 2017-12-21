@@ -1,4 +1,4 @@
-package main;
+package main.ui;
 
 /**
  * <p> Interface defining printing behaviors. 

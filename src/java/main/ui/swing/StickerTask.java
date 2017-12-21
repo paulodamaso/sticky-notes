@@ -7,8 +7,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import main.Printable;
 import main.Task;
+import main.ui.Printable;
+import main.ui.PrintableTask;
 
 
 /**
@@ -19,7 +20,7 @@ import main.Task;
  */
 /* @todo #6 it would be interesting to allow the use to change some features (font, font size, font style, backcolor) 
  */
-public abstract class StickerTask extends JDialog implements Printable, Task {
+public abstract class StickerTask extends JDialog implements PrintableTask {
 	
 	private final JTextArea txtDescription;
 	private final JPopupMenu popup;

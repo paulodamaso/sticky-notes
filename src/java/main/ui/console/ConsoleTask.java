@@ -1,7 +1,7 @@
 package main.ui.console;
 
-import main.Printable;
 import main.Task;
+import main.ui.Printable;
 
 /**
  * <p> A {@link Task} which prints itself to console.

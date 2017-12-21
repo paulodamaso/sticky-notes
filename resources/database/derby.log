@@ -1,4 +1,4 @@
-Wed Dec 20 09:03:22 BRST 2017 Thread[main,5,main] Cleanup action starting
+Thu Dec 21 00:54:09 BRST 2017 Thread[main,5,main] Cleanup action starting
 java.sql.SQLException: Falha ao iniciar o banco de dados 'donkey-tasks-db', consulte a próxima exceção para obter detalhes.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
@@ -27,7 +27,7 @@ Caused by: ERROR XJ040: Falha ao iniciar o banco de dados 'donkey-tasks-db', con
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(Unknown Source)
 	... 23 more
-Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\workspace\donkey-tasks\resources\database\donkey-tasks-db.
+Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\Users\paulo\git\donkey-tasks\resources\database\donkey-tasks-db.
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.impl.store.raw.data.BaseDataFileFactory.privGetJBMSLockOnDB(Unknown Source)
@@ -76,7 +76,7 @@ Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banc
 	at org.apache.derby.impl.jdbc.EmbedConnection.startPersistentService(Unknown Source)
 	... 20 more
 ============= begin nested exception, level (1) ===========
-java.sql.SQLException: Outra instância do Derby já pode ter inicializado o banco de dados C:\workspace\donkey-tasks\resources\database\donkey-tasks-db.
+java.sql.SQLException: Outra instância do Derby já pode ter inicializado o banco de dados C:\Users\paulo\git\donkey-tasks\resources\database\donkey-tasks-db.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.EmbedConnection.bootDatabase(Unknown Source)
@@ -99,7 +99,7 @@ java.sql.SQLException: Outra instância do Derby já pode ter inicializado o banco
 	at org.apache.derby.impl.tools.ij.Main.mainCore(Unknown Source)
 	at org.apache.derby.impl.tools.ij.Main.main(Unknown Source)
 	at org.apache.derby.tools.ij.main(Unknown Source)
-Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\workspace\donkey-tasks\resources\database\donkey-tasks-db.
+Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\Users\paulo\git\donkey-tasks\resources\database\donkey-tasks-db.
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.impl.store.raw.data.BaseDataFileFactory.privGetJBMSLockOnDB(Unknown Source)
@@ -149,7 +149,7 @@ Caused by: ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banc
 	... 20 more
 ============= end nested exception, level (1) ===========
 ============= begin nested exception, level (2) ===========
-ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\workspace\donkey-tasks\resources\database\donkey-tasks-db.
+ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados C:\Users\paulo\git\donkey-tasks\resources\database\donkey-tasks-db.
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.impl.store.raw.data.BaseDataFileFactory.privGetJBMSLockOnDB(Unknown Source)
@@ -218,3 +218,22 @@ ERROR XSDB6: Outra instância do Derby já pode ter inicializado o banco de dados 
 	at org.apache.derby.tools.ij.main(Unknown Source)
 ============= end nested exception, level (2) ===========
 Cleanup action completed
+----------------------------------------------------------------
+Thu Dec 21 00:54:20 BRST 2017:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instância 601a400f-0160-76fe-0d44-000006e7d860
+no diretório de banco de dados C:\Users\paulo\git\donkey-tasks\resources\database\donkey-tasks-db 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_151-b12
+user.dir=C:\Users\paulo\git\donkey-tasks\resources\database
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Dec 21 00:54:38 BRST 2017: Shutting down Derby engine
+----------------------------------------------------------------
+Thu Dec 21 00:54:39 BRST 2017:
+Encerrando a instância 601a400f-0160-76fe-0d44-000006e7d860
+----------------------------------------------------------------

@@ -6,10 +6,10 @@ package main;
  * @author paulodamaso
  *
  */
-public interface Tasks  {
+public interface Tasks<T extends Task>  {
 	
-	public Iterable<Task> iterate();
+	public Iterable<T> iterate();
 	
-	public Task add(String description);
+	public T add(String description);
 
 }

@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import main.Persistent;
 import main.Task;
+import main.persistence.Persistent;
 
 public class DerbyTaskWithPosition implements DerbyTask {
 

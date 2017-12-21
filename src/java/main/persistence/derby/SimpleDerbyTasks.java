@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import main.Persistent;
 import main.Task;
+import main.persistence.Persistent;
 
 /**
  * <p> {@link SimpleDerbyTask} collection of {@link Task} persisted in a Derby database ('task' table).
@@ -15,7 +15,7 @@ import main.Task;
  * @author paulodamaso
  *
  */
-public final class SimpleDerbyTasks implements PersistentTasks {
+public final class SimpleDerbyTasks implements DerbyTasks<DerbyTask> {
 	
 	private final String database;
 
@@ -40,8 +40,8 @@ public final class SimpleDerbyTasks implements PersistentTasks {
 
 	private final String iterate_query = "select id from task";
 	@Override
-	public Iterable<Task> iterate() {
-		ArrayList<Task> it = new ArrayList<Task>();
+	public Iterable<DerbyTask> iterate() {
+		ArrayList<DerbyTask> it = new ArrayList<DerbyTask>();
 		Connection conn = null;
 		try {
 			conn = connect();
@@ -68,7 +68,7 @@ public final class SimpleDerbyTasks implements PersistentTasks {
 
 	private final String insert_query = "insert into task (description) values (?)";
 	@Override
-	public Task add(String description) {
+	public SimpleDerbyTask add(String description) {
 		Connection conn = null;
 		try {
 			conn = connect();
@@ -108,6 +108,13 @@ public final class SimpleDerbyTasks implements PersistentTasks {
 				System.out.println("Sorry, task not persistent");
 			}
 		}
+	}
+
+
+	@Override
+	public SimpleDerbyTask add(DerbyTask task) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

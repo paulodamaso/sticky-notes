@@ -6,22 +6,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import main.Persistent;
 import main.Task;
-import main.Tasks;
+import main.persistence.Persistent;
+import main.ui.TasksWithColor;
 
-public final class DerbyTasksWithColor implements DerbyTasks {
+public final class DerbyTasksWithColor implements DerbyTasks<DerbyTaskWithColor> {
 	
-	private final DerbyTasks tasks;
+	private final DerbyTasks<DerbyTask> tasks;
 
-	public DerbyTasksWithColor(DerbyTasks tasks) {
+	public DerbyTasksWithColor(DerbyTasks<DerbyTask> tasks) {
 		this.tasks = tasks;
 	}
 
-	private final String iterate_color_query = "select id, reg, green, blue from taskwithcolor";
+	private final String iterate_color_query = "select id, red, green, blue from taskwithcolor";
 	@Override
-	public Iterable<Task> iterate() {
-		ArrayList<Task> it = new ArrayList<Task>();
+	public Iterable<DerbyTaskWithColor> iterate() {
+		ArrayList<DerbyTaskWithColor> it = new ArrayList<DerbyTaskWithColor>();
 		Connection conn = null;
 		try {
 			conn = tasks.connect();
@@ -31,10 +31,10 @@ public final class DerbyTasksWithColor implements DerbyTasks {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				for (Task tsk : iterate()) {
+				for (DerbyTask tsk : tasks.iterate()) {
 					int id = rs.getInt(1);
 					if (id == tsk.id()) {
-						it.add(new DerbyTaskWithColor((DerbyTask)tsk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4))));
+						it.add(new DerbyTaskWithColor(tsk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4))));
 					}
 				}
 				
@@ -54,30 +54,48 @@ public final class DerbyTasksWithColor implements DerbyTasks {
 		return it;
 	}
 
+	
+
+	/* 
+	 * @ todo #12 trying to save this task, but what if derby not persistent ? review this derbytaskswithcolor
+	 */
+	@Override
+	public void save() {
+		for(Task tsk : iterate()) {
+			try {
+				((Persistent)tsk).save();
+			} catch (Exception e) {
+				System.out.println("Sorry, task not persistent");
+			}
+		}
+	}
+
+
+	@Override
+	public Connection connect() throws Exception {
+		return tasks.connect();
+	}
+
 	/*
-	 * @todo #12 one-million dollar question, how save the color?
+	 * @todo #12 saving the color, but something looks wrong; maybe now it looks better, but
+	 *  i don't like returning the object sent
 	 */
 	private final String insert_color_query = "insert into taskwithcolor (id, red, green, blue) values (?, ?, ?,  ?)";
 	@Override
-	public Task add(String description) {
+	public DerbyTaskWithColor add(DerbyTaskWithColor task) {
 		Connection conn = null;
 		try {
-			//first insert the derby task
-			Task tsk = tasks.add(description);
-			
 			//then, its color
 			conn = tasks.connect();
-			PreparedStatement ps = conn.prepareStatement(insert_color_query,  PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, tsk.id());
-			ps.setInt(2, tsk.id());
-			ps.setInt(3, tsk.id());
-			ps.setInt(4, tsk.id());
+			PreparedStatement ps = conn.prepareStatement(insert_color_query);
+			ps.setInt(1, task.id());
+			ps.setInt(2, task.color().getRed());
+			ps.setInt(3, task.color().getGreen());
+			ps.setInt(4, task.color().getBlue());
 			ps.executeUpdate();
+
 			
-			ResultSet rs = ps.getGeneratedKeys();
-			rs.next();
-			
-			return new DerbyTask(database, rs.getInt(1));
+			return task;
 			
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling when inserting taskwithcolor.
@@ -93,20 +111,11 @@ public final class DerbyTasksWithColor implements DerbyTasks {
 		}
 		return null;
 	}
-	
 
-	/* 
-	 * @ todo #12 trying to save this task, but what if derby not persistent ? review this derbytaskswithcolor
-	 */
+	
 	@Override
-	public void save() {
-		for(Task tsk : iterate()) {
-			try {
-				((Persistent)tsk).save();
-			} catch (Exception e) {
-				System.out.println("Sorry, task not persistent");
-			}
-		}
+	public DerbyTaskWithColor add(String description) {
+		return add(new DerbyTaskWithColor(tasks.add(description), new Color(255,247,64) ));
 	}
 
 
