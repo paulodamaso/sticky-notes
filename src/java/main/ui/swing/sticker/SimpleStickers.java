@@ -11,7 +11,7 @@ import main.Tasks;
  * @author paulodamaso
  *
  */
-public class SimpleStickers implements Stickers {
+public final class SimpleStickers implements Stickers {
 	
 	private final Tasks tasks;
 	private final ArrayList<Sticker> stickers; 
@@ -20,7 +20,7 @@ public class SimpleStickers implements Stickers {
 		this.tasks = tasks;
 		this.stickers = new ArrayList<Sticker>();
 		for (Task task : tasks.iterate()) {
-			stickers.add(new Sticker(task));
+			stickers.add(new SimpleSticker(task));
 		}
 	}
 
@@ -38,7 +38,7 @@ public class SimpleStickers implements Stickers {
 
 	@Override
 	public Sticker add(String task) {
-		return new Sticker(tasks.add(task));
+		return new SimpleSticker(tasks.add(task));
 	}
 
 }

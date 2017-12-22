@@ -6,7 +6,7 @@ package main.persistence;
  * @author paulodamaso
  *
  */
-public interface Persistent {
+public interface Persistent<T> {
 
-	public void save();
+	public T  persist(T persistent);
 }

@@ -6,7 +6,7 @@ import javax.swing.JTextArea;
 import main.ui.swing.sticker.Sticker;
 
 /**
- * <p> {@link SimpleSticker} whose position can be set.
+ * <p> {@link Sticker} whose position can be set.
  * 
  * @author paulodamaso
  *

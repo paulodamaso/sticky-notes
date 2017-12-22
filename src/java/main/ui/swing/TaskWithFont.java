@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 import main.ui.swing.sticker.Sticker;
 
 /**
- * <p> {@link SimpleSticker} whose font can be set. 
+ * <p> {@link Sticker} whose font can be set. 
  * 
  * @author paulodamaso
  *

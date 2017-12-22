@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  * <p> Get the color of each {@link Sticker} from a derby database, in table 'stickerwithcolor'
@@ -37,44 +38,6 @@ public class DerbyStickersWithColor extends StickersWithColor {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-	private final String color_query = "select  red, green, blue from taskwithcolor where id = ?";
-	@Override
-	public Color color(Sticker sticker) {
-		Connection conn = null;
-		Color color = null;
-		try {
-			/* @todo #10 criminal bad design  
-			 *  the id should have bt the sticker.id, not task.id 
-			 */
-			conn = connect();
-			PreparedStatement ps = conn.prepareStatement(color_query);
-			ps.setInt(1, sticker.task().id());
-
-			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				color =  new Color(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-			}
-
-		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when retrieving color
-			 * 
-			 */
-			e.printStackTrace();
-		}finally {
-			try {
-				conn.close();
-			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after retrieving color
-				 * 
-				 */
-				e.printStackTrace();
-			}
-		}
-		return color;
-	}
-	
-
 	@Override
 	public void print() {
 		for (Sticker stk : iterate()) {
@@ -85,6 +48,21 @@ public class DerbyStickersWithColor extends StickersWithColor {
 	@Override
 	public Sticker add(String task) {
 		return origin.add(task);
+	}
+
+	@Override
+	public Iterable<Sticker> iterate() {
+		ArrayList<Sticker> arr = new ArrayList<Sticker>();
+		for (Sticker sticker : origin.iterate()) {
+			//just to avoid two database queries
+			Color color = color(sticker);
+
+			if (color != null) 
+				sticker = new DerbyStickerWithColor(sticker, color);
+
+			arr.add(sticker);
+		}
+		return arr;
 	}
 
 }

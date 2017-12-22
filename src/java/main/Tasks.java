@@ -11,7 +11,5 @@ public interface Tasks  {
 	public Iterable<Task> iterate();
 	
 	public Task add(String description);
-	
-	public Task save(Task task);
 
 }

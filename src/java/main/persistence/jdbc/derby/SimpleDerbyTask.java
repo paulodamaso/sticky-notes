@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import main.Task;
-import main.persistence.Persistent;
 import main.persistence.PersistentTask;
 
 /**
@@ -75,13 +74,13 @@ public final class SimpleDerbyTask implements PersistentTask {
 
 	private final String save_query = "update task set description = ? where id = ?";
 	@Override
-	public void save() {
+	public Task persist(Task task) {
 		Connection conn = null;
 		try {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(save_query);
-			ps.setString(1, description());
-			ps.setInt(2, id());
+			ps.setString(1, task.description());
+			ps.setInt(2, this.id());
 			ps.executeUpdate();
 
 		}catch(Exception e) {
@@ -99,6 +98,14 @@ public final class SimpleDerbyTask implements PersistentTask {
 				e.printStackTrace();
 			}
 		}
+		return task;
 	}
+
+//	@Override
+//	public Persistent save(Persistent persistent) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 
 }

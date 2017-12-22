@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import main.Task;
 import main.Tasks;
-import main.persistence.Persistent;
 
 /**
  * <p> Implemented Collection of {@link Task} persisted in a Derby database ('task' table). 
@@ -16,7 +15,7 @@ import main.persistence.Persistent;
  * @author paulodamaso
  *
  */
-public final class SimpleDerbyTasks implements Tasks, Persistent {
+public final class SimpleDerbyTasks implements Tasks {
 	
 	private final String database;
 
@@ -95,21 +94,6 @@ public final class SimpleDerbyTasks implements Tasks, Persistent {
 			}
 		}
 		return null;
-	}
-
-	/* 
-	 * @ todo #12 trying to save this task, but what if it's not persistent?
-	 *  worst,  how do we get the description to save?
-	 */
-	@Override
-	public void save() {
-		for(Task tsk : iterate()) {
-			try {
-				((Persistent)tsk).save();
-			} catch (Exception e) {
-				System.out.println("Sorry, task not persistent");
-			}
-		}
 	}
 	
 	private final String update_query = "update task set description = ? where id = ?";

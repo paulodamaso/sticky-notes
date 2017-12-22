@@ -7,7 +7,7 @@ import main.ui.swing.sticker.Sticker;
 
 
 /**
- * <p> {@link SimpleSticker} collection of {@link Task} 
+ * <p> {@link Sticker} collection of {@link Task} 
  * 
  * @author paulodamaso
  *
@@ -37,7 +37,7 @@ public final class SimpleStickerTasks implements Tasks<Task> {
 				((PrintableTask)tsk).print();
 			}catch (ClassCastException cce) {
 				//it is not a printable task; make it a sticker task and print it 
-				new SimpleSticker(tsk).print();
+				new Sticker(tsk).print();
 			}
 		}
 	}

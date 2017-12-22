@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import main.ui.swing.sticker.Sticker;
 import main.ui.swing.sticker.Stickers;
 
 public final class SystemTrayApplication {
@@ -39,12 +40,14 @@ public final class SystemTrayApplication {
         // Create a popup menu components
         MenuItem aboutItem = new MenuItem("About");
         MenuItem newTaskItem = new MenuItem("New Task...");
+        MenuItem saveAllItem = new MenuItem("Save All Tasks...");
         MenuItem exitItem = new MenuItem("Exit");
          
         //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newTaskItem);
+        popup.add(saveAllItem);
         popup.addSeparator();
         popup.add(exitItem);
          
@@ -79,6 +82,15 @@ public final class SystemTrayApplication {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
 				stickers.add("Type your text here").print();
+			}
+		});
+        
+        saveAllItem.addActionListener(new ActionListener() {
+			@Override			
+			public void actionPerformed(ActionEvent e) {
+				for (Sticker stk : stickers.iterate()) {
+					stk.save();
+				}
 			}
 		});
 

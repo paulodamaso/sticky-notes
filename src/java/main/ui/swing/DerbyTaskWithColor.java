@@ -62,39 +62,7 @@ public final class DerbyTaskWithColor implements JdbcTask, TaskWithColor {
 		return null;
 	}
 	
-	private final String save_color_query = "update taskwithcolor set red = ?, green = ?, blue = ? where id = ?";
-	@Override	
-	public void save() {
-		Connection conn = null;
-		try {
-			//saving origin task first
-			task.save();
-			
-			//saving color info
-			conn = task.connect();
-			PreparedStatement ps = conn.prepareStatement(save_color_query);
-			ps.setInt(1, color.getRed());
-			ps.setInt(2, color.getGreen());
-			ps.setInt(3, color.getBlue());
-			ps.setInt(4, id());
-			ps.executeUpdate();
 
-		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving derbytaskwithcolor
-			 * 
-			 */
-			e.printStackTrace();
-		}finally {
-			try {
-				conn.close();
-			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closin connection after saving derbytaskwithcolor.
-				 * 
-				 */
-				e.printStackTrace();
-			}
-		}
-	}
 
 	@Override
 	public int id() {
