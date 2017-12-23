@@ -38,11 +38,6 @@ public final class SimpleDerbyTask implements PersistentTask {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-	@Override
-	public int id() {
-		return id;
-	}
-
 	private final String description_query = "select description from task where id = ?";
 	@Override
 	public String description() {
@@ -74,7 +69,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 
 	private final String save_query = "update task set description = ? where id = ?";
 	@Override
-	public Task persist(Task task) {
+	public SimpleDerbyTask persist(Task task) {
 		Connection conn = null;
 		try {
 			conn = connect();
@@ -83,6 +78,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			ps.setInt(2, this.id());
 			ps.executeUpdate();
 
+			return new SimpleDerbyTask(database, this.id());
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving derbytask
 			 * 
@@ -98,14 +94,13 @@ public final class SimpleDerbyTask implements PersistentTask {
 				e.printStackTrace();
 			}
 		}
-		return task;
+		return null;
 	}
 
-//	@Override
-//	public Persistent save(Persistent persistent) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
+	@Override
+	public int id() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 
 }

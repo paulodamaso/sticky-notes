@@ -31,7 +31,6 @@ public interface Sticker extends Printable {
 	 * see derbystickerswithcolor line 46.
 	 */
 	public abstract Task task();
-	
-	
 
+//	public Sticker persist();
 }

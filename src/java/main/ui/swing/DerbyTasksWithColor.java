@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import main.Task;
-import main.persistence.Persistent;
+import main.persistence.PersistentTask;
 import main.persistence.jdbc.JdbcTask;
 import main.persistence.jdbc.JdbcTasks;
 import main.ui.swing.StickerTasks;
@@ -65,7 +65,7 @@ public final class DerbyTasksWithColor implements JdbcTasks<DerbyTaskWithColor> 
 	public void save() {
 		for(Task tsk : iterate()) {
 			try {
-				((Persistent)tsk).save();
+				((PersistentTask)tsk).save();
 			} catch (Exception e) {
 				System.out.println("Sorry, task not persistent");
 			}

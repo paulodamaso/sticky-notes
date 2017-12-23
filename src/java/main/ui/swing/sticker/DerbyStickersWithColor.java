@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 /**
  * <p> Get the color of each {@link Sticker} from a derby database, in table 'stickerwithcolor'
@@ -13,13 +12,13 @@ import java.util.ArrayList;
  * @author paulodamaso
  *
  */
-public class DerbyStickersWithColor extends StickersWithColor {
+public class DerbyStickersWithColor implements Stickers {
 
 	private String database;
 	private Stickers origin;
 	
 	public DerbyStickersWithColor(Stickers stickers, String database) {
-		super(stickers);
+
 		this.origin = stickers;
 		this.database = database;
 		try {
@@ -50,19 +49,41 @@ public class DerbyStickersWithColor extends StickersWithColor {
 		return origin.add(task);
 	}
 
+	private final String iterate_color_query = "select id, red, green, blue from taskwithcolor";
 	@Override
 	public Iterable<Sticker> iterate() {
-		ArrayList<Sticker> arr = new ArrayList<Sticker>();
-		for (Sticker sticker : origin.iterate()) {
-			//just to avoid two database queries
-			Color color = color(sticker);
+		Iterable<Sticker> it = origin.iterate();
+		Connection conn = null;
+		try {
+			conn = connect();
+			
+			//tasks with color
+			PreparedStatement ps = conn.prepareStatement(iterate_color_query);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				for (Sticker stk : it) {
+					int id = rs.getInt(1);
+					if (id == stk.task().id()) {
+						stk = new DerbyStickerWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database);
+					}
+				}
+				
+			}
 
-			if (color != null) 
-				sticker = new DerbyStickerWithColor(sticker, color);
-
-			arr.add(sticker);
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when getting Iterable<DerbyTaskswithcolor>.
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return arr;
+		return it;
 	}
 
 }

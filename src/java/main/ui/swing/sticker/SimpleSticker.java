@@ -11,6 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.Task;
+import main.persistence.PersistentTask;
+import main.task.SimpleTask;
 
 /**
  * <p> A simple {@link Sticker}.
@@ -43,14 +45,7 @@ public final class SimpleSticker implements Sticker {
         //setting the default popup menu (empty)
 		this.txtDescription.setComponentPopupMenu(popup);
 		
-        //adding action to text area
-        this.txtDescription.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {}
-            public void focusLost(FocusEvent e) {
-            	persist(SimpleSticker.this);
-            }
 
-        });
 		
         sticker.pack();
 	}
@@ -78,30 +73,24 @@ public final class SimpleSticker implements Sticker {
 		return txtDescription;
 	}
 
-	@Override
-	public void persist(Sticker sticker) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void persist(SimpleSticker sticker) {
-		// TODO Auto-generated method stub
-		
-	}
 
 //	@Override
-//	public void persist(SimpleSticker sticker) {
-//		//lousy sticker, does not have position, color, nothing; should just save task info
-//		//this.task.persist(task), looks strange, but typecasting?!
-//		//you're a criminal!
+//	public Sticker persist() {
+//
 //		try {
-//			System.out.println("SimpleSticker persisting task!");
-//			((Persistent<Task>)task).persist(task);
-//			return this;
+//			
+//			//lousy sticker, does not have position, color, nothing; should just save task info
+//			//you're a criminal!
+//			/* @todo #12 stop being a criminal
+//			 *  idon't like this typecast; must think some way to remove it
+//			 */
+//			System.out.println(task.getClass());
+//			return new SimpleSticker(((PersistentTask)task).persist(new SimpleTask(task.id(), description().getText())));
 //		} catch (Exception e) {
+//			e.printStackTrace();
 //			System.out.println("You can't save this task!");
 //		}
-//		return null;
+//		return null;	
 //	}
 
 

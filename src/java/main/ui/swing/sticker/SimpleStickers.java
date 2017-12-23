@@ -20,6 +20,7 @@ public final class SimpleStickers implements Stickers {
 		this.tasks = tasks;
 		this.stickers = new ArrayList<Sticker>();
 		for (Task task : tasks.iterate()) {
+			System.out.println(task.getClass());
 			stickers.add(new SimpleSticker(task));
 		}
 	}

@@ -11,5 +11,7 @@ public interface Task  {
 	public int id();
 	
 	public String description();
+	
+//	public Task persist(Task tsk);
 
 }
