@@ -1,4 +1,4 @@
-package main.ui.swing.sticker;
+package main.ui.swing.sticker.jdialog;
 
 import java.awt.Color;
 import java.sql.Connection;
@@ -6,18 +6,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.ui.swing.sticker.Sticker;
+import main.ui.swing.sticker.Stickers;
+
 /**
  * <p> Get the color of each {@link Sticker} from a derby database, in table 'stickerwithcolor'
  * 
  * @author paulodamaso
  *
  */
-public class DerbyStickersWithColor implements Stickers {
+public class JDialogStickersWithColor implements Stickers {
 
 	private String database;
 	private Stickers origin;
 	
-	public DerbyStickersWithColor(Stickers stickers, String database) {
+	public JDialogStickersWithColor(Stickers stickers, String database) {
 
 		this.origin = stickers;
 		this.database = database;
@@ -52,6 +55,7 @@ public class DerbyStickersWithColor implements Stickers {
 	private final String iterate_color_query = "select id, red, green, blue from taskwithcolor";
 	@Override
 	public Iterable<Sticker> iterate() {
+		System.out.println("Iterationg in stickers with colors");
 		Iterable<Sticker> it = origin.iterate();
 		Connection conn = null;
 		try {
@@ -64,8 +68,9 @@ public class DerbyStickersWithColor implements Stickers {
 			while(rs.next()) {
 				for (Sticker stk : it) {
 					int id = rs.getInt(1);
-					if (id == stk.task().id()) {
-						stk = new DerbyStickerWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database);
+					if (id == stk.id()) {
+						System.out.println("Found " + stk.id());
+						stk = new JDialogStickerWithColor(new SimpleSticker(stk), new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database);
 					}
 				}
 				

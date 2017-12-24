@@ -1,4 +1,4 @@
-package main.ui.swing.sticker;
+package main.ui.swing.sticker.jdialog;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,23 +11,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.Task;
+import main.ui.swing.StickerWithColor;
+import main.ui.swing.sticker.Sticker;
 
-public class DerbyStickerWithColor implements StickerWithColor, PersistentSticker {
+public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor  {
 	
-	private Sticker origin;
+	private JDialogSticker origin;
 	private String database;
-	private Color color;
+//	private Color color;
 
-	public DerbyStickerWithColor(Sticker origin, Color color, String database) {
+	public JDialogStickerWithColor(JDialogSticker origin, Color color, String database) {
 		this.origin = origin;
-		this.color = color;
+//		this.color = color;
 		//adding color to the textarea
-        description().setBackground(color);
+        txtDescription().setBackground(color);
         
         //setting the popup menu to show color select option
         JMenuItem colorMenu = new JMenuItem("Cor...");
@@ -41,23 +43,23 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 				//show a colorchooser
 				Color newColor = JColorChooser.showDialog(null,
 	                     "Choose Color",
-	                     description().getBackground());
+	                     txtDescription().getBackground());
 				
-				description().setBackground(newColor);
+				txtDescription().setBackground(newColor);
 				
 			}
 		});
         
         //adding action to text area
-        description().addFocusListener(new FocusListener() {
+        txtDescription().addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {}
             public void focusLost(FocusEvent e) {
-            	persist(DerbyStickerWithColor.this);
+            	persist(JDialogStickerWithColor.this);
             }
 
         });
         
-        popUpMenu().add(colorMenu);
+        popup().add(colorMenu);
 
 		this.database = database;
 		try {
@@ -68,7 +70,10 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 			 * 
 			 */
 			e.printStackTrace();
-		}	
+		}
+		
+//		jdialog().pack();
+		System.out.println("Created jdialogstickercolor");
 	}
 	
 	private Connection connect() throws Exception {
@@ -80,23 +85,13 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 	private final String update_color_query = "update taskwithcolor set red = ?, green = ?, blue = ? where id = ?";
 	
 	@Override	
-	public DerbyStickerWithColor persist(Sticker sticker) {
+	public JDialogStickerWithColor persist(Sticker sticker) {
 		Connection conn = null;
 		try {
-			try {
-				/* @todo #12 typecasting for save
-				 *  again being a criminal saving with typecasting
-				 */
-				((PersistentSticker)origin).persist(origin);
-			} catch (Exception e) {
-//				e.printStackTrace();
-				System.out.println("You can't save this sticker!");
-			}
-
 			//saving origin sticker first
+			origin.persist(origin);
 			
-			
-			Color color = description().getBackground();
+			Color color = txtDescription().getBackground();
 			
 			//saving color info
 			PreparedStatement ps = null;
@@ -107,14 +102,14 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 				ps.setInt(1, color.getRed());
 				ps.setInt(2, color.getGreen());
 				ps.setInt(3, color.getBlue());
-				ps.setInt(4, task().id());
+				ps.setInt(4, id());
 			} else {
 				conn = connect();
 				ps = conn.prepareStatement(insert_color_query);
-				ps.setInt(1, task().id());
-				ps.setInt(2, description().getBackground().getRed());
-				ps.setInt(3, description().getBackground().getGreen());
-				ps.setInt(4, description().getBackground().getBlue());
+				ps.setInt(1, id());
+				ps.setInt(2, color.getRed());
+				ps.setInt(3, color.getGreen());
+				ps.setInt(4, color.getBlue());
 			}
 
 			ps.executeUpdate();
@@ -150,7 +145,7 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 			 */
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(color_query);
-			ps.setInt(1, task().id());
+			ps.setInt(1, id());
 
 			ResultSet rs = ps.executeQuery();
 			
@@ -177,23 +172,28 @@ public class DerbyStickerWithColor implements StickerWithColor, PersistentSticke
 	}
 
 	@Override
-	public JTextArea description() {
-		return origin.description();
-	}
-
-	@Override
-	public JPopupMenu popUpMenu() {
-		return origin.popUpMenu();
-	}
-
-	@Override
-	public Task task() {
-		return origin.task();
-	}
-
-	@Override
 	public void print() {
 		origin.print();
+	}
+
+	@Override
+	public int id() {
+		return origin.id();
+	}
+
+	@Override
+	public String text() {
+		return origin.text();
+	}
+
+	@Override
+	public JTextArea txtDescription() {
+		return origin.txtDescription();
+	}
+
+	@Override
+	public JPopupMenu popup() {
+		return origin.popup();
 	}
 
 }

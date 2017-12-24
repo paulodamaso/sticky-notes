@@ -2,9 +2,11 @@ package main;
 
 import main.persistence.jdbc.derby.SimpleDerbyTasks;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.sticker.DerbyStickersWithColor;
+import main.ui.swing.sticker.DerbyStickers;
 import main.ui.swing.sticker.SimpleStickers;
 import main.ui.swing.sticker.Stickers;
+import main.ui.swing.sticker.jdialog.JDialogStickersWithColor;
+import main.ui.swing.sticker.jdialog.JDialogStickers;
 
 public class Main {
 
@@ -25,7 +27,11 @@ public class Main {
 		//setting Stickers configuration (presentation only)
 		//make simplestickers
 		// + put color if it have color (from database "resources/database/donkey-tasks-db")
-		Stickers stickerTasks = new DerbyStickersWithColor(new SimpleStickers(persistedTasks), "resources/database/donkey-tasks-db");
+		Stickers stickerTasks = new JDialogStickersWithColor(
+				new JDialogStickers(
+						new DerbyStickers("resources/database/donkey-tasks-db")
+						),
+				"resources/database/donkey-tasks-db");
 		
 				
 		SystemTrayApplication app = new SystemTrayApplication(stickerTasks);
