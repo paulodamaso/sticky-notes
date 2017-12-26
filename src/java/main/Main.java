@@ -1,12 +1,14 @@
 package main;
 
-import main.persistence.jdbc.derby.SimpleDerbyTasks;
+import main.sticker.persistence.derby.DerbyStickers;
+import main.sticker.ui.jdialog.JDialogSticker;
+import main.sticker.ui.jdialog.JDialogStickers;
+import main.sticker.ui.jdialog.SimpleJDialogStickers;
+import main.sticker.ui.jdialog.color.derby.JDialogStickersWithColor;
+import main.sticker.ui.jdialog.position.JDialogStickersWithPosition;
+import main.task.Tasks;
+import main.task.persistence.jdbc.derby.SimpleDerbyTasks;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.sticker.DerbyStickers;
-import main.ui.swing.sticker.SimpleStickers;
-import main.ui.swing.sticker.Stickers;
-import main.ui.swing.sticker.jdialog.JDialogStickersWithColor;
-import main.ui.swing.sticker.jdialog.JDialogStickers;
 
 public class Main {
 
@@ -25,14 +27,19 @@ public class Main {
 		Tasks persistedTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
 		
 		//setting Stickers configuration (presentation only)
-		//make simplestickers
+		//make printable stickers
 		// + put color if it have color (from database "resources/database/donkey-tasks-db")
-		Stickers stickerTasks = new JDialogStickersWithColor(
-				new JDialogStickers(
+		JDialogStickers stickerTasks = new JDialogStickersWithPosition(new JDialogStickersWithColor(
+				new SimpleJDialogStickers(
 						new DerbyStickers("resources/database/donkey-tasks-db")
 						),
+					"resources/database/donkey-tasks-db"),
 				"resources/database/donkey-tasks-db");
 		
+		//why the classes are not coming?
+		for (JDialogSticker jdsk : stickerTasks.iterate()) {
+			System.out.println(jdsk.getClass());
+		}
 				
 		SystemTrayApplication app = new SystemTrayApplication(stickerTasks);
 				

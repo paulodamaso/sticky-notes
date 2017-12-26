@@ -14,12 +14,12 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.ui.swing.sticker.Sticker;
-import main.ui.swing.sticker.Stickers;
+import main.sticker.Sticker;
+import main.sticker.ui.jdialog.JDialogStickers;
 
 public final class SystemTrayApplication {
 
-	private final Stickers stickers;
+	private final JDialogStickers stickers;
 	
 	public void init() throws Exception {
 		
@@ -89,7 +89,7 @@ public final class SystemTrayApplication {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
 				for (Sticker stk : stickers.iterate()) {
-					stk.save();
+//					stk.save();
 				}
 			}
 		});
@@ -106,7 +106,6 @@ public final class SystemTrayApplication {
         });
         
         stickers.print();
-		
 	}
 	
     //Obtain the image URL
@@ -124,7 +123,7 @@ public final class SystemTrayApplication {
     }
 
 
-    public SystemTrayApplication(Stickers stickers) {
+    public SystemTrayApplication(JDialogStickers stickers) {
 		this.stickers = stickers;
 	}
 }

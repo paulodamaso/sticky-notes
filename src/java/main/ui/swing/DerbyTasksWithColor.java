@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import main.Task;
-import main.persistence.PersistentTask;
 import main.persistence.jdbc.JdbcTask;
 import main.persistence.jdbc.JdbcTasks;
+import main.task.Task;
+import main.task.persistence.PersistentTask;
 import main.ui.swing.StickerTasks;
 
 public final class DerbyTasksWithColor implements JdbcTasks<DerbyTaskWithColor> {

@@ -1,6 +1,6 @@
 package main.ui.swing;
 
-import main.Task;
+import main.task.Task;
 import main.ui.TaskWithColor;
 import main.ui.TasksWithColor;
 

@@ -1,9 +1,9 @@
 package main.ui.swing;
 
-import main.Task;
-import main.Tasks;
+import main.sticker.Sticker;
+import main.task.Task;
+import main.task.Tasks;
 import main.ui.Printable;
-import main.ui.swing.sticker.Sticker;
 
 
 /**

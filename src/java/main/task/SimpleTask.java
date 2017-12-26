@@ -1,7 +1,5 @@
 package main.task;
 
-import main.Task;
-
 public class SimpleTask implements Task {
 	
 	private final int id;

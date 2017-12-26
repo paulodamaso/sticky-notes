@@ -6,7 +6,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.ui.swing.sticker.Sticker;
+import main.sticker.Sticker;
 
 /**
  * <p> {@link Sticker} whose font can be set. 

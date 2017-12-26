@@ -1,7 +1,7 @@
 package main.ui.swing;
 
-import main.Task;
-import main.ui.swing.sticker.Sticker;
+import main.sticker.Sticker;
+import main.task.Task;
 
 /**
  * <p> {@link Task} whose size can be set.

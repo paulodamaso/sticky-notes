@@ -1,3 +1,5 @@
+SELECT * FROM TASKWITHCOLOR
+
 create TABLE task
 
 (    
