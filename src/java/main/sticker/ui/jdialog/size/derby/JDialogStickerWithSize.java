@@ -38,7 +38,7 @@ public final class JDialogStickerWithSize implements JDialogSticker, StickerWith
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for JDialogStickerWithPosition
+			/* @todo #12 implement better exception handling in choosing database driver for JDialogStickerWithSize
 			 * 
 			 */
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public final class JDialogStickerWithSize implements JDialogSticker, StickerWith
 	@Override
 	public JDialogStickerWithSize persist(Sticker sticker) {
 		System.out.println("Persisting JDialoStickerWithSize " + id());
-		//delegating sticker saving behavior to origin, persisting position only
+		//delegating sticker saving behavior to origin, persisting size only
 		origin.persist(sticker);
 		persistSize();
 		
@@ -105,7 +105,7 @@ public final class JDialogStickerWithSize implements JDialogSticker, StickerWith
 			return size;
 
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving JDialogStickerWithPosition
+			/* @todo #12 implement better exception handling when saving JDialogStickerWithsize
 			 * 
 			 */
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public final class JDialogStickerWithSize implements JDialogSticker, StickerWith
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after saving JDialogStickerWithPosition.
+				/* @todo #12 implement better exception handling closing connection after saving JDialogStickerWithSize.
 				 * 
 				 */
 				e.printStackTrace();

@@ -53,7 +53,7 @@ public final class JDialogStickerWithFont implements JDialogSticker, StickerWith
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for JDialogStickerWithColor
+			/* @todo #12 implement better exception handling in choosing database driver for JDialogStickerWithFont
 			 * 
 			 */
 			e.printStackTrace();

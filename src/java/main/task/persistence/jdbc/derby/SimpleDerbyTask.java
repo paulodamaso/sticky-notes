@@ -50,7 +50,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			rs.next();
 			return rs.getString(1);
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when returning description.
+			/* @todo #12 implement better exception handling when returning description from task.
 			 * 
 			 */
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling when closing connection from returning description.
+				/* @todo #12 implement better exception handling when closing connection from returning description from task.
 				 * 
 				 */
 				e.printStackTrace();
