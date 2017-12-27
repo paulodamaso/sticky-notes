@@ -37,7 +37,7 @@ public final class DerbySticker implements Sticker {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-	private final String description_query = "select description from task where id = ?";
+	private final String description_query = "select text from sticker where id = ?";
 	@Override
 	public String text() {
 		Connection conn = null;
@@ -66,7 +66,7 @@ public final class DerbySticker implements Sticker {
 		return null;
 	}
 
-	private final String save_query = "update task set description = ? where id = ?";
+	private final String save_query = "update sticker set text = ? where id = ?";
 	@Override
 	public Sticker persist(Sticker sticker) {
 		Connection conn = null;
@@ -79,7 +79,7 @@ public final class DerbySticker implements Sticker {
 
 			return new DerbySticker(database, this.id());
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving derbytask
+			/* @todo #12 implement better exception handling when saving derbysticker
 			 * 
 			 */
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public final class DerbySticker implements Sticker {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after saving derbytask.
+				/* @todo #12 implement better exception handling closing connection after saving derbysticker
 				 * 
 				 */
 				e.printStackTrace();
@@ -101,10 +101,4 @@ public final class DerbySticker implements Sticker {
 		// TODO Auto-generated method stub
 		return id;
 	}
-//
-//	@Override
-//	public void print() {
-//		System.out.println(id() + ":" + text());
-//		
-//	}
 }

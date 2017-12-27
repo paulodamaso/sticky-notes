@@ -23,9 +23,15 @@ public final class StickerColorActionListener implements ActionListener {
                  "Choose Color",
                  new Color(251,247,174)
                  );
-		
+		/*
+		 * @todo #24 we shouldn't allow to re-decorate a JDialogStickerWithColor
+		 */
+		/*
+		 * @todo #24 decorate persistence mechanism in StickerColorActionListener
+		 *  this decoration should be made with a interface of JDialogStickerWithColor, and not
+		 *  a concrete class
+		 */
 		this.sticker = new JDialogStickerWithColor(sticker, newColor, "resources/database/donkey-tasks-db");
-//		this.sticker.persist(sticker);
 	}
 
 }

@@ -1,6 +1,7 @@
 package main.sticker.ui.jdialog.color.derby;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,11 +17,17 @@ import main.sticker.color.StickerWithColor;
 import main.sticker.ui.jdialog.JDialogSticker;
 import main.sticker.ui.jdialog.persistence.StickerSaveActionListener;
 
-public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor  {
+/**
+ * <p> {@link JDialogSticker} with color implementation.
+ * 
+ * @author paulodamaso
+ *
+ */
+public final class JDialogStickerWithColor implements JDialogSticker, StickerWithColor  {
 	
-	private JDialogSticker origin;
-	private String database;
-	private Color color;
+	private final JDialogSticker origin;
+	private final String database;
+	private final Color color;
 
 	public JDialogStickerWithColor(JDialogSticker origin, Color color, String database) {
 		this.origin = origin;
@@ -30,11 +37,17 @@ public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor
 		//adding color to the textarea
         txtDescription().setBackground(this.color);
         
-        //setting the popup menu to show save option
-        JMenuItem saveMenu = new JMenuItem("Salvar com cor");
-        saveMenu.addActionListener(new StickerSaveActionListener(this));
-        popup().add(saveMenu);
-
+        /*
+         * @todo #24 very disgusting way of propagating persist behavior called from menuitem in JDialogStickerWithColor
+         *  had to do this way because i don't want to save the sticker object in each decoration of jdialogsticker
+         */
+        //replacing actionlistener from save menu item
+        for (ActionListener act : saveItem().getActionListeners()) {
+        	if (act instanceof StickerSaveActionListener) {
+        		saveItem().removeActionListener(act);
+        	}
+        	saveItem().addActionListener(new StickerSaveActionListener(this));
+        }
 
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -65,8 +78,8 @@ public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor
 
 	}
 
-	private final String insert_color_query = "insert into taskwithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
-	private final String update_color_query = "update taskwithcolor set red = ?, green = ?, blue = ? where id = ?";
+	private final String insert_color_query = "insert into stickerwithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
+	private final String update_color_query = "update stickerwithcolor set red = ?, green = ?, blue = ? where id = ?";
 	private Color persistColor() {
 		Connection conn = null;
 		try {
@@ -113,7 +126,7 @@ public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor
 		return null;		
 	}
 	
-	private final String color_query = "select  red, green, blue from taskwithcolor where id = ?";
+	private final String color_query = "select  red, green, blue from stickerwithcolor where id = ?";
 	@Override
 	public Color color() {
 		Connection conn = null;
@@ -176,5 +189,10 @@ public class JDialogStickerWithColor implements JDialogSticker, StickerWithColor
 	@Override
 	public JPopupMenu popup() {
 		return origin.popup();
+	}
+
+	@Override
+	public JMenuItem saveItem() {
+		return origin.saveItem();
 	}
 }

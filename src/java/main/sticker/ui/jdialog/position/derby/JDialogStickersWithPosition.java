@@ -1,4 +1,4 @@
-package main.sticker.ui.jdialog.position;
+package main.sticker.ui.jdialog.position.derby;
 
 import java.awt.Point;
 import java.sql.Connection;
@@ -49,7 +49,7 @@ public final class JDialogStickersWithPosition implements JDialogStickers {
 		return origin.add(text);
 	}
 
-	private final String iterate_position_query = "select id, x, y from taskwithposition";
+	private final String iterate_position_query = "select id, x, y from stickerwithposition";
 	@Override
 	public Collection<JDialogSticker> iterate() {
 		System.out.println("Iterating in JDialogStickersWithPosition");

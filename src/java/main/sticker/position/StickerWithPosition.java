@@ -6,6 +6,7 @@ import main.sticker.Sticker;
 
 /**
  * <p> A decorator to add position to a {@link Sticker}.
+ * 
  * @author paulodamaso
  *
  */

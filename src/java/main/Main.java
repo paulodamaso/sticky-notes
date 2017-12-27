@@ -1,13 +1,12 @@
 package main;
 
 import main.sticker.persistence.derby.DerbyStickers;
-import main.sticker.ui.jdialog.JDialogSticker;
 import main.sticker.ui.jdialog.JDialogStickers;
 import main.sticker.ui.jdialog.SimpleJDialogStickers;
 import main.sticker.ui.jdialog.color.derby.JDialogStickersWithColor;
-import main.sticker.ui.jdialog.position.JDialogStickersWithPosition;
-import main.task.Tasks;
-import main.task.persistence.jdbc.derby.SimpleDerbyTasks;
+import main.sticker.ui.jdialog.font.derby.JDialogStickersWithFont;
+import main.sticker.ui.jdialog.position.derby.JDialogStickersWithPosition;
+import main.sticker.ui.jdialog.size.derby.JDialogStickersWithSize;
 import main.ui.swing.SystemTrayApplication;
 
 public class Main {
@@ -24,24 +23,25 @@ public class Main {
 		
 		//setting PersistentTasks configuration:
 		//get simpletasks from derby database ("resources/database/donkey-tasks-db")
-		Tasks persistedTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
+		//Tasks persistedTasks = new SimpleDerbyTasks("resources/database/donkey-tasks-db");
 		
 		//setting Stickers configuration (presentation only)
 		//make printable stickers
 		// + put color if it have color (from database "resources/database/donkey-tasks-db")
-		JDialogStickers stickerTasks = new JDialogStickersWithPosition(new JDialogStickersWithColor(
-				new SimpleJDialogStickers(
-						new DerbyStickers("resources/database/donkey-tasks-db")
-						),
+		JDialogStickers stickers = 
+				new JDialogStickersWithFont(
+					new JDialogStickersWithSize(
+						new JDialogStickersWithPosition(
+								new JDialogStickersWithColor(
+										new SimpleJDialogStickers(
+												new DerbyStickers("resources/database/donkey-tasks-db")
+												),
+										"resources/database/donkey-tasks-db"),
+								"resources/database/donkey-tasks-db"),
 					"resources/database/donkey-tasks-db"),
 				"resources/database/donkey-tasks-db");
-		
-		//why the classes are not coming?
-		for (JDialogSticker jdsk : stickerTasks.iterate()) {
-			System.out.println(jdsk.getClass());
-		}
 				
-		SystemTrayApplication app = new SystemTrayApplication(stickerTasks);
+		SystemTrayApplication app = new SystemTrayApplication(stickers);
 				
 //				(//new StickerTasks(tsk));
 //		new StickerTasks(

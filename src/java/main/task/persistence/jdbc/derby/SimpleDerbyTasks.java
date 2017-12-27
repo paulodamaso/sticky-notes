@@ -25,7 +25,7 @@ public final class SimpleDerbyTasks implements Tasks {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing derby driver
+			/* @todo #12 implement better exception handling in choosing derby driver from SimpleDerbyTasks
 			 * 
 			 */
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public final class SimpleDerbyTasks implements Tasks {
 			return new SimpleDerbyTask(database, task.id());
 			
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when inserting task.
+			/* @todo #12 implement better exception handling when updating task.
 			 * 
 			 */
 			e.printStackTrace();

@@ -26,7 +26,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing derby driver here
+			/* @todo #12 implement better exception handling in choosing derby driver for SimpleDerbyTask
 			 * 
 			 */
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling here.
+				/* @todo #12 implement better exception handling when closing connection from returning description.
 				 * 
 				 */
 				e.printStackTrace();
@@ -80,7 +80,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 
 			return new SimpleDerbyTask(database, this.id());
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving derbytask
+			/* @todo #12 implement better exception handling when saving SimpleDerbyTask
 			 * 
 			 */
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public final class SimpleDerbyTask implements PersistentTask {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after saving derbytask.
+				/* @todo #12 implement better exception handling closing connection after saving SimpleDerbyTask.
 				 * 
 				 */
 				e.printStackTrace();

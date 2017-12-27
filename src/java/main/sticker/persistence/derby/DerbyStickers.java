@@ -32,7 +32,7 @@ public final class DerbyStickers implements Stickers {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-	private final String iterate_query = "select id from task";
+	private final String iterate_query = "select id from sticker";
 	@Override
 	public Collection<Sticker> iterate() {
 		ArrayList<Sticker> it = new ArrayList<Sticker>();
@@ -46,7 +46,7 @@ public final class DerbyStickers implements Stickers {
 				it.add(new DerbySticker(database, rs.getInt(1)));
 			}
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when getting Iterable<Task>.
+			/* @todo #12 implement better exception handling when getting Iterable<Sticker>.
 			 * 
 			 */
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public final class DerbyStickers implements Stickers {
 		return it;
 	}
 
-	private final String insert_query = "insert into task (description) values (?)";
+	private final String insert_query = "insert into sticker (text) values (?)";
 	@Override
 	public DerbySticker add(String description) {
 		Connection conn = null;
@@ -76,7 +76,7 @@ public final class DerbyStickers implements Stickers {
 			return new DerbySticker(database, rs.getInt(1));
 			
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when inserting task.
+			/* @todo #12 implement better exception handling when inserting sticker.
 			 * 
 			 */
 			e.printStackTrace();
@@ -88,14 +88,5 @@ public final class DerbyStickers implements Stickers {
 			}
 		}
 		return null;
-	}
-
-
-//	@Override
-//	public void print() {
-//		for (Sticker stk : iterate()) {
-//			stk.print();
-//		}
-//	}
-	
+	}	
 }

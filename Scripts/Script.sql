@@ -1,43 +1,45 @@
-SELECT * FROM TASKWITHCOLOR
 
-create TABLE task
+create TABLE sticker
 
 (    
    id INT not null primary key
         GENERATED ALWAYS AS IDENTITY
         (START WITH 1, INCREMENT BY 1),   
-   description VARCHAR(4096)    
+   text VARCHAR(4096)    
 );
-COMMIT;
 
-create TABLE taskwithcolor
+create TABLE stickerwithcolor
 
 (    
-   id INT CONSTRAINT taskwithcolor_foreignkey
-	REFERENCES task ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT stickerwithcolor_foreignkey
+	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
    red int, green int, blue int    
 );
 
-create TABLE taskwithposition
+create TABLE stickerwithposition
 
 (    
-   id INT CONSTRAINT taskwithposition_foreignkey
-	REFERENCES task ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT stickerwithposition_foreignkey
+	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
    x int, y int    
 );
 
-SELECT * FROM task
-SELECT * FROM taskwithcolor
-SELECT * FROM taskwithposition
+create TABLE stickerwithsize
 
-delete FROM taskwithcolor
+(    
+   id INT CONSTRAINT stickerwithsize_foreignkey
+	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   width int, height int    
+);
 
-DELETE FROM TASK WHERE id > 1000
+create TABLE stickerwithfont
 
-INSERT INTO TASKWITHCOLOR (id, red, green, blue) VALUES (501, 0, 0, 0)
-(206,226,215)
-update  TASKWITHCOLOR SET red = 206, green = 226, blue = 215 WHERE id = 501
-INSERT into taskwithposition (id, x, y) VALUES (502, 500, 236)
-INSERT INTO task (description) VALUES ('This is a task with a weird position')
+(    
+   id INT CONSTRAINT stickerwithfont_foreignkey
+	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   name varchar(256), style int, size int    
+);
 
-DELETE FROM task;
+DROP TABLE TASKWITHCOLOR;
+DROP TABLE TASKWITHPOSITION;
+DROP TABLE sticker;

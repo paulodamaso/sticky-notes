@@ -1,6 +1,6 @@
-package main.sticker.ui.jdialog.position;
+package main.sticker.ui.jdialog.size.derby;
 
-import java.awt.Point;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,26 +12,27 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
 import main.sticker.Sticker;
-import main.sticker.position.StickerWithPosition;
+import main.sticker.size.StickerWithSize;
 import main.sticker.ui.jdialog.JDialogSticker;
-import main.sticker.ui.jdialog.persistence.StickerSaveActionListener;
 
-public final class JDialogStickerWithPosition implements JDialogSticker, StickerWithPosition {
-
-	private final JDialogSticker origin;
-	private final Point position;
-	private final String database;
+/**
+ * <p> {@link JDialogSticker} with size implementation.
+ * 
+ * @author paulodamaso
+ *
+ */
+public final class JDialogStickerWithSize implements JDialogSticker, StickerWithSize {
 	
-	public JDialogStickerWithPosition(JDialogSticker origin, Point position, String database) {
+	private final JDialogSticker origin;
+	private final Dimension size;
+	private final String database;
+
+	public JDialogStickerWithSize(JDialogSticker origin, Dimension size, String database) {
 		this.origin = origin;
-		this.position = position;
+		this.size = size;
 		this.database = database;
 		
-		origin.jdialog().setLocation(this.position);
-		
-        JMenuItem saveMenu = new JMenuItem("Salvar com posição");
-        saveMenu.addActionListener(new StickerSaveActionListener(this));
-        popup().add(saveMenu);
+		origin.jdialog().setSize(this.size);
 		
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -43,14 +44,14 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Connection connect() throws Exception {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
 	@Override
 	public void print() {
-		System.out.println("Printing jdialogstickerwith position: " + position);
+		System.out.println("Printing jdialogstickerwith size: " + size);
 		origin.print();
 	}
 
@@ -66,42 +67,42 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 
 
 	@Override
-	public JDialogStickerWithPosition persist(Sticker sticker) {
-		System.out.println("Persisting JDialoStickerWithPosition " + id());
+	public JDialogStickerWithSize persist(Sticker sticker) {
+		System.out.println("Persisting JDialoStickerWithSize " + id());
 		//delegating sticker saving behavior to origin, persisting position only
 		origin.persist(sticker);
-		persistPosition();
+		persistSize();
 		
-		return new JDialogStickerWithPosition(origin, position(), database);
+		return new JDialogStickerWithSize(origin, size(), database);
 	}
 
-	private final String insert_position_query = "insert into taskwithposition (id, x, y) values ( ?, ?, ?)";
-	private final String update_position_query = "update taskwithposition set x = ?, y = ? where id = ?";
-	private Point persistPosition () {
+	private final String insert_position_query = "insert into stickerwithsize (id, width, height) values ( ?, ?, ?)";
+	private final String update_position_query = "update stickerwithsize set width = ?, height = ? where id = ?";
+	private Dimension persistSize () {
 		Connection conn = null;
 		try {
-			Point position = jdialog().getLocation();
+			Dimension size = jdialog().getSize();
 			
 			//saving position info
 			PreparedStatement ps = null;
 			
-			if (position() != null) {
+			if (size() != null) {
 				conn = connect();
 				ps = conn.prepareStatement(update_position_query);
-				ps.setInt(1, position.x);
-				ps.setInt(2, position.y);
+				ps.setInt(1, size.width);
+				ps.setInt(2, size.height);
 				ps.setInt(3, id());
 			} else {
 				conn = connect();
 				ps = conn.prepareStatement(insert_position_query);
 				ps.setInt(1, id());
-				ps.setInt(2, position.x);
-				ps.setInt(3, position.y);
+				ps.setInt(2, size.width);
+				ps.setInt(3, size.height);
 			}
 
 			ps.executeUpdate();
 			
-			return position;
+			return size;
 
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving JDialogStickerWithPosition
@@ -121,24 +122,24 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 		return null;		
 	}
 	
-	private final String position_query = "select x, y from taskwithposition where id = ?";
+	private final String size_query = "select width, height from stickerwithsize where id = ?";
 	@Override
-	public Point position() {
+	public Dimension size() {
 		Connection conn = null;
-		Point position = null;
+		Dimension size = null;
 		try {
 			conn = connect();
-			PreparedStatement ps = conn.prepareStatement(position_query);
+			PreparedStatement ps = conn.prepareStatement(size_query);
 			ps.setInt(1, id());
 
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				position =  new Point(rs.getInt(1), rs.getInt(2));
+				size =  new Dimension(rs.getInt(1), rs.getInt(2));
 			}
 
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when retrieving position
+			/* @todo #12 implement better exception handling when retrieving size
 			 * 
 			 */
 			e.printStackTrace();
@@ -146,13 +147,13 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after retrieving position
+				/* @todo #12 implement better exception handling closing connection after retrieving size
 				 * 
 				 */
 				e.printStackTrace();
 			}
 		}
-		return position;
+		return size;
 	}
 
 	@Override
@@ -170,4 +171,8 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 		return origin.popup();
 	}
 
+	@Override
+	public JMenuItem saveItem() {
+		return origin.saveItem();
+	}
 }

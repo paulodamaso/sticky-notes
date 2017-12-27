@@ -20,7 +20,7 @@ import main.sticker.ui.jdialog.SimpleJDialogStickers;
  * @author paulodamaso
  *
  */
-public class JDialogStickersWithColor implements JDialogStickers {
+public final class JDialogStickersWithColor implements JDialogStickers {
 
 	private final String database;
 	private final JDialogStickers origin;
@@ -33,7 +33,7 @@ public class JDialogStickersWithColor implements JDialogStickers {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver
+			/* @todo #12 implement better exception handling in choosing database driver for Jdialogsrtickerswithcolor
 			 * 
 			 */
 			e.printStackTrace();
@@ -50,10 +50,10 @@ public class JDialogStickersWithColor implements JDialogStickers {
 		return origin.add(text);
 	}
 
-	private final String iterate_color_query = "select id, red, green, blue from taskwithcolor";
+	private final String iterate_color_query = "select id, red, green, blue from stickerwithcolor";
 	@Override
 	public Collection<JDialogSticker> iterate() {
-		System.out.println("Iterating in JDialogStickersWithColor");
+//		System.out.println("Iterating in JDialogStickersWithColor");
 		Collection<JDialogSticker> it = origin.iterate();
 
 		Connection conn = null;
@@ -73,7 +73,7 @@ public class JDialogStickersWithColor implements JDialogStickers {
 					
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						System.out.println("Found " + stk.id() + " in stickerswithcolor");
+//						System.out.println("Found " + stk.id() + " in stickerswithcolor");
 						toRemove.add(stk);
 						toAdd.add(new JDialogStickerWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
 					}
@@ -95,21 +95,21 @@ public class JDialogStickersWithColor implements JDialogStickers {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Iterated in JDialogStickersWithColor");
+//		System.out.println("Iterated in JDialogStickersWithColor");
 		return it;
 	}
 	
 	public void print() {
-		System.out.println("Printing in JDialogStickersWithColor");
+//		System.out.println("Printing in JDialogStickersWithColor");
 		for (JDialogSticker jdsk : iterate()){
 			jdsk.print();
 		}
-		System.out.println("Printed in JDialogStickersWithColor");
+//		System.out.println("Printed in JDialogStickersWithColor");
 	}
 
 	@Override
 	public Stickers stickers() {
-		System.out.println("Reading stickers in JDialogStickersWithColor");
+//		System.out.println("Reading stickers in JDialogStickersWithColor");
 		return origin.stickers();
 	}
 

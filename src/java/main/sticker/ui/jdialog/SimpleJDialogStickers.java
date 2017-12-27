@@ -23,21 +23,21 @@ public final class SimpleJDialogStickers implements JDialogStickers {
 
 	@Override
 	public void print() {
-		System.out.println("Printing SimpleJDialogStickers");
+//		System.out.println("Printing SimpleJDialogStickers");
 		for (PrintableSticker stk : iterate()) {
 			stk.print();
 		}
-		System.out.println("Ended Printing SimpleJDialogStickers");
+//		System.out.println("Ended Printing SimpleJDialogStickers");
 	}
 
 	@Override
 	public Collection<JDialogSticker> iterate() {
-		System.out.println("Iterating in SimplejDialogStickers");
+//		System.out.println("Iterating in SimplejDialogStickers");
 		ArrayList<JDialogSticker> stickers = new ArrayList<JDialogSticker>();
 		for(Sticker stk : origin.iterate()) {
 			stickers.add(new SimpleSticker(stk));
 		}
-		System.out.println("Iterated in SimplejDialogStickers");
+//		System.out.println("Iterated in SimplejDialogStickers");
 		return stickers;
 	}
 

@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.sticker.Sticker;
 import main.sticker.ui.jdialog.JDialogStickers;
 
 public final class SystemTrayApplication {
@@ -39,15 +38,15 @@ public final class SystemTrayApplication {
          
         // Create a popup menu components
         MenuItem aboutItem = new MenuItem("About");
-        MenuItem newTaskItem = new MenuItem("New Task...");
-        MenuItem saveAllItem = new MenuItem("Save All Tasks...");
+        MenuItem newTaskItem = new MenuItem("New Sticker...");
+//        MenuItem saveAllItem = new MenuItem("Save All Tasks...");
         MenuItem exitItem = new MenuItem("Exit");
          
         //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newTaskItem);
-        popup.add(saveAllItem);
+//        popup.add(saveAllItem);
         popup.addSeparator();
         popup.add(exitItem);
          
@@ -85,14 +84,14 @@ public final class SystemTrayApplication {
 			}
 		});
         
-        saveAllItem.addActionListener(new ActionListener() {
-			@Override			
-			public void actionPerformed(ActionEvent e) {
-				for (Sticker stk : stickers.iterate()) {
-//					stk.save();
-				}
-			}
-		});
+//        saveAllItem.addActionListener(new ActionListener() {
+//			@Override			
+//			public void actionPerformed(ActionEvent e) {
+//				for (Sticker stk : stickers.iterate()) {
+////					stk.save();
+//				}
+//			}
+//		});
 
         // closing application, saves all stickers?
         exitItem.addActionListener(new ActionListener() {
