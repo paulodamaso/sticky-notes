@@ -38,8 +38,15 @@ public final class SimpleSticker implements JDialogSticker {
 		//formatting the textarea with default values
 		this.txtDescription = new JTextArea(sticker.text());
 		this.txtDescription.setLineWrap(true);
+		/*
+		 * @todo #25 extract default size
+		 */
         this.txtDescription.setSize(300, 150);
         this.txtDescription.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+		/*
+		 * @todo #24 extract default color
+		 */
         this.txtDescription.setBackground(new Color(251,247,174));
         
         //adding the textarea
@@ -72,8 +79,6 @@ public final class SimpleSticker implements JDialogSticker {
          *  had to do this way because i don't want to save the sticker object in each decoration of jdialogsticker
          */        
         this.saveItem.addActionListener(new StickerSizeActionListener(this));
-        
-        //adding listener
         
         /*
          * @todo #12 each decoration added (actionlistener) saves the sticker one more time; it should be saved just once
