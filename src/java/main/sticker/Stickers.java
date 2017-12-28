@@ -12,6 +12,6 @@ public interface Stickers  {
 	
 	public Collection<Sticker> iterate();
 	
-	public Sticker add(String sticker);
+	public Sticker add(String text);
 
 }

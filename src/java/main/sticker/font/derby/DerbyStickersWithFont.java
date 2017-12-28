@@ -1,4 +1,4 @@
-package main.sticker.ui.jdialog.font.derby;
+package main.sticker.font.derby;
 
 import java.awt.Font;
 import java.sql.Connection;
@@ -10,33 +10,32 @@ import java.util.Collection;
 
 import main.sticker.Sticker;
 import main.sticker.Stickers;
-import main.sticker.ui.jdialog.JDialogSticker;
-import main.sticker.ui.jdialog.JDialogStickers;
+import main.sticker.font.StickerWithFont;
 
 /**
- * <p> Get the color of each {@link Sticker} from a derby database, in table 'stickerwithfont'
+ * <p> {@link StickerWithFont} repository in derby database, in table 'stickerwithfont'
  * 
  * @author paulodamaso
  *
  */
-public final class JDialogStickersWithFont implements JDialogStickers {
+public final class DerbyStickersWithFont implements Stickers {
 
+	private final Stickers origin;
 	private final String database;
-	private final JDialogStickers origin;
 	
-	public JDialogStickersWithFont(JDialogStickers stickers, String database) {
-
-		this.origin = stickers;
+	public DerbyStickersWithFont(Stickers origin, String database) {
+		this.origin = origin;
 		this.database = database;
+		
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for Jdialogsrtickerswithfont
+			/* @todo #12 implement better exception handling in choosing database driver for DerbyStickersWithColor
 			 * 
 			 */
 			e.printStackTrace();
-		}		
+		}
 	}
 	
 	private Connection connect() throws Exception {
@@ -44,23 +43,17 @@ public final class JDialogStickersWithFont implements JDialogStickers {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 
-	@Override
-	public JDialogSticker add(String text) {
-		return origin.add(text);
-	}
-
 	private final String iterate_font_query = "select id, name, style, size from stickerwithfont";
 	@Override
-	public Collection<JDialogSticker> iterate() {
-
-		Collection<JDialogSticker> it = origin.iterate();
+	public Collection<Sticker> iterate() {
+		Collection<Sticker> it = origin.iterate();
 
 		Connection conn = null;
 		try {
 			conn = connect();
 			
-			Collection<JDialogSticker> toRemove = new ArrayList<JDialogSticker>();
-			Collection<JDialogSticker> toAdd = new ArrayList<JDialogSticker>();
+			Collection<Sticker> toRemove = new ArrayList<Sticker>();
+			Collection<Sticker> toAdd = new ArrayList<Sticker>();
 			
 			//tasks with font
 			PreparedStatement ps = conn.prepareStatement(iterate_font_query);
@@ -68,13 +61,13 @@ public final class JDialogStickersWithFont implements JDialogStickers {
 			
 			//iterate in all tasks, setting font in the task with font
 			while(rs.next()) {
-				for (JDialogSticker stk : it) {
+				for (Sticker stk : it) {
 					
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 
 						toRemove.add(stk);
-						toAdd.add(new JDialogStickerWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+						toAdd.add(new DerbyStickerWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
 					}
 				}
 			}
@@ -83,7 +76,7 @@ public final class JDialogStickersWithFont implements JDialogStickers {
 			it.addAll(toAdd);
 
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when getting Iterable<JDialogStickerWithFont>.
+			/* @todo #12 implement better exception handling when getting DerbyStickersWithFont.iterate
 			 * 
 			 */
 			e.printStackTrace();
@@ -96,18 +89,10 @@ public final class JDialogStickersWithFont implements JDialogStickers {
 		}
 		return it;
 	}
-	
-	@Override
-	public void print() {
-		for (JDialogSticker jdsk : iterate()){
-			jdsk.print();
-		}
-	}
 
 	@Override
-	public Stickers stickers() {
-		return origin.stickers();
+	public Sticker add(String text) {
+		return origin.add(text);
 	}
-
 
 }

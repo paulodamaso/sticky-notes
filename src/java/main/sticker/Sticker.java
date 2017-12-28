@@ -4,7 +4,7 @@ import main.sticker.persistence.Persistent;
 
 
 /**
- * <p> A top level representation of a Post-It sticker.
+ * <p> A top level representation of a sticky note.
  * 
  * @author paulodamaso
  *

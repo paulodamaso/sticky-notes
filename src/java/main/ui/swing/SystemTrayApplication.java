@@ -1,6 +1,7 @@
 package main.ui.swing;
 
 import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -14,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import main.sticker.Sticker;
 import main.sticker.ui.jdialog.JDialogStickers;
 
 public final class SystemTrayApplication {
@@ -27,26 +29,32 @@ public final class SystemTrayApplication {
             return;
         }
 		
+		//checking trayicon image size
+		final SystemTray tray = SystemTray.getSystemTray();
+		Dimension trayIconSize = tray.getTrayIconSize();
+		System.out.println(trayIconSize);
+		
+		
 		System.out.println("Creating popupmenu");
 		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("../../../images/paper.png", "tray icon"));
+                new TrayIcon(createImage("/images/sticky-note16x16.png", "tray icon"));
         
 
-        final SystemTray tray = SystemTray.getSystemTray();
+        
          
         // Create a popup menu components
         MenuItem aboutItem = new MenuItem("About");
         MenuItem newTaskItem = new MenuItem("New Sticker...");
-//        MenuItem saveAllItem = new MenuItem("Save All Tasks...");
+        MenuItem saveAllItem = new MenuItem("Save All Sticker...");
         MenuItem exitItem = new MenuItem("Exit");
          
         //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newTaskItem);
-//        popup.add(saveAllItem);
+        popup.add(saveAllItem);
         popup.addSeparator();
         popup.add(exitItem);
          
@@ -95,14 +103,14 @@ public final class SystemTrayApplication {
         /*
          * @todo #48 should we implement a save all menuitem in task bar icon?
          */
-//        saveAllItem.addActionListener(new ActionListener() {
-//			@Override			
-//			public void actionPerformed(ActionEvent e) {
-//				for (Sticker stk : stickers.iterate()) {
-////					stk.save();
-//				}
-//			}
-//		});
+        saveAllItem.addActionListener(new ActionListener() {
+			@Override			
+			public void actionPerformed(ActionEvent e) {
+				for (Sticker stk : stickers.iterate()) {
+					stk.persist(stk);
+				}
+			}
+		});
 
         /*
          * @todo #48 should we save all stickers on closing application?
@@ -110,9 +118,9 @@ public final class SystemTrayApplication {
         // closing application, saves all stickers?
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//            	for (Task tsk : tasks.iterate()) {
-//            		//tsk.
-//            	}
+				for (Sticker stk : stickers.iterate()) {
+//					stk.persist(stk);
+				}
                 tray.remove(trayIcon);
                 System.exit(0);
             }

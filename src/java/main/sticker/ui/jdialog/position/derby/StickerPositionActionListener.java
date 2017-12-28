@@ -4,8 +4,15 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import main.sticker.Sticker;
 import main.sticker.ui.jdialog.JDialogSticker;
 
+/**
+ * <p> {@link ActionListener} for persisting a {@link Sticker} which moved.
+ * 
+ * @author paulodamaso
+ *
+ */
 public class StickerPositionActionListener implements ActionListener {
 
 	private JDialogSticker sticker;
@@ -27,7 +34,7 @@ public class StickerPositionActionListener implements ActionListener {
 			 *  this decoration should be made with a interface of JDialogStickerWithPosition, and not
 			 *  a concrete class
 			 */
-			sticker = new JDialogStickerWithPosition(sticker, new Point(sticker.jdialog().getX(), sticker.jdialog().getY()), "resources/database/donkey-tasks-db");
+			sticker = new JDialogStickerWithPosition(sticker, new Point(sticker.jdialog().getX(), sticker.jdialog().getY()), "resources/database/sticky-notes-db");
 			sticker.persist(sticker);
 		}
 	}

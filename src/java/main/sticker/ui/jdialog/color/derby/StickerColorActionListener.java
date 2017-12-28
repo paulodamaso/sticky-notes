@@ -31,7 +31,7 @@ public final class StickerColorActionListener implements ActionListener {
 		 *  this decoration should be made with a interface of JDialogStickerWithColor, and not
 		 *  a concrete class
 		 */
-		this.sticker = new JDialogStickerWithColor(sticker, newColor, "resources/database/donkey-tasks-db");
+		this.sticker = new JDialogStickerWithColor(sticker, newColor, "resources/database/sticky-notes-db");
 	}
 
 }

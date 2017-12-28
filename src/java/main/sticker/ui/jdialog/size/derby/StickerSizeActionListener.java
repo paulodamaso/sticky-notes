@@ -26,7 +26,7 @@ public class StickerSizeActionListener implements ActionListener {
 			 *  this decoration should be made with a interface of JDialogStickerWithSize, and not
 			 *  a concrete class
 			 */
-			sticker = new JDialogStickerWithSize(sticker, sticker.jdialog().getSize(), "resources/database/donkey-tasks-db");
+			sticker = new JDialogStickerWithSize(sticker, sticker.jdialog().getSize(), "resources/database/sticky-notes-db");
 			sticker.persist(sticker);
 		}
 	}

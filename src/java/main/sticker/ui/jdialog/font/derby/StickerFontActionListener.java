@@ -32,7 +32,7 @@ public final class StickerFontActionListener implements ActionListener {
 		 *  this decoration should be made with a interface of JDialogStickerWithFnt, and not
 		 *  a concrete class
 		 */
-		this.sticker = new JDialogStickerWithFont(sticker, newFont, "resources/database/donkey-tasks-db");
+		this.sticker = new JDialogStickerWithFont(sticker, newFont, "resources/database/sticky-notes-db");
 	}
 
 }

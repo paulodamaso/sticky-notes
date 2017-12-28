@@ -3,11 +3,11 @@ package main.sticker.ui.jdialog;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public final class StickerFocusListener implements FocusListener {
+public final class SimpleStickerFocusListener implements FocusListener {
 	
 	private final JDialogSticker sticker;
 
-	public StickerFocusListener(JDialogSticker sticker) {
+	public SimpleStickerFocusListener(JDialogSticker sticker) {
 		this.sticker = sticker;
 	}
 

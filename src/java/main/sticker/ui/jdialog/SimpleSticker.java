@@ -56,7 +56,7 @@ public final class SimpleSticker implements JDialogSticker {
 		this.txtDescription.setComponentPopupMenu(popup);
 		
         //adding actionlistener to text area
-        //this.txtDescription.addFocusListener(new StickerFocusListener(this));
+        this.txtDescription.addFocusListener(new SimpleStickerFocusListener(this));
         
         //setting the popup menu to show color select option
         JMenuItem colorMenu = new JMenuItem("Color...");
@@ -66,19 +66,22 @@ public final class SimpleSticker implements JDialogSticker {
         //setting the popup menu to show save option
         this.saveItem = new JMenuItem("Save");
         
-        //adding listener to check if it had changed position to save with position
+        //adding listener to check if it had changed position to save with position via menu
         /*
          * @todo #26 very disgusting way of propagating persist behavior called from menuitem in JDialogStickerWithPosition
          *  had to do this way because i don't want to save the sticker object in each decoration of jdialogsticker
          */        
         this.saveItem.addActionListener(new StickerPositionActionListener(this));
         
-        //adding listener to check if it had changed size to save with new size
+        //adding listener to check if it had changed size to save with new size via menu
         /*
          * @todo #25 very disgusting way of propagating persist behavior called from menuitem in JDialogStickerWithSize
          *  had to do this way because i don't want to save the sticker object in each decoration of jdialogsticker
          */        
         this.saveItem.addActionListener(new StickerSizeActionListener(this));
+        
+        //adding listener to detect if this sticker had moved or resized
+        this.jdialog().addComponentListener(new StickerComponentListener(this));
         
         /*
          * @todo #12 each decoration added (actionlistener) saves the sticker one more time; it should be saved just once
