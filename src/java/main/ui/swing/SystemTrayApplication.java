@@ -31,7 +31,7 @@ public final class SystemTrayApplication {
 		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("../../../images/bulb.gif", "tray icon"));
+                new TrayIcon(createImage("../../../images/paper.png", "tray icon"));
         
 
         final SystemTray tray = SystemTray.getSystemTray();
@@ -67,12 +67,20 @@ public final class SystemTrayApplication {
             }
         });
          
+        
+        /*
+         * @todo #48 add relevant information in about dialog
+         */
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
                         "This dialog box is run from the About menu item");
             }
         });
+        
+        /*
+         * @todo #48 implement show all menu item in task bar icon
+         */
          
 
         // action listener to newTaskItem: add a new sticker with a 
@@ -84,6 +92,9 @@ public final class SystemTrayApplication {
 			}
 		});
         
+        /*
+         * @todo #48 should we implement a save all menuitem in task bar icon?
+         */
 //        saveAllItem.addActionListener(new ActionListener() {
 //			@Override			
 //			public void actionPerformed(ActionEvent e) {
@@ -93,6 +104,9 @@ public final class SystemTrayApplication {
 //			}
 //		});
 
+        /*
+         * @todo #48 should we save all stickers on closing application?
+         */
         // closing application, saves all stickers?
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
