@@ -5,8 +5,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.sticker.PrintableSticker;
 import main.sticker.Sticker;
+import main.ui.Printable;
+import main.ui.PrintedSticker;
 
 /**
  * <p> {@link Sticker} decorated by a {@link JDialog}.
@@ -14,7 +15,7 @@ import main.sticker.Sticker;
  * @author paulodamaso
  *
  */
-public interface JDialogSticker extends PrintableSticker
+public interface JDialogSticker extends Printable, Sticker
 {
 	public abstract JDialog jdialog();
 	public abstract JTextArea txtDescription();

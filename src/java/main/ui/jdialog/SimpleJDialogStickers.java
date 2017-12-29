@@ -3,9 +3,9 @@ package main.ui.jdialog;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.sticker.PrintableSticker;
 import main.sticker.Sticker;
 import main.sticker.Stickers;
+import main.ui.PrintedSticker;
 
 /**
  * <p> Simple implementation of a {@link JDialogStickers}.
@@ -24,7 +24,7 @@ public final class SimpleJDialogStickers implements JDialogStickers {
 	@Override
 	public void print() {
 //		//System.out.println("Printing SimpleJDialogStickers");
-		for (PrintableSticker stk : iterate()) {
+		for (PrintedSticker stk : iterate()) {
 			stk.print();
 		}
 //		//System.out.println("Ended Printing SimpleJDialogStickers");

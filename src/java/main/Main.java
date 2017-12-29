@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import main.sticker.Sticker;
 import main.sticker.Stickers;
@@ -11,6 +12,7 @@ import main.sticker.font.derby.DerbyStickersWithFont;
 import main.sticker.persistence.derby.DerbyStickers;
 import main.sticker.position.derby.DerbyStickersWithPosition;
 import main.sticker.size.derby.DerbyStickersWithSize;
+import main.ui.PrintedSticker;
 import main.ui.jdialog.JDialogStickers;
 import main.ui.jdialog.SimpleJDialogStickers;
 import main.ui.jdialog.color.derby.JDialogStickersWithColor;
@@ -18,7 +20,8 @@ import main.ui.jdialog.font.derby.JDialogStickersWithFont;
 import main.ui.jdialog.position.derby.JDialogStickersWithPosition;
 import main.ui.jdialog.size.derby.JDialogStickersWithSize;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.jdialog.SimpleDialogSticker;
+import main.ui.swing.jdialog.old.SimpleTextSticker;
+import main.ui.swing.jdialog.old.TextStickers;
 
 public class Main {
 
@@ -60,24 +63,29 @@ public class Main {
 //				"resources/database/sticky-notes-db"
 //						);
 		
+		
+		//first data, then presentation
 		//stcker / persistence
 		//all stickers
 		Stickers basic = new DerbyStickers("resources/database/sticky-notes-db"); 
-		Stickers stk = new main.ui.swing.jdialog.JDialogStickers(basic);
+//		Stickers stk = new main.ui.swing.jdialog.TextStickers(basic);
 		
 		//just stickers with color
-		StickersWithColor stkWc = new main.ui.swing.jdialog.JDialogStickersWithColor(new DerbyStickersWithColor(
-				stk,
+		StickersWithColor stkWc = new main.sticker.color.SimpleStickersWithColor(new DerbyStickersWithColor(
+				basic,
 				"resources/database/sticky-notes-db"));
 		
-		//mixed
-		StickersWithFont stkWf = new main.ui.swing.jdialog.JDialogStickersWithFont(new DerbyStickersWithFont(
+		//decorating stickers with color with stickers with font; no presentation yet 
+		StickersWithFont stkWf = new main.sticker.font.SimpleStickersWithFont(new DerbyStickersWithFont(
 				stkWc, 
 				"resources/database/sticky-notes-db"));
 		
-
+		//decorating stickers with presentation
+		Collection<PrintedSticker> printableStickers = null;
+		
+		
 				
-		SystemTrayApplication app = new SystemTrayApplication(stkWf);
+		SystemTrayApplication app = new SystemTrayApplication(printableStickers);
 				
 		app.init();
 

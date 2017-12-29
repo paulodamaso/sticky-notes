@@ -1,27 +1,29 @@
-package main.ui.swing.jdialog;
+package main.ui.swing.jdialog.old;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.sticker.Sticker;
+import main.ui.PrintMedia;
 
-public class SimpleDialogSticker implements JDialogSticker {
+/**
+ * <p> A simple {@link TextSticker}, with just a {@link JTextArea}.
+ * 
+ * @author paulodamaso
+ *
+ */
+public class SimpleTextSticker implements TextSticker {
 	
 	private final Sticker origin;
 	private final JTextArea txtText;
-	private final JDialog jdialog;
-
 	
-	public SimpleDialogSticker(Sticker origin) {
-		System.out.println("New simpledialog");
+	public SimpleTextSticker(Sticker origin) {
+		System.out.println("New simplesticker");
 		this.origin = origin;
-		this.jdialog = new JDialog();
 		
 		//formatting the textarea with default values
 		txtText = new JTextArea(origin.text());
@@ -32,10 +34,6 @@ public class SimpleDialogSticker implements JDialogSticker {
         
         txtText.setBackground(new Color(251,247,174));
         
-        //adding the textarea
-        jdialog.getContentPane().add(txtText, BorderLayout.CENTER);
-        
-
 		
         //setting the popup menu to show color select option
         JMenuItem colorMenu = new JMenuItem("Color...");
@@ -54,9 +52,7 @@ public class SimpleDialogSticker implements JDialogSticker {
         
         //setting the default popup menu (empty)
 		txtText.setComponentPopupMenu(popUpMenu);
-		
-        jdialog.pack();
-        jdialog.setVisible(true);
+
 	}
 
 	@Override
@@ -75,12 +71,13 @@ public class SimpleDialogSticker implements JDialogSticker {
 	}
 
 	@Override
-	public JTextArea txtText() {
+	public JTextArea textArea() {
 		return txtText;
 	}
 
 	@Override
-	public JDialog jdialog() {
-		return jdialog;
+	public void printed(PrintMedia media) {
+		// TODO Auto-generated method stub
+		
 	}
 }

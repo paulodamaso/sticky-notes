@@ -1,22 +1,21 @@
-package main.ui.swing.jdialog;
+package main.ui.swing.jdialog.old;
 
 import java.awt.Font;
 
-import javax.swing.JDialog;
 import javax.swing.JTextArea;
 
 import main.sticker.Sticker;
 import main.sticker.font.StickerWithFont;
 
-public class JDialogStickerWithFont implements JDialogSticker, StickerWithFont {
+public class TextStickerWithFont implements TextSticker, StickerWithFont {
 
-	private final JDialogSticker origin;
+	private final TextSticker origin;
 	
-	public JDialogStickerWithFont(JDialogSticker origin, Font font) {
+	public TextStickerWithFont(TextSticker origin, Font font) {
 		System.out.println("New jdialogwithfont");
 		this.origin = origin;
         
-        txtText().setFont(font);
+        textArea().setFont(font);
 
 	}
 
@@ -37,18 +36,13 @@ public class JDialogStickerWithFont implements JDialogSticker, StickerWithFont {
 
 	@Override
 	public Font font() {
-		return txtText().getFont();
+		return textArea().getFont();
 	}
 
 	@Override
-	public JDialog jdialog() {
-		// TODO Auto-generated method stub
-		return null;
+	public JTextArea textArea() {;
+		return origin.textArea(); 
 	}
 
-	@Override
-	public JTextArea txtText() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

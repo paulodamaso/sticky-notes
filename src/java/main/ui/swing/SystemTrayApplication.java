@@ -18,12 +18,16 @@ import javax.swing.JOptionPane;
 
 import main.sticker.Sticker;
 import main.sticker.Stickers;
+import main.ui.PrintedSticker;
 import main.ui.jdialog.JDialogStickers;
+import main.ui.swing.jdialog.JDialogMedia;
+import main.ui.swing.jdialog.old.TextSticker;
+import main.ui.swing.jdialog.old.TextStickers;
 
 
 public final class SystemTrayApplication {
 
-	private final Stickers stickers;
+	private final Collection<PrintedSticker> stickers;
 	
 	public void init() throws Exception {
 		
@@ -128,11 +132,12 @@ public final class SystemTrayApplication {
 //                System.exit(0);
 //            }
 //        });
-        
-        Collection<Sticker> stks = 
-        stickers.iterate();
-        
-        System.out.println("");
+//       
+//        
+//        for (Sticker stk : stickers.iterate()) {
+//        	new JDialogWrapper(stk);
+//        }
+         
 	}
 	
     //Obtain the image URL
@@ -150,7 +155,7 @@ public final class SystemTrayApplication {
     }
 
 
-    public SystemTrayApplication(Stickers stickers) {
+    public SystemTrayApplication(Collection<PrintedSticker> stickers) {
 		this.stickers = stickers;
 	}
 }

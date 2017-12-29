@@ -1,29 +1,27 @@
-package main.ui.swing.jdialog;
+package main.sticker.color;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import main.sticker.Sticker;
-import main.sticker.font.StickerWithFont;
-import main.sticker.font.StickersWithFont;
 
-public final class JDialogStickersWithFont implements StickersWithFont {
+public final class SimpleStickersWithColor implements StickersWithColor {
 	
-	private final StickersWithFont origin;
+	private final StickersWithColor origin;
 
-	public JDialogStickersWithFont(StickersWithFont origin) {
+	public SimpleStickersWithColor(StickersWithColor origin) {
 		this.origin = origin;
 	}
 
 	@Override
 	public Collection<Sticker> iterate() {
 		Collection<Sticker> it = origin.iterate();
-		Collection<StickerWithFont> font = iterateInFont();
+		Collection<StickerWithColor> color = iterateInColor();
 
 		Collection<Sticker> toRemove = new ArrayList<Sticker>();
 		Collection<Sticker> toAdd = new ArrayList<Sticker>();
 			
-		for (StickerWithFont stkWc : font) {
+		for (StickerWithColor stkWc : color) {
 			for (Sticker stk : it) {
 				if (stkWc.id() == stk.id()) {
 					toRemove.add(stk);
@@ -43,8 +41,8 @@ public final class JDialogStickersWithFont implements StickersWithFont {
 	}
 
 	@Override
-	public Collection<StickerWithFont> iterateInFont() {
-		return origin.iterateInFont();
+	public Collection<StickerWithColor> iterateInColor() {
+		return origin.iterateInColor();
 	}
 
 }

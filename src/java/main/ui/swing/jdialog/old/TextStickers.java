@@ -1,4 +1,4 @@
-package main.ui.swing.jdialog;
+package main.ui.swing.jdialog.old;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,11 +6,11 @@ import java.util.Collection;
 import main.sticker.Sticker;
 import main.sticker.Stickers;
 
-public class JDialogStickers implements Stickers {
+public class TextStickers implements Stickers {
 	
 	private final Stickers origin;
 
-	public JDialogStickers(Stickers origin) {
+	public TextStickers(Stickers origin) {
 		this.origin = origin;
 	}
 
@@ -18,7 +18,7 @@ public class JDialogStickers implements Stickers {
 	public Collection<Sticker> iterate() {
 		Collection<Sticker> ret = new ArrayList<Sticker>();
 		for(Sticker stk : origin.iterate()) {
-			ret.add(new SimpleDialogSticker(stk));
+			ret.add(new SimpleTextSticker(stk));
 		}
 		return ret;
 	}
