@@ -10,32 +10,35 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
+import java.util.Collection;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import main.sticker.Sticker;
-import main.sticker.ui.jdialog.JDialogStickers;
+import main.sticker.Stickers;
+import main.ui.jdialog.JDialogStickers;
+
 
 public final class SystemTrayApplication {
 
-	private final JDialogStickers stickers;
+	private final Stickers stickers;
 	
 	public void init() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
+            //System.out.println("SystemTray is not supported");
             return;
         }
 		
 		//checking trayicon image size
 		final SystemTray tray = SystemTray.getSystemTray();
 		Dimension trayIconSize = tray.getTrayIconSize();
-		System.out.println(trayIconSize);
+		//System.out.println(trayIconSize);
 		
 		
-		System.out.println("Creating popupmenu");
+		//System.out.println("Creating popupmenu");
 		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
@@ -64,7 +67,7 @@ public final class SystemTrayApplication {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
+            //System.out.println("TrayIcon could not be added.");
             return;
         }
          
@@ -93,40 +96,43 @@ public final class SystemTrayApplication {
 
         // action listener to newTaskItem: add a new sticker with a 
         // default task and print it
-        newTaskItem.addActionListener(new ActionListener() {
-			@Override			
-			public void actionPerformed(ActionEvent e) {
-				stickers.add("Type your text here").print();
-			}
-		});
+//        newTaskItem.addActionListener(new ActionListener() {
+//			@Override			
+//			public void actionPerformed(ActionEvent e) {
+//				stickers.add("Type your text here");
+//			}
+//		});
         
         /*
          * @todo #48 should we implement a save all menuitem in task bar icon?
          */
-        saveAllItem.addActionListener(new ActionListener() {
-			@Override			
-			public void actionPerformed(ActionEvent e) {
-				for (Sticker stk : stickers.iterate()) {
-					stk.persist(stk);
-				}
-			}
-		});
+//        saveAllItem.addActionListener(new ActionListener() {
+//			@Override			
+//			public void actionPerformed(ActionEvent e) {
+//				for (Sticker stk : stickers.iterate()) {
+//					stk.persist(stk);
+//				}
+//			}
+//		});
 
         /*
          * @todo #48 should we save all stickers on closing application?
          */
-        // closing application, saves all stickers?
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-				for (Sticker stk : stickers.iterate()) {
-//					stk.persist(stk);
-				}
-                tray.remove(trayIcon);
-                System.exit(0);
-            }
-        });
+//        // closing application, saves all stickers?
+//        exitItem.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//				for (Sticker stk : stickers.iterate()) {
+////					stk.persist(stk);
+//				}
+//                tray.remove(trayIcon);
+//                System.exit(0);
+//            }
+//        });
         
-        stickers.print();
+        Collection<Sticker> stks = 
+        stickers.iterate();
+        
+        System.out.println("");
 	}
 	
     //Obtain the image URL
@@ -144,7 +150,7 @@ public final class SystemTrayApplication {
     }
 
 
-    public SystemTrayApplication(JDialogStickers stickers) {
+    public SystemTrayApplication(Stickers stickers) {
 		this.stickers = stickers;
 	}
 }

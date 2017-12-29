@@ -1,4 +1,4 @@
-package main.sticker.position.derby;
+package main.ui.jdialog.position.derby;
 
 import java.awt.Point;
 import java.sql.Connection;
@@ -6,19 +6,33 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.swing.JDialog;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
+
 import main.sticker.Sticker;
 import main.sticker.position.StickerWithPosition;
+import main.ui.jdialog.JDialogSticker;
 
-public final class DerbyStickerWithPosition implements StickerWithPosition {
+/**
+ * <p> {@link JDialogSticker} with position implementation.
+ * 
+ * @author paulodamaso
+ *
+ */
+public final class JDialogStickerWithPosition implements JDialogSticker, StickerWithPosition {
 
-	private final Sticker origin;
+	private final JDialogSticker origin;
 	private final Point position;
 	private final String database;
 	
-	public DerbyStickerWithPosition(Sticker origin, Point position, String database) {
+	public JDialogStickerWithPosition(JDialogSticker origin, Point position, String database) {
 		this.origin = origin;
 		this.position = position;
 		this.database = database;
+		
+		origin.jdialog().setLocation(this.position);
 		
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -36,6 +50,12 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 	}
 
 	@Override
+	public void print() {
+		//System.out.println("Printing jdialogstickerwith position: " + position);
+		origin.print();
+	}
+
+	@Override
 	public int id() {
 		return origin.id();
 	}
@@ -45,12 +65,15 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 		return origin.text();
 	}
 
+
 	@Override
-	public DerbyStickerWithPosition persist(Sticker sticker) {
+	public JDialogStickerWithPosition persist(Sticker sticker) {
+		//System.out.println("Persisting JDialoStickerWithPosition " + id());
 		//delegating sticker saving behavior to origin, persisting position only
 		origin.persist(sticker);
+		persistPosition();
 		
-		return new DerbyStickerWithPosition(origin, persistPosition(), database);
+		return new JDialogStickerWithPosition(origin, position(), database);
 	}
 
 	private final String insert_position_query = "insert into stickerwithposition (id, x, y) values ( ?, ?, ?)";
@@ -58,6 +81,7 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 	private Point persistPosition () {
 		Connection conn = null;
 		try {
+			Point position = jdialog().getLocation();
 			
 			//saving position info
 			PreparedStatement ps = null;
@@ -81,7 +105,7 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 			return position;
 
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving DerbyStickerWithPosition
+			/* @todo #12 implement better exception handling when saving JDialogStickerWithPosition
 			 * 
 			 */
 			e.printStackTrace();
@@ -89,7 +113,7 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after saving DerbyStickerWithPosition.
+				/* @todo #12 implement better exception handling closing connection after saving JDialogStickerWithPosition.
 				 * 
 				 */
 				e.printStackTrace();
@@ -115,7 +139,7 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 			}
 
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when retrieving position in DerbyStickerWithPosition
+			/* @todo #12 implement better exception handling when retrieving position
 			 * 
 			 */
 			e.printStackTrace();
@@ -123,7 +147,7 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after retrieving position in DerbyStickerWithPosition
+				/* @todo #12 implement better exception handling closing connection after retrieving position
 				 * 
 				 */
 				e.printStackTrace();
@@ -132,4 +156,23 @@ public final class DerbyStickerWithPosition implements StickerWithPosition {
 		return position;
 	}
 
+	@Override
+	public JDialog jdialog() {
+		return origin.jdialog();
+	}
+
+	@Override
+	public JTextArea txtDescription() {
+		return origin.txtDescription();
+	}
+
+	@Override
+	public JPopupMenu popup() {
+		return origin.popup();
+	}
+
+	@Override
+	public JMenuItem saveItem() {
+		return origin.saveItem();
+	}
 }

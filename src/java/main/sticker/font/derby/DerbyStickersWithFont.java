@@ -10,7 +10,9 @@ import java.util.Collection;
 
 import main.sticker.Sticker;
 import main.sticker.Stickers;
+import main.sticker.color.StickerWithColor;
 import main.sticker.font.StickerWithFont;
+import main.sticker.font.StickersWithFont;
 
 /**
  * <p> {@link StickerWithFont} repository in derby database, in table 'stickerwithfont'
@@ -18,7 +20,7 @@ import main.sticker.font.StickerWithFont;
  * @author paulodamaso
  *
  */
-public final class DerbyStickersWithFont implements Stickers {
+public final class DerbyStickersWithFont implements StickersWithFont {
 
 	private final Stickers origin;
 	private final String database;
@@ -93,6 +95,47 @@ public final class DerbyStickersWithFont implements Stickers {
 	@Override
 	public Sticker add(String text) {
 		return origin.add(text);
+	}
+
+	@Override
+	public Collection<StickerWithFont> iterateInFont() {
+		Collection<Sticker> it = origin.iterate();
+		Collection<StickerWithFont> ret = new ArrayList<StickerWithFont>();
+
+		Connection conn = null;
+		try {
+			conn = connect();
+			
+			//tasks with font
+			PreparedStatement ps = conn.prepareStatement(iterate_font_query);
+			ResultSet rs = ps.executeQuery();
+			
+			//iterate in all tasks, setting font in the task with font
+			while(rs.next()) {
+				for (Sticker stk : it) {
+					
+					int id = rs.getInt(1);
+					if (id == stk.id()) {
+
+						ret.add(new DerbyStickerWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+					}
+				}
+			}
+
+
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when getting DerbyStickersWithFont.iterateInFont
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
 	}
 
 }

@@ -19,7 +19,7 @@ public final class ConsoleTask implements Printable, Task {
 
 	@Override
 	public void print() {
-		System.out.println(id() +" - " + description());
+		//System.out.println(id() +" - " + description());
 	}
 
 	@Override

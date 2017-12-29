@@ -69,7 +69,6 @@ public class DerbyStickersWithPosition implements Stickers {
 				for (Sticker stk : it) {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						System.out.println("Found " + stk.id() + " in stickerswithposition");
 						toRemove.add(stk);
 						toAdd.add(new DerbyStickerWithPosition(stk, new Point(rs.getInt(2), rs.getInt(3)), database));
 					}

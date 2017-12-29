@@ -11,6 +11,7 @@ import java.util.Collection;
 import main.sticker.Sticker;
 import main.sticker.Stickers;
 import main.sticker.color.StickerWithColor;
+import main.sticker.color.StickersWithColor;
 
 /**
  * <p> {@link StickerWithColor} repository in derby database, in table 'stickerwithcolor'
@@ -18,7 +19,7 @@ import main.sticker.color.StickerWithColor;
  * @author paulodamaso
  *
  */
-public final class DerbyStickersWithColor implements Stickers {
+public final class DerbyStickersWithColor implements StickersWithColor {
 	
 	private final Stickers origin;
 	private final String database;
@@ -92,5 +93,45 @@ public final class DerbyStickersWithColor implements Stickers {
 			}
 		}
 		return it;
+	}
+
+	@Override
+	public Collection<StickerWithColor> iterateInColor() {
+		Collection<Sticker> it = origin.iterate();
+		Collection<StickerWithColor> ret = new ArrayList<StickerWithColor>();
+		
+
+		Connection conn = null;
+		try {
+			conn = connect();
+			
+			//stickers with color
+			PreparedStatement ps = conn.prepareStatement(iterate_color_query);
+			ResultSet rs = ps.executeQuery();
+			
+			//iterate in all tasks, setting color in the task with color
+			while(rs.next()) {
+				for (Sticker stk : it) {
+
+					int id = rs.getInt(1);
+					if (id == stk.id()) {
+						ret.add(new DerbyStickerWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
+					}
+				}
+			}
+
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when getting DerbyStickersWithColor.iterateWithColor
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
 	}
 }
