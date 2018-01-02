@@ -12,7 +12,9 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.color.EnvelopesWithColor;
+import main.envelope.color.SimpleEnvelopeWithColor;
 import main.note.Note;
+
 
 /**
  * <p> {@link EnvelopeWithColor} repository in derby database, in table 'envelopewithcolor'
@@ -47,8 +49,8 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 
 	private final String iterate_color_query = "select id, red, green, blue from envelopewithcolor";
 	@Override
-	public Collection<Envelope> iterate() {
-		Collection<Envelope> it = origin.iterate();
+	public Collection<Envelope> envelopes() {
+		Collection<Envelope> it = origin.envelopes();
 
 		Connection conn = null;
 		try {
@@ -66,9 +68,9 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 				for (Envelope env : it) {
 					
 					int id = rs.getInt(1);
-					if (id == env.note().id()) {
+					if (id == env.id()) {
 						toRemove.add(env);
-						toAdd.add(new DerbyEnvelopeWithColor(env, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
+						toAdd.add(new DerbyEnvelopeWithColor(new SimpleEnvelopeWithColor (env, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4))), database));
 					}
 				}
 			}
@@ -93,7 +95,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 
 	@Override
 	public Collection<EnvelopeWithColor> iterateInColor() {
-		Collection<Envelope> it = origin.iterate();
+		Collection<Envelope> it = origin.envelopes();
 		Collection<EnvelopeWithColor> ret = new ArrayList<EnvelopeWithColor>();
 		
 
@@ -111,7 +113,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						ret.add(new DerbyEnvelopeWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
+						ret.add(new DerbyEnvelopeWithColor(new SimpleEnvelopeWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4))), database));
 					}
 				}
 			}
@@ -132,7 +134,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 	}
 
 	@Override
-	public Envelope add(Note note) {
-		return origin.add(note);
+	public Envelope envelope(Note note) {
+		return origin.envelope(note);
 	}
 }

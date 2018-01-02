@@ -34,7 +34,7 @@ public final class DerbyNotes implements Notes {
 
 	private final String iterate_query = "select id from note";
 	@Override
-	public Collection<Note> iterate() {
+	public Collection<Note> notes() {
 		ArrayList<Note> it = new ArrayList<Note>();
 		Connection conn = null;
 		try {

@@ -12,6 +12,7 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
+import main.envelope.font.SimpleEnvelopeWithFont;
 import main.note.Note;
 
 /**
@@ -47,8 +48,8 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 
 	private final String iterate_font_query = "select id, name, style, size from envelopewithfont";
 	@Override
-	public Collection<Envelope> iterate() {
-		Collection<Envelope> it = origin.iterate();
+	public Collection<Envelope> envelopes() {
+		Collection<Envelope> it = origin.envelopes();
 
 		Connection conn = null;
 		try {
@@ -69,7 +70,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 					if (id == stk.id()) {
 
 						toRemove.add(stk);
-						toAdd.add(new DerbyEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+						toAdd.add(new DerbyEnvelopeWithFont(new SimpleEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4))), database));
 					}
 				}
 			}
@@ -94,7 +95,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 
 	@Override
 	public Collection<EnvelopeWithFont> iterateInFont() {
-		Collection<Envelope> it = origin.iterate();
+		Collection<Envelope> it = origin.envelopes();
 		Collection<EnvelopeWithFont> ret = new ArrayList<EnvelopeWithFont>();
 
 		Connection conn = null;
@@ -112,7 +113,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 
-						ret.add(new DerbyEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+						ret.add(new DerbyEnvelopeWithFont(new SimpleEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4))), database));
 					}
 				}
 			}
@@ -134,8 +135,8 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	}
 
 	@Override
-	public Envelope add(Note note) {
-		return origin.add(note);
+	public Envelope envelope(Note note) {
+		return origin.envelope(note);
 	}
 
 }

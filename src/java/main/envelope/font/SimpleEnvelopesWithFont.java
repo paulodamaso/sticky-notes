@@ -15,8 +15,8 @@ public final class SimpleEnvelopesWithFont implements EnvelopesWithFont {
 	}
 
 	@Override
-	public Collection<Envelope> iterate() {
-		Collection<Envelope> it = origin.iterate();
+	public Collection<Envelope> envelopes() {
+		Collection<Envelope> it = origin.envelopes();
 		Collection<EnvelopeWithFont> font = iterateInFont();
 
 		Collection<Envelope> toRemove = new ArrayList<Envelope>();
@@ -41,11 +41,10 @@ public final class SimpleEnvelopesWithFont implements EnvelopesWithFont {
 	public Collection<EnvelopeWithFont> iterateInFont() {
 		return origin.iterateInFont();
 	}
-	
-	@Override
-	public Envelope add(Note note) {
-		return origin.add(note);
-	}
 
+	@Override
+	public Envelope envelope(Note note) {
+		return origin.envelope(note);
+	}
 
 }

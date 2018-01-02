@@ -1,17 +1,14 @@
 package main.envelope;
 
 import main.note.Note;
-import main.note.persistence.Persistent;
 
 /**
- * <p> Presentation envelope for a {@link Envelope}.
+ * <p> A envelope decorator responsible for {@link Note} presentation.
  * 
- * @author paulo
+ * @author paulodamaso
  *
  */
-public interface Envelope extends Persistent<Envelope>{
-
-	public int id();
-	public Note note();
-
+public interface Envelope extends Note {
+	
+	public void print();
 }

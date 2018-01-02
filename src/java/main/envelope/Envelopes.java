@@ -4,8 +4,9 @@ import java.util.Collection;
 
 import main.note.Note;
 
-public interface Envelopes {
+public interface Envelopes  {
+	
+	public Collection<Envelope> envelopes();
+	public Envelope envelope(Note note);
 
-	public Collection<Envelope> iterate();
-	public Envelope add(Note note);
 }

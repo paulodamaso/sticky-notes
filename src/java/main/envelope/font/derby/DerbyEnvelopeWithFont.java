@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
 import main.note.Note;
 
@@ -18,13 +17,11 @@ import main.note.Note;
  */
 public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	
-	private final Envelope origin;
+	private final EnvelopeWithFont origin;
 	private final String database;
-	private final Font font;
 
-	public DerbyEnvelopeWithFont(Envelope origin, Font font, String database) {
+	public DerbyEnvelopeWithFont(EnvelopeWithFont origin, String database) {
 		this.origin = origin;
-		this.font = font;
 		this.database = database;
 		
 		try {
@@ -47,17 +44,6 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
-	
-
-	@Override	
-	public DerbyEnvelopeWithFont persist(Envelope note) {
-	
-		//delegating note saving behavior to origin, persisting font info only
-		origin.persist(note);
-		
-		return new DerbyEnvelopeWithFont(origin, persistFont(), database);
-
-	}
 
 	private final String insert_font_query = "insert into envelopewithfont (id, name, style, size) values ( ?, ?, ?, ?)";
 	private final String update_font_query = "update envelopewithfont set name = ?, style = ?, size = ? where id = ?";
@@ -65,23 +51,25 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 		Connection conn = null;
 		try {
 			
+			Font font = origin.font();
+			
 			//saving font info
 			PreparedStatement ps = null;
 			
 			if (font() != null) {
 				conn = connect();
 				ps = conn.prepareStatement(update_font_query);
-				ps.setString(1, font.getFamily());
-				ps.setInt(2, font.getStyle());
-				ps.setInt(3, font.getSize());
+				ps.setString(1, origin.font().getFamily());
+				ps.setInt(2, origin.font().getStyle());
+				ps.setInt(3, origin.font().getSize());
 				ps.setInt(4, id());
 			} else {
 				conn = connect();
 				ps = conn.prepareStatement(insert_font_query);
 				ps.setInt(1, id());
-				ps.setString(2, font.getFamily());
-				ps.setInt(3, font.getStyle());
-				ps.setInt(4, font.getSize());
+				ps.setString(2, origin.font().getFamily());
+				ps.setInt(3, origin.font().getStyle());
+				ps.setInt(4, origin.font().getSize());
 			}
 	
 			ps.executeUpdate();
@@ -141,7 +129,18 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	}
 
 	@Override
-	public Note note() {
-		return origin.note();
+	public void print() {
+		origin.print();
+	}
+
+	@Override
+	public String text() {
+		return origin.text();
+	}
+
+	@Override
+	public Note persist(Note persistent) {
+		persistFont();
+		return origin.persist(persistent);
 	}
 }

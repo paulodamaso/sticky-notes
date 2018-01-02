@@ -5,6 +5,7 @@ import java.awt.Color;
 import main.envelope.Envelope;
 import main.note.Note;
 
+
 public class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 	
 	private final Envelope origin;
@@ -21,19 +22,23 @@ public class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 	}
 
 	@Override
-	public Note note() {
-		return origin.note();
+	public void print() {
+		origin.print();
 	}
 
 	@Override
-	public Envelope persist(Envelope persistent) {
-		// TODO Auto-generated method stub
-		return null;
+	public String text() {
+		return origin.text();
+	}
+
+	@Override
+	public EnvelopeWithColor persist(Note persistent) {
+		origin.persist(persistent);
+		return new SimpleEnvelopeWithColor(origin, this.color);
 	}
 
 	@Override
 	public Color color() {
 		return this.color;
 	}
-
 }

@@ -98,7 +98,6 @@ public final class DerbyNote implements Note {
 
 	@Override
 	public int id() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 }

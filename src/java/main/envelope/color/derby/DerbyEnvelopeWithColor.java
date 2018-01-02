@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
 import main.note.Note;
+
 
 /**
  * <p> {@link EnvelopeWithColor} implementations with color data in derby database, in table 'envelopewithcolor'.
@@ -18,23 +18,12 @@ import main.note.Note;
  */
 public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
-	private final Envelope origin;
+	private final EnvelopeWithColor origin;
 	private final String database;
-	private final Color color;
 
-	public DerbyEnvelopeWithColor(Envelope origin, Color color,  String database) {
+	public DerbyEnvelopeWithColor(EnvelopeWithColor origin, String database) {
 		this.origin = origin;
 		this.database = database;
-		this.color = color;
-	}
-
-	@Override
-	public Envelope persist(Envelope note) {
-		
-		//delegating note saving behavior to origin, persisting colors only
-		origin.persist(note);
-		
-		return new DerbyEnvelopeWithColor(origin, persistColor(), database);
 	}
 	
 	private Connection connect() throws Exception {
@@ -81,7 +70,7 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	private Color persistColor() {
 		Connection conn = null;
 		try {
-			Color color = this.color;
+			Color color = origin.color();
 			
 			//saving color info
 			PreparedStatement ps = null;
@@ -92,11 +81,11 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 				ps.setInt(1, color.getRed());
 				ps.setInt(2, color.getGreen());
 				ps.setInt(3, color.getBlue());
-				ps.setInt(4, origin.note().id());
+				ps.setInt(4, origin.id());
 			} else {
 				conn = connect();
 				ps = conn.prepareStatement(insert_color_query);
-				ps.setInt(1, origin.note().id());
+				ps.setInt(1, origin.id());
 				ps.setInt(2, color.getRed());
 				ps.setInt(3, color.getGreen());
 				ps.setInt(4, color.getBlue());
@@ -124,15 +113,25 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		return null;		
 	}
 
-	@Override
-	public Note note() {
-		return origin.note();
-	}
-
 
 	@Override
 	public int id() {
 		return origin.id();
+	}
+
+	@Override
+	public void print() {
+		origin.print();
+	}
+
+	@Override
+	public String text() {
+		return origin.text();
+	}
+
+	public Note persist(Note persistent) {
+		persistColor();
+		return origin.persist(persistent);
 	}
 
 }

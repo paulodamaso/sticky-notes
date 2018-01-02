@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public interface Notes  {
 	
-	public Collection<Note> iterate();
+	public Collection<Note> notes();
 	
 	public Note add(String text);
 	

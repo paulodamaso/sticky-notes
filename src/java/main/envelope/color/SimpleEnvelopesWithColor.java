@@ -6,6 +6,7 @@ import java.util.Collection;
 import main.envelope.Envelope;
 import main.note.Note;
 
+
 public final class SimpleEnvelopesWithColor implements EnvelopesWithColor {
 	
 	private final EnvelopesWithColor origin;
@@ -15,8 +16,8 @@ public final class SimpleEnvelopesWithColor implements EnvelopesWithColor {
 	}
 
 	@Override
-	public Collection<Envelope> iterate() {
-		Collection<Envelope> it = origin.iterate();
+	public Collection<Envelope> envelopes() {
+		Collection<Envelope> it = origin.envelopes();
 		Collection<EnvelopeWithColor> color = iterateInColor();
 
 		Collection<Envelope> toRemove = new ArrayList<Envelope>();
@@ -24,7 +25,7 @@ public final class SimpleEnvelopesWithColor implements EnvelopesWithColor {
 			
 		for (EnvelopeWithColor stkWc : color) {
 			for (Envelope stk : it) {
-				if (stkWc.note().id() == stk.note().id()) {
+				if (stkWc.id() == stk.id()) {
 					toRemove.add(stk);
 					toAdd.add(stkWc);
 				}
@@ -42,8 +43,7 @@ public final class SimpleEnvelopesWithColor implements EnvelopesWithColor {
 	}
 
 	@Override
-	public Envelope add(Note note) {
-		return origin.add(note);
+	public Envelope envelope(Note note) {
+		return origin.envelope(note);
 	}
-
 }
