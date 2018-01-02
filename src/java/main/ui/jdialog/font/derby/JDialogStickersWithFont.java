@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.sticker.Sticker;
-import main.sticker.Stickers;
+import main.note.Note;
+import main.note.Stickers;
 import main.ui.jdialog.JDialogSticker;
 import main.ui.jdialog.JDialogStickers;
 
 /**
- * <p> Get the color of each {@link Sticker} from a derby database, in table 'stickerwithfont'
+ * <p> Get the color of each {@link Note} from a derby database, in table 'stickerwithfont'
  * 
  * @author paulodamaso
  *
@@ -106,7 +106,7 @@ public final class JDialogStickersWithFont implements JDialogStickers {
 
 	@Override
 	public Stickers stickers() {
-		return origin.stickers();
+		return origin.envelopes();
 	}
 
 

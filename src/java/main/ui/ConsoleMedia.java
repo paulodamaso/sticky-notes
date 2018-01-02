@@ -2,25 +2,25 @@ package main.ui;
 
 import java.awt.Color;
 
-import main.sticker.Sticker;
-import main.sticker.color.StickerWithColor;
+import main.envelope.color.EnvelopeWithColor;
+import main.note.Note;
 
 /**
- * <p> Console media for printing {@link Sticker}.
+ * <p> Console media for printing {@link Note}.
  * 
  * @author paulodamaso
  *
  */
-public class ConsoleMedia implements PrintMedia<Sticker> {
+public class ConsoleMedia implements PrintMedia<Note> {
 	
-	private Sticker sticker;
+	private Note sticker;
 	
-	public ConsoleMedia(Sticker sticker) {
+	public ConsoleMedia(Note sticker) {
 		this.sticker = sticker;
 	}
 
 	@Override
-	public PrintMedia<Sticker> with(String k, String v) {
+	public PrintMedia<Note> with(String k, String v) {
 		if (k.equalsIgnoreCase("color")) {
 			return new ConsoleMedia(new SimpleStickerWithColor(sticker, v));
 		}
@@ -29,7 +29,7 @@ public class ConsoleMedia implements PrintMedia<Sticker> {
 	}
 
 	@Override
-	public Sticker output() {
+	public Note output() {
 		System.out.println("");
 		return null;
 	}

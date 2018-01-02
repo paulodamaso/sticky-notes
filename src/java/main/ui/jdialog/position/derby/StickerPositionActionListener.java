@@ -4,11 +4,11 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.sticker.Sticker;
+import main.note.Note;
 import main.ui.jdialog.JDialogSticker;
 
 /**
- * <p> {@link ActionListener} for persisting a {@link Sticker} which moved.
+ * <p> {@link ActionListener} for persisting a {@link Note} which moved.
  * 
  * @author paulodamaso
  *

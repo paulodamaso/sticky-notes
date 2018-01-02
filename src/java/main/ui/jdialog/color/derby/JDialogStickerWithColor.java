@@ -12,8 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.color.StickerWithColor;
+import main.envelope.color.EnvelopeWithColor;
+import main.note.Note;
 import main.ui.jdialog.JDialogSticker;
 import main.ui.jdialog.persistence.StickerSaveActionListener;
 
@@ -23,7 +23,7 @@ import main.ui.jdialog.persistence.StickerSaveActionListener;
  * @author paulodamaso
  *
  */
-public final class JDialogStickerWithColor implements JDialogSticker, StickerWithColor  {
+public final class JDialogStickerWithColor implements JDialogSticker, EnvelopeWithColor  {
 	
 	private final JDialogSticker origin;
 	private final String database;
@@ -67,7 +67,7 @@ public final class JDialogStickerWithColor implements JDialogSticker, StickerWit
 	
 
 	@Override	
-	public JDialogStickerWithColor persist(Sticker sticker) {
+	public JDialogStickerWithColor persist(Note sticker) {
 	
 		//delegating sticker saving behavior to origin, persisting colors only
 		origin.persist(sticker);

@@ -9,14 +9,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import main.sticker.Sticker;
-import main.ui.jdialog.color.derby.StickerColorActionListener;
+import main.envelope.jdialog.JDialogColorActionListener;
+import main.note.Note;
 import main.ui.jdialog.font.derby.StickerFontActionListener;
 import main.ui.jdialog.position.derby.StickerPositionActionListener;
 import main.ui.jdialog.size.derby.StickerSizeActionListener;
 
 /**
- * <p> A simple {@link Sticker} decorated by a {@link JDialog}.
+ * <p> A simple {@link Note} decorated by a {@link JDialog}.
  * 
  * @author paulodamaso
  *
@@ -26,11 +26,11 @@ public final class SimpleSticker implements JDialogSticker {
 	private final JDialog jdialog;
 	private final JTextArea txtDescription;
 	private final JPopupMenu popup;
-	private final Sticker sticker;
+	private final Note sticker;
 	private final JMenuItem saveItem;
 
 	
-	public SimpleSticker(Sticker sticker) {
+	public SimpleSticker(Note sticker) {
 		this.jdialog = new JDialog();
 		this.popup = new JPopupMenu();
 		this.sticker = sticker;
@@ -61,7 +61,7 @@ public final class SimpleSticker implements JDialogSticker {
         //setting the popup menu to show color select option
         JMenuItem colorMenu = new JMenuItem("Color...");
         //adding action to color menu
-        colorMenu.addActionListener(new StickerColorActionListener(this));
+        colorMenu.addActionListener(new JDialogColorActionListener(this));
         
         //setting the popup menu to show save option
         this.saveItem = new JMenuItem("Save");
@@ -119,7 +119,7 @@ public final class SimpleSticker implements JDialogSticker {
 	}
 
 	@Override
-	public Sticker persist(Sticker sticker) {
+	public Note persist(Note sticker) {
 		//System.out.println("Persisting SimpleSticker " + id());
 		return this.sticker.persist(this);
 	}

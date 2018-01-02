@@ -4,8 +4,8 @@ import java.awt.Font;
 
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.font.StickerWithFont;
+import main.envelope.font.StickerWithFont;
+import main.note.Note;
 
 public class TextStickerWithFont implements TextSticker, StickerWithFont {
 
@@ -30,7 +30,7 @@ public class TextStickerWithFont implements TextSticker, StickerWithFont {
 	}
 
 	@Override
-	public Sticker persist(Sticker sticker) {
+	public Note persist(Note sticker) {
 		return origin.persist(this);
 	}
 

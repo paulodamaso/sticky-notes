@@ -11,8 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.size.StickerWithSize;
+import main.envelope.size.StickerWithSize;
+import main.note.Note;
 import main.ui.jdialog.JDialogSticker;
 
 /**
@@ -67,7 +67,7 @@ public final class JDialogStickerWithSize implements JDialogSticker, StickerWith
 
 
 	@Override
-	public JDialogStickerWithSize persist(Sticker sticker) {
+	public JDialogStickerWithSize persist(Note sticker) {
 		//System.out.println("Persisting JDialoStickerWithSize " + id());
 		//delegating sticker saving behavior to origin, persisting size only
 		origin.persist(sticker);

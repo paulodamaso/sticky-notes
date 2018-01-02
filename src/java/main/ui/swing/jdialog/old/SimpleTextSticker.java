@@ -7,7 +7,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import main.sticker.Sticker;
+import main.note.Note;
 import main.ui.PrintMedia;
 
 /**
@@ -18,10 +18,10 @@ import main.ui.PrintMedia;
  */
 public class SimpleTextSticker implements TextSticker {
 	
-	private final Sticker origin;
+	private final Note origin;
 	private final JTextArea txtText;
 	
-	public SimpleTextSticker(Sticker origin) {
+	public SimpleTextSticker(Note origin) {
 		System.out.println("New simplesticker");
 		this.origin = origin;
 		
@@ -56,7 +56,7 @@ public class SimpleTextSticker implements TextSticker {
 	}
 
 	@Override
-	public Sticker persist(Sticker sticker) {
+	public Note persist(Note sticker) {
 		return origin.persist(this);
 	}
 

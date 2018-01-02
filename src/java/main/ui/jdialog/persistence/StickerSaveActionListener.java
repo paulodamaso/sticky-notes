@@ -3,13 +3,13 @@ package main.ui.jdialog.persistence;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.sticker.Sticker;
+import main.note.Note;
 
 public class StickerSaveActionListener implements ActionListener {
 	
-	private Sticker sticker;
+	private Note sticker;
 
-	public StickerSaveActionListener(Sticker sticker) {
+	public StickerSaveActionListener(Note sticker) {
 		this.sticker = sticker;
 	}
 

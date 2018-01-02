@@ -11,8 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.position.StickerWithPosition;
+import main.envelope.position.StickerWithPosition;
+import main.note.Note;
 import main.ui.jdialog.JDialogSticker;
 
 /**
@@ -67,7 +67,7 @@ public final class JDialogStickerWithPosition implements JDialogSticker, Sticker
 
 
 	@Override
-	public JDialogStickerWithPosition persist(Sticker sticker) {
+	public JDialogStickerWithPosition persist(Note sticker) {
 		//System.out.println("Persisting JDialoStickerWithPosition " + id());
 		//delegating sticker saving behavior to origin, persisting position only
 		origin.persist(sticker);

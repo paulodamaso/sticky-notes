@@ -12,8 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.font.StickerWithFont;
+import main.envelope.font.StickerWithFont;
+import main.note.Note;
 import main.ui.jdialog.JDialogSticker;
 import main.ui.jdialog.persistence.StickerSaveActionListener;
 
@@ -67,7 +67,7 @@ public final class JDialogStickerWithFont implements JDialogSticker, StickerWith
 	
 
 	@Override	
-	public JDialogStickerWithFont persist(Sticker sticker) {
+	public JDialogStickerWithFont persist(Note sticker) {
 		//System.out.println("Persisting JDialoStickerWithFont " + id());
 	
 		//delegating sticker saving behavior to origin, persisting font info only

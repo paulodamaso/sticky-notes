@@ -1,0 +1,138 @@
+package main.envelope.color.derby;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import main.envelope.Envelope;
+import main.envelope.color.EnvelopeWithColor;
+import main.note.Note;
+
+/**
+ * <p> {@link EnvelopeWithColor} implementations with color data in derby database, in table 'envelopewithcolor'.
+ * 
+ * @author paulodamaso
+ *
+ */
+public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
+	
+	private final Envelope origin;
+	private final String database;
+	private final Color color;
+
+	public DerbyEnvelopeWithColor(Envelope origin, Color color,  String database) {
+		this.origin = origin;
+		this.database = database;
+		this.color = color;
+	}
+
+	@Override
+	public Envelope persist(Envelope note) {
+		
+		//delegating note saving behavior to origin, persisting colors only
+		origin.persist(note);
+		
+		return new DerbyEnvelopeWithColor(origin, persistColor(), database);
+	}
+	
+	private Connection connect() throws Exception {
+		
+		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+	}
+
+	private final String color_query = "select  red, green, blue from envelopewithcolor where id = ?";
+	@Override
+	public Color color() {
+		Connection conn = null;
+		Color color = null;
+		try {
+			conn = connect();
+			PreparedStatement ps = conn.prepareStatement(color_query);
+			ps.setInt(1, id());
+
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				color =  new Color(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+			}
+
+		}catch(Exception e) {
+			/* @todo #12 implement better exception handling when retrieving color from derby
+			 * 
+			 */
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				/* @todo #12 implement better exception handling closing connection after retrieving color from derby
+				 * 
+				 */
+				e.printStackTrace();
+			}
+		}
+		return color;
+	}
+	
+	private final String insert_color_query = "insert into envelopewithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
+	private final String update_color_query = "update envelopewithcolor set red = ?, green = ?, blue = ? where id = ?";
+	private Color persistColor() {
+		Connection conn = null;
+		try {
+			Color color = this.color;
+			
+			//saving color info
+			PreparedStatement ps = null;
+			
+			if (color() != null) {
+				conn = connect();
+				ps = conn.prepareStatement(update_color_query);
+				ps.setInt(1, color.getRed());
+				ps.setInt(2, color.getGreen());
+				ps.setInt(3, color.getBlue());
+				ps.setInt(4, origin.note().id());
+			} else {
+				conn = connect();
+				ps = conn.prepareStatement(insert_color_query);
+				ps.setInt(1, origin.note().id());
+				ps.setInt(2, color.getRed());
+				ps.setInt(3, color.getGreen());
+				ps.setInt(4, color.getBlue());
+			}
+	
+			ps.executeUpdate();
+			
+			return color;
+	
+		}catch(Exception e) {
+			/* @todo #12 implement better exception handling when saving JDialogEnvelopeWithColor
+			 * 
+			 */
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				/* @todo #12 implement better exception handling closin connection after saving JDialogEnvelopeWithColor.
+				 * 
+				 */
+				e.printStackTrace();
+			}
+		}
+		return null;		
+	}
+
+	@Override
+	public Note note() {
+		return origin.note();
+	}
+
+
+	@Override
+	public int id() {
+		return origin.id();
+	}
+
+}

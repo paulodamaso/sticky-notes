@@ -3,8 +3,8 @@ package main.ui.swing.jdialog.old;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.sticker.Sticker;
-import main.sticker.Stickers;
+import main.note.Note;
+import main.note.Stickers;
 
 public class TextStickers implements Stickers {
 	
@@ -15,16 +15,16 @@ public class TextStickers implements Stickers {
 	}
 
 	@Override
-	public Collection<Sticker> iterate() {
-		Collection<Sticker> ret = new ArrayList<Sticker>();
-		for(Sticker stk : origin.iterate()) {
+	public Collection<Note> iterate() {
+		Collection<Note> ret = new ArrayList<Note>();
+		for(Note stk : origin.iterate()) {
 			ret.add(new SimpleTextSticker(stk));
 		}
 		return ret;
 	}
 
 	@Override
-	public Sticker add(String text) {
+	public Note add(String text) {
 		return origin.add(text);
 	}
 

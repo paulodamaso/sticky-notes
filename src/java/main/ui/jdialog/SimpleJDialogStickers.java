@@ -3,8 +3,8 @@ package main.ui.jdialog;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.sticker.Sticker;
-import main.sticker.Stickers;
+import main.note.Note;
+import main.note.Stickers;
 import main.ui.PrintedSticker;
 
 /**
@@ -34,7 +34,7 @@ public final class SimpleJDialogStickers implements JDialogStickers {
 	public Collection<JDialogSticker> iterate() {
 //		//System.out.println("Iterating in SimplejDialogStickers");
 		ArrayList<JDialogSticker> stickers = new ArrayList<JDialogSticker>();
-		for(Sticker stk : origin.iterate()) {
+		for(Note stk : origin.iterate()) {
 			stickers.add(new SimpleSticker(stk));
 		}
 //		//System.out.println("Iterated in SimplejDialogStickers");

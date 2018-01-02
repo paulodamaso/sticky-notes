@@ -2,11 +2,11 @@ package main.ui.swing.jdialog.old;
 
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
+import main.note.Note;
 import main.ui.PrintedSticker;
 
 /**
- * <p> {@link Sticker} with text presentation using a {@link JTextArea}.
+ * <p> {@link Note} with text presentation using a {@link JTextArea}.
  * 
  * @author paulodamaso
  *

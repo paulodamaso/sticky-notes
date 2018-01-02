@@ -1,9 +1,9 @@
 package main.ui;
 
-import main.sticker.Sticker;
+import main.note.Note;
 
 /**
- * <p> Media for printing a {@link Sticker}.
+ * <p> Media for printing a {@link Note}.
  * 
  * @author paulodamaso
  *

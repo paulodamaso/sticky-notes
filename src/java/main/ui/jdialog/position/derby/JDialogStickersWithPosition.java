@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.sticker.Sticker;
-import main.sticker.Stickers;
+import main.note.Note;
+import main.note.Stickers;
 import main.ui.jdialog.JDialogSticker;
 import main.ui.jdialog.JDialogStickers;
 
 /**
- * <p> Get the position of each {@link Sticker} from a derby database, in table 'stickerwithposition'
+ * <p> Get the position of each {@link Note} from a derby database, in table 'stickerwithposition'
  * 
  * @author paulodamaso
  *
@@ -107,7 +107,7 @@ public final class JDialogStickersWithPosition implements JDialogStickers {
 	@Override
 	public Stickers stickers() {
 		//System.out.println("Reading stickers in JDialogStickersWithPosition");
-		return origin.stickers();
+		return origin.envelopes();
 	}
 
 }

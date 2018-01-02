@@ -10,24 +10,21 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
-import java.util.Collection;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.sticker.Sticker;
-import main.sticker.Stickers;
-import main.ui.PrintedSticker;
-import main.ui.jdialog.JDialogStickers;
-import main.ui.swing.jdialog.JDialogMedia;
-import main.ui.swing.jdialog.old.TextSticker;
-import main.ui.swing.jdialog.old.TextStickers;
+import main.envelope.Envelope;
+import main.envelope.jdialog.JDialogEnvelope;
+import main.envelope.jdialog.JDialogEnvelopes;
+import main.note.Notes;
 
 
 public final class SystemTrayApplication {
 
-	private final Collection<PrintedSticker> stickers;
+	private final JDialogEnvelopes jDialogEnvelopes;
+	private final Notes notes;
 	
 	public void init() throws Exception {
 		
@@ -100,12 +97,12 @@ public final class SystemTrayApplication {
 
         // action listener to newTaskItem: add a new sticker with a 
         // default task and print it
-//        newTaskItem.addActionListener(new ActionListener() {
-//			@Override			
-//			public void actionPerformed(ActionEvent e) {
-//				stickers.add("Type your text here");
-//			}
-//		});
+        newTaskItem.addActionListener(new ActionListener() {
+			@Override			
+			public void actionPerformed(ActionEvent e) {
+				jDialogEnvelopes.add(notes.add("Type your text here")).print();
+			}
+		});
         
         /*
          * @todo #48 should we implement a save all menuitem in task bar icon?
@@ -134,9 +131,9 @@ public final class SystemTrayApplication {
 //        });
 //       
 //        
-//        for (Sticker stk : stickers.iterate()) {
-//        	new JDialogWrapper(stk);
-//        }
+        for (JDialogEnvelope envelope : jDialogEnvelopes.envelopes()) {
+        	envelope.print();
+        }
          
 	}
 	
@@ -155,7 +152,10 @@ public final class SystemTrayApplication {
     }
 
 
-    public SystemTrayApplication(Collection<PrintedSticker> stickers) {
-		this.stickers = stickers;
+    public SystemTrayApplication(JDialogEnvelopes jDialogEnvelopes, Notes notes) {
+    	
+    	
+		this.jDialogEnvelopes = jDialogEnvelopes;
+		this.notes = notes;
 	}
 }

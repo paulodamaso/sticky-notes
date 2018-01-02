@@ -1,5 +1,5 @@
 
-create TABLE sticker
+create TABLE note
 
 (    
    id INT not null primary key
@@ -8,38 +8,45 @@ create TABLE sticker
    text VARCHAR(4096)    
 );
 
-create TABLE stickerwithcolor
+create table envelope (    
+   id INT not null primary key
+        GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),   
+   note INT CONSTRAINT note_foreignkey
+	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT   
+);
+
+create TABLE envelopewithcolor
 
 (    
-   id INT CONSTRAINT stickerwithcolor_foreignkey
-	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT envelopewithcolor_foreignkey
+	REFERENCES envelope ON DELETE CASCADE ON UPDATE RESTRICT,   
    red int, green int, blue int    
 );
 
-create TABLE stickerwithposition
+create TABLE envelopewithposition
 
 (    
-   id INT CONSTRAINT stickerwithposition_foreignkey
-	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT envelopewithposition_foreignkey
+	REFERENCES envelope ON DELETE CASCADE ON UPDATE RESTRICT,   
    x int, y int    
 );
 
-create TABLE stickerwithsize
+create TABLE envelopewithsize
 
 (    
-   id INT CONSTRAINT stickerwithsize_foreignkey
-	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT envelopewithsize_foreignkey
+	REFERENCES envelope ON DELETE CASCADE ON UPDATE RESTRICT,   
    width int, height int    
 );
 
-create TABLE stickerwithfont
+create TABLE envelopewithfont
 
 (    
-   id INT CONSTRAINT stickerwithfont_foreignkey
-	REFERENCES sticker ON DELETE CASCADE ON UPDATE RESTRICT,   
+   id INT CONSTRAINT envelopewithfont_foreignkey
+	REFERENCES envelope ON DELETE CASCADE ON UPDATE RESTRICT,   
    name varchar(256), style int, size int    
 );
 
-DROP TABLE TASKWITHCOLOR;
-DROP TABLE TASKWITHPOSITION;
-DROP TABLE sticker;
+delete from note
+delete from  envelopewithcolor

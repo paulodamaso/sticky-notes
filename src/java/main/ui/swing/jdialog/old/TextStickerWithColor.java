@@ -4,16 +4,16 @@ import java.awt.Color;
 
 import javax.swing.JTextArea;
 
-import main.sticker.Sticker;
-import main.sticker.color.StickerWithColor;
+import main.envelope.color.EnvelopeWithColor;
+import main.note.Note;
 
 /**
- * <p> {@link StickerWithColor} implementation in a {@link JTextArea} with color set.
+ * <p> {@link EnvelopeWithColor} implementation in a {@link JTextArea} with color set.
  * 
  * @author paulodamaso
  *
  */
-public class TextStickerWithColor implements TextSticker, StickerWithColor {
+public class TextStickerWithColor implements TextSticker, EnvelopeWithColor {
 
 	private final TextSticker origin;
 	
@@ -37,7 +37,7 @@ public class TextStickerWithColor implements TextSticker, StickerWithColor {
 	}
 
 	@Override
-	public Sticker persist(Sticker sticker) {
+	public Note persist(Note sticker) {
 		return origin.persist(this);
 	}
 

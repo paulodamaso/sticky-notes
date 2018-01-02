@@ -1,14 +1,14 @@
 package main.ui;
 
-import main.sticker.Sticker;
+import main.note.Note;
 
 /**
- * <p> A {@link Sticker} which printed to a {@link PrintMedia}.
+ * <p> A {@link Note} which printed to a {@link PrintMedia}.
  * 
  * @author paulodamaso
  *
  */
-public interface PrintedSticker extends Sticker {
+public interface PrintedSticker extends Note {
 
 	public PrintMedia printed(PrintMedia media);
 }

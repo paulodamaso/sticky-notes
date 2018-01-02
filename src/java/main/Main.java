@@ -1,27 +1,18 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import main.sticker.Sticker;
-import main.sticker.Stickers;
-import main.sticker.color.StickersWithColor;
-import main.sticker.color.derby.DerbyStickersWithColor;
-import main.sticker.font.StickersWithFont;
-import main.sticker.font.derby.DerbyStickersWithFont;
-import main.sticker.persistence.derby.DerbyStickers;
-import main.sticker.position.derby.DerbyStickersWithPosition;
-import main.sticker.size.derby.DerbyStickersWithSize;
-import main.ui.PrintedSticker;
-import main.ui.jdialog.JDialogStickers;
-import main.ui.jdialog.SimpleJDialogStickers;
-import main.ui.jdialog.color.derby.JDialogStickersWithColor;
-import main.ui.jdialog.font.derby.JDialogStickersWithFont;
-import main.ui.jdialog.position.derby.JDialogStickersWithPosition;
-import main.ui.jdialog.size.derby.JDialogStickersWithSize;
+import main.envelope.Envelopes;
+import main.envelope.color.derby.DerbyEnvelopesWithColor;
+import main.envelope.font.derby.DerbyEnvelopesWithFont;
+import main.envelope.jdialog.JDialogEnvelopes;
+import main.envelope.jdialog.SimpleJDialogEnvelopes;
+import main.envelope.jdialog.color.JDialogEnvelopesWithColor;
+import main.envelope.jdialog.font.JDialogEnvelopesWithFont;
+import main.envelope.jdialog.position.JDialogEnvelopesWithPosition;
+import main.envelope.persistence.DerbyEnvelopes;
+import main.envelope.position.derby.DerbyEnvelopesWithPosition;
+import main.note.Notes;
+import main.note.persistence.derby.DerbyNotes;
 import main.ui.swing.SystemTrayApplication;
-import main.ui.swing.jdialog.old.SimpleTextSticker;
-import main.ui.swing.jdialog.old.TextStickers;
 
 public class Main {
 
@@ -31,61 +22,25 @@ public class Main {
 		 * @todo #46 externalize sticker configuration in properties file and create them using factories
 		 */
 		
-		//setting Stickers configuration (presentation only)
-		//make printable stickers
-		// + put color if it have color (from database "resources/database/sticky-notes-db")
-//		JDialogStickers jDialogstickers = 
-//				new JDialogStickersWithFont(
-//					new JDialogStickersWithSize(
-//						new JDialogStickersWithPosition(
-//								new JDialogStickersWithColor(
-//										new SimpleJDialogStickers(
-//												new DerbyStickers("resources/database/sticky-notes-db")
-//												),
-//										"resources/database/sticky-notes-db"),
-//								"resources/database/sticky-notes-db"),
-//					"resources/database/sticky-notes-db"),
-//				"resources/database/sticky-notes-db");
-		
-		//sticker data
-//		Stickers stickers =
-//				new DerbyStickersWithSize(
-//				new DerbyStickersWithPosition(
-//				new DerbyStickersWithFont(
-//				new DerbyStickersWithColor(
-//						new DerbyStickers("resources/database/sticky-notes-db"),
-//						"resources/database/sticky-notes-db"
-//						), 
-//				"resources/database/sticky-notes-db"
-//						), 
-//				"resources/database/sticky-notes-db"
-//						), 
-//				"resources/database/sticky-notes-db"
-//						);
-		
-		
 		//first data, then presentation
 		//stcker / persistence
 		//all stickers
-		Stickers basic = new DerbyStickers("resources/database/sticky-notes-db"); 
+		Notes notes = new DerbyNotes("resources/database/sticky-notes-db"); 
+		
+		Envelopes derbyEnvelopes= new DerbyEnvelopes(notes, "resources/database/sticky-notes-db");
 //		Stickers stk = new main.ui.swing.jdialog.TextStickers(basic);
 		
-		//just stickers with color
-		StickersWithColor stkWc = new main.sticker.color.SimpleStickersWithColor(new DerbyStickersWithColor(
-				basic,
-				"resources/database/sticky-notes-db"));
-		
-		//decorating stickers with color with stickers with font; no presentation yet 
-		StickersWithFont stkWf = new main.sticker.font.SimpleStickersWithFont(new DerbyStickersWithFont(
-				stkWc, 
-				"resources/database/sticky-notes-db"));
-		
-		//decorating stickers with presentation
-		Collection<PrintedSticker> printableStickers = null;
-		
-		
+		JDialogEnvelopes jDialogBasic = 
+				new JDialogEnvelopesWithPosition(
+			new JDialogEnvelopesWithFont( 
+				new JDialogEnvelopesWithColor(
+						new SimpleJDialogEnvelopes(derbyEnvelopes), 
+						new DerbyEnvelopesWithColor(derbyEnvelopes, "resources/database/sticky-notes-db")
+						), 
+				new DerbyEnvelopesWithFont(derbyEnvelopes, "resources/database/sticky-notes-db")
+			), new DerbyEnvelopesWithPosition(derbyEnvelopes, "resources/database/sticky-notes-db"));
 				
-		SystemTrayApplication app = new SystemTrayApplication(printableStickers);
+		SystemTrayApplication app = new SystemTrayApplication(jDialogBasic, notes);
 				
 		app.init();
 
