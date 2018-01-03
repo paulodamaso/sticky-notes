@@ -6,24 +6,29 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
+import main.envelope.media.MediaFactoryImpl;
+import main.envelope.media.PrintMedia;
 import main.note.Note;
 
 
 /**
- * <p> {@link EnvelopeWithColor} implementations with color data in derby database, in table 'envelopewithcolor'.
+ * <p> {@link EnvelopeWithColor} implementation with color data in derby database, in table 'envelopewithcolor'.
  * 
  * @author paulodamaso
  *
  */
-public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
+public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
-	private final EnvelopeWithColor origin;
+	private final Envelope origin;
 	private final String database;
+	private final Color color;
 
-	public DerbyEnvelopeWithColor(EnvelopeWithColor origin, String database) {
+	public DerbyEnvelopeWithColor(Envelope origin, Color color, String database) {
 		this.origin = origin;
 		this.database = database;
+		this.color = color;
 	}
 	
 	private Connection connect() throws Exception {
@@ -70,7 +75,7 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	private Color persistColor() {
 		Connection conn = null;
 		try {
-			Color color = origin.color();
+			Color color = this.color;
 			
 			//saving color info
 			PreparedStatement ps = null;
@@ -96,7 +101,7 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 			return color;
 	
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving JDialogEnvelopeWithColor
+			/* @todo #12 implement better exception handling when saving color information
 			 * 
 			 */
 			e.printStackTrace();
@@ -104,7 +109,7 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closin connection after saving JDialogEnvelopeWithColor.
+				/* @todo #12 implement better exception handling closin connection after saving color information
 				 * 
 				 */
 				e.printStackTrace();
@@ -120,11 +125,6 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	}
 
 	@Override
-	public void print() {
-		origin.print();
-	}
-
-	@Override
 	public String text() {
 		return origin.text();
 	}
@@ -132,6 +132,11 @@ public class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	public Note persist(Note persistent) {
 		persistColor();
 		return origin.persist(persistent);
+	}
+
+	@Override
+	public PrintMedia media () {
+		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 }

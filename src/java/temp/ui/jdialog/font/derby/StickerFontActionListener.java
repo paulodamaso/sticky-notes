@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import main.envelope.sticky.font.NwFontChooserS;
+import temp.sticky.font.NwFontChooserS;
 import temp.ui.jdialog.JDialogSticker;
 
 public final class StickerFontActionListener implements ActionListener {

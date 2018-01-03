@@ -13,16 +13,13 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
+import main.envelope.SimpleEnvelopes;
 import main.envelope.color.derby.DerbyEnvelopesWithColor;
 import main.envelope.font.derby.DerbyEnvelopesWithFont;
-import main.envelope.sticky.SimpleStickyJDialogEnvelopes;
-import main.envelope.sticky.color.StickyJDialogEnvelopesWithColor;
-import main.envelope.sticky.font.StickyJDialogEnvelopesWithFont;
 import main.note.Notes;
 
 
@@ -30,7 +27,6 @@ import main.note.Notes;
 
 public final class SystemTrayApplication {
 
-	private final Notes notes;
 	private final Envelopes envelopes;
 	
 	public void init() throws Exception {
@@ -107,7 +103,7 @@ public final class SystemTrayApplication {
         newTaskItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				envelopes.envelope(notes.add("Type your text here")).print();
+//				envelopes.envelope(notes.add("Type your text here")).print();
 			}
 		});
         
@@ -139,8 +135,8 @@ public final class SystemTrayApplication {
 //       
 //
 
-        for (Envelope envelope : envelopes.envelopes()) {
-        	envelope.print();
+        for (Envelope envelope : envelopes.iterate()) {
+        	envelope.media().print();
         }
         
 	}
@@ -161,18 +157,39 @@ public final class SystemTrayApplication {
 
 
     public SystemTrayApplication(Notes notes) {
-    	this.notes = notes;
-    	//this.envelopes = new ConsoleEnvelopes(notes);
-    	//this.envelopes = new SimpleStickyJDialogEnvelopes(notes);
-    	Envelopes basicEnvelopes = new SimpleStickyJDialogEnvelopes(notes);
     	
-    	this.envelopes =
-    			new StickyJDialogEnvelopesWithFont(
-    					new StickyJDialogEnvelopesWithColor( //jdialogswithcolor
-    							new SimpleStickyJDialogEnvelopes(notes), //jdialoginfo 
-    						new DerbyEnvelopesWithColor(basicEnvelopes, "resources/database/sticky-notes-db") //color info
-    							),
-    					new DerbyEnvelopesWithFont(basicEnvelopes, "resources/database/sticky-notes-db") //font info
-    					); 
+    	this.envelopes = new DerbyEnvelopesWithColor( new DerbyEnvelopesWithFont(new SimpleEnvelopes(notes), "resources/database/sticky-notes-db"), "resources/database/sticky-notes-db");
+    	
+
+    	//method 01:
+    	//first create basic jdialogs
+//    	SimpleStickyJDialogEnvelopes basicEnvelopes = new SimpleStickyJDialogEnvelopes(notes);
+//    	//then add first decoration (color)
+//    	StickyJDialogEnvelopesWithFont envelopesWithFont =  new StickyJDialogEnvelopesWithFont(basicEnvelopes, );
+//    	StickyJDialogEnvelopesWithColor envelopesWithColor = new StickyJDialogEnvelopesWithColor( envelopesWithFont, new DerbyEnvelopesWithColor(envelopesWithFont, "resources/database/sticky-notes-db"));
+      	//then add second decoration (font)
+//    	StickyJDialogEnvelopesWithFont envelopesWithFont =  new StickyJDialogEnvelopesWithFont(basicEnvelopes, new DerbyEnvelopesWithFont(envelopesWithColor, "resources/database/sticky-notes-db"));
+
+    	//method 02:
+    	//envelope notes
+
+    	
+//    	Envelopes basicEnvelopes = new DerbyEnvelopes(notes, database) 
+//    	this.envelopes = envelopesWithColor;
+//    	
+//    	for (Envelope env : envelopesWithFont.envelopes()) {
+//    		System.out.println(env.getClass() + " - " + env.text());
+//    	}
+    	
+//    	this.envelopes =
+//    			new StickyJDialogEnvelopesWithColor(    			
+//    					new StickyJDialogEnvelopesWithFont(
+//    					 //jdialogswithcolor
+//    							new SimpleStickyJDialogEnvelopes(notes), //jdialoginfo 
+//    						 //color info
+//    							),
+//    					new DerbyEnvelopesWithFont(basicEnvelopes, "resources/database/sticky-notes-db") //font info
+//    					)
+//; 
 	}
 }

@@ -6,10 +6,10 @@ import java.util.Collection;
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.color.EnvelopesWithColor;
-import main.envelope.sticky.StickyJDialogEnvelope;
-import main.envelope.sticky.StickyJDialogEnvelopes;
 import main.note.Note;
 import temp.envelope.jdialog.JDialogEnvelope;
+import temp.sticky.StickyJDialogEnvelope;
+import temp.sticky.StickyJDialogEnvelopes;
 
 
 

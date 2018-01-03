@@ -1,5 +1,6 @@
 package main.envelope;
 
+import main.envelope.media.PrintMedia;
 import main.note.Note;
 
 /**
@@ -10,5 +11,11 @@ import main.note.Note;
  */
 public interface Envelope extends Note {
 	
-	public void print();
+	/**
+	 * <p> Returns the {@link PrintMedia} in which this object is printed.
+	 * @param media
+	 * @return
+	 */
+	public PrintMedia media ();
+	
 }

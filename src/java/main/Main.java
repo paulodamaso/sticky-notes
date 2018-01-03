@@ -1,7 +1,5 @@
 package main;
 
-import main.envelope.Envelopes;
-import main.envelope.console.ConsoleEnvelopes;
 import main.note.Notes;
 import main.note.persistence.derby.DerbyNotes;
 import temp.ui.swing.SystemTrayApplication;
