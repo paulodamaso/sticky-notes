@@ -158,7 +158,11 @@ public final class SystemTrayApplication {
 
     public SystemTrayApplication(Notes notes) {
     	
-    	this.envelopes = new DerbyEnvelopesWithColor( new DerbyEnvelopesWithFont(new SimpleEnvelopes(notes), "resources/database/sticky-notes-db"), "resources/database/sticky-notes-db");
+    	this.envelopes = 
+    			new DerbyEnvelopesWithFont(new DerbyEnvelopesWithColor( 
+    			new SimpleEnvelopes(notes), 
+    					"resources/database/sticky-notes-db"), 
+    			"resources/database/sticky-notes-db");
     	
 
     	//method 01:

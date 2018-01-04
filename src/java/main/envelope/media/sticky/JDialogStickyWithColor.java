@@ -18,13 +18,14 @@ import main.envelope.media.PrintMedia;
 public final class JDialogStickyWithColor implements JDialogSticky , MediaWithColor{
 	
 	private final EnvelopeWithColor envelopeWithColor;
-	private final JDialogSticky origin;
-	private final PrintMedia media;
+	private final JDialogSticky media;
 
-	public JDialogStickyWithColor(JDialogStickyWithColor jdiag, PrintMedia media) {
+	/*
+	 * @ todo #22 make this without typecasting
+	 */
+	public JDialogStickyWithColor(EnvelopeWithColor envelopeWithColor, PrintMedia media) {
 		this.envelopeWithColor = envelopeWithColor;
-		this.origin = origin;
-		this.media = media;
+		this.media = (JDialogSticky)media;
 		
 		this.txtArea().setBackground(this.envelopeWithColor.color());
 
@@ -32,22 +33,22 @@ public final class JDialogStickyWithColor implements JDialogSticky , MediaWithCo
 
 	@Override
 	public JDialog jDialog() {
-		return origin.jDialog();
+		return media.jDialog();
 	}
 
 	@Override
 	public Envelope envelope() {
-		return origin.envelope();
+		return media.envelope();
 	}
 
 	@Override
 	public JPopupMenu popUp() {
-		return origin.popUp();
+		return media.popUp();
 	}
 
 	@Override
 	public JTextArea txtArea() {
-		return origin.txtArea();
+		return media.txtArea();
 	}
 
 	@Override

@@ -50,7 +50,7 @@ create TABLE envelopewithfont
 
 
 
-select * from ENVELOPEWITHFONT
+select * from ENVELOPEWITHCOLOR
 
 drop table note;
 drop table envelopewithcolor;
@@ -59,3 +59,8 @@ drop table envelopewithsize;
 drop table envelopewithfont;
 drop table envelopewithcolor;
 drop table envelope;
+
+insert into NOTE (text)  values ('fifth note');
+
+insert  into ENVELOPEWITHCOLOR (ID, RED, GREEN, BLUE) values (2, 0, 0 , 255)
+
