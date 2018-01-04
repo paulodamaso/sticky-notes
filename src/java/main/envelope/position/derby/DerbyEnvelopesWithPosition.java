@@ -33,7 +33,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for JDialogEnvelopesWithPosition
+			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithPosition
 			 * 
 			 */
 			e.printStackTrace();
@@ -62,7 +62,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 			PreparedStatement ps = conn.prepareStatement(iterate_position_query);
 			ResultSet rs = ps.executeQuery();
 			
-			//iterate in all tasks, setting position in the note with position
+			//iterate in all envelopes, setting position in the note with position
 			while(rs.next()) {
 				for (Envelope stk : it) {
 					int id = rs.getInt(1);
@@ -102,7 +102,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 			PreparedStatement ps = conn.prepareStatement(iterate_position_query);
 			ResultSet rs = ps.executeQuery();
 			
-			//iterate in all tasks, setting position in the note with position
+			//iterate in all envelopes, setting position in the note with position
 			while(rs.next()) {
 				for (Envelope stk : it) {
 					int id = rs.getInt(1);
@@ -114,7 +114,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 
 
 		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when getting DerbyEnvelopesWithPosition.iterate
+			/* @todo #12 implement better exception handling when getting DerbyEnvelopesWithPosition.iterateInPosition
 			 * 
 			 */
 			e.printStackTrace();

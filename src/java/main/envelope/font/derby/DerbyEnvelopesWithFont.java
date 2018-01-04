@@ -33,7 +33,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithColor
+			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithFont
 			 * 
 			 */
 			e.printStackTrace();
@@ -57,11 +57,11 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 			Collection<Envelope> toRemove = new ArrayList<Envelope>();
 			Collection<Envelope> toAdd = new ArrayList<Envelope>();
 			
-			//tasks with font
+			//envelopes with font
 			PreparedStatement ps = conn.prepareStatement(iterate_font_query);
 			ResultSet rs = ps.executeQuery();
 			
-			//iterate in all tasks, setting font in the task with font
+			//iterate in all envelopes, setting font in the envelope with font
 			while(rs.next()) {
 				for (Envelope stk : it) {
 					
@@ -100,11 +100,11 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 		try {
 			conn = connect();
 			
-			//tasks with font
+			//envelopes with font
 			PreparedStatement ps = conn.prepareStatement(iterate_font_query);
 			ResultSet rs = ps.executeQuery();
 			
-			//iterate in all tasks, setting font in the task with font
+			//iterate in all envelopes, setting font in the envelope with font
 			while(rs.next()) {
 				for (Envelope stk : it) {
 					

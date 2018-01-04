@@ -78,13 +78,13 @@ public final class SystemTrayApplication {
 		 * @todo #50 internationalize system tray menu item labels 
 		 */
         MenuItem aboutItem = new MenuItem("About");
-        MenuItem newTaskItem = new MenuItem("New Sticky Note...");
+        MenuItem newNoteItem = new MenuItem("New Sticky Note...");
         MenuItem saveAllItem = new MenuItem("Save All Sticky Notes...");
         MenuItem exitItem = new MenuItem("Exit");
          
         popup.add(aboutItem);
         popup.addSeparator();
-        popup.add(newTaskItem);
+        popup.add(newNoteItem);
         popup.add(saveAllItem);
         popup.addSeparator();
         popup.add(exitItem);
@@ -125,7 +125,7 @@ public final class SystemTrayApplication {
          * @todo #48 implement show all menu item in task bar icon
          */
 
-        newTaskItem.addActionListener(new ActionListener() {
+        newNoteItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
 				envelopes.add(notes.add("Type your text here")).media().print();;

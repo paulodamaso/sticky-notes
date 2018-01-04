@@ -109,7 +109,7 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 			PreparedStatement ps = conn.prepareStatement(iterate_size_query);
 			ResultSet rs = ps.executeQuery();
 			
-			//iterate in all tasks, setting color in the task with color
+			//iterate in all envelopes, setting color in the envelope with color
 			while(rs.next()) {
 				for (Envelope stk : it) {
 
