@@ -1,6 +1,5 @@
 package main.envelope.color.derby;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,12 +20,12 @@ import main.note.Note;
  * @author paulodamaso
  *
  */
-public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
+public final class DerbyEnvelopesWithColor implements EnvelopesWithColor<EnvelopeWithColor> {
 	
-	private final Envelopes origin;
+	private final Envelopes<? extends Envelope> origin;
 	private final String database;
 
-	public DerbyEnvelopesWithColor(Envelopes origin, String database) {
+	public DerbyEnvelopesWithColor(Envelopes<? extends Envelope> origin, String database) {
 		this.origin = origin;
 		this.database = database;
 		
@@ -69,7 +68,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 					int id = rs.getInt(1);
 					if (id == env.id()) {
 						toRemove.add(env);
-						toAdd.add(new DerbyEnvelopeWithColor(env, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
+						toAdd.add(new DerbyEnvelopeWithColor(env, database));
 					}
 				}
 			}
@@ -111,7 +110,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						ret.add(new DerbyEnvelopeWithColor(stk, new Color(rs.getInt(2), rs.getInt(3), rs.getInt(4)), database));
+						ret.add(new DerbyEnvelopeWithColor(stk, database));
 					}
 				}
 			}
@@ -134,5 +133,12 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 	@Override
 	public Envelope add(Note note) {
 		return origin.add(note);
+	}
+
+	@Override
+	public EnvelopeWithColor add(EnvelopeWithColor envelope) {
+		origin.add(envelope);
+		EnvelopeWithColor derby = new DerbyEnvelopeWithColor(envelope.origin(), database);
+		return derby.color(envelope.color());
 	}
 }

@@ -10,10 +10,11 @@ import main.note.Note;
  * @author paulodamaso
  *
  */
-public interface Envelopes {
+public interface Envelopes<T extends Envelope> {
 	
 	public Collection<Envelope> iterate();
 	
 	public Envelope add(Note note);
-
+	
+	public T add(T envelope);
 }

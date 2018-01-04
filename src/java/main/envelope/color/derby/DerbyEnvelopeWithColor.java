@@ -10,7 +10,6 @@ import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.media.MediaFactoryImpl;
 import main.envelope.media.PrintMedia;
-import main.note.Note;
 
 
 /**
@@ -23,12 +22,10 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
 	private final Envelope origin;
 	private final String database;
-	private final Color color;
 
-	public DerbyEnvelopeWithColor(Envelope origin, Color color, String database) {
+	public DerbyEnvelopeWithColor(Envelope origin, String database) {
 		this.origin = origin;
 		this.database = database;
-		this.color = color;
 	}
 	
 	private Connection connect() throws Exception {
@@ -72,10 +69,10 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
 	private final String insert_color_query = "insert into envelopewithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
 	private final String update_color_query = "update envelopewithcolor set red = ?, green = ?, blue = ? where id = ?";
-	private Color persistColor() {
+	public EnvelopeWithColor color(Color color) {
 		Connection conn = null;
 		try {
-			Color color = this.color;
+//			Color color = color;
 			
 			//saving color info
 			PreparedStatement ps = null;
@@ -98,7 +95,7 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
 			ps.executeUpdate();
 			
-			return color;
+			return new DerbyEnvelopeWithColor(origin, database);
 	
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving color information
@@ -129,14 +126,19 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		return origin.text();
 	}
 
-	public Note persist(Note persistent) {
-		persistColor();
-		return origin.persist(persistent);
-	}
-
 	@Override
 	public PrintMedia media () {
 		return new MediaFactoryImpl().create(this, origin.media());
+	}
+
+	@Override
+	public void text(String text) {
+		origin.text(text);
+	}
+
+	@Override
+	public Envelope origin() {
+		return this.origin;
 	}
 
 }

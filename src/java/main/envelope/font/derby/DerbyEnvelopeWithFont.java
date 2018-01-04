@@ -138,13 +138,12 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	}
 
 	@Override
-	public Note persist(Note persistent) {
-		persistFont();
-		return origin.persist(persistent);
+	public PrintMedia media() {
+		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 	@Override
-	public PrintMedia media() {
-		return new MediaFactoryImpl().create(this, origin.media());
+	public void text(String text) {
+		origin.text();
 	}
 }

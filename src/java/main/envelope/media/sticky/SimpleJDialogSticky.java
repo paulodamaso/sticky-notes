@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.envelope.Envelope;
+import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.media.SimpleMedia;
 
 /**
@@ -73,6 +74,8 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
                         new Color(251,247,174)
                         );
         		if (newColor != null) txtArea().setBackground(newColor);
+        		//save this envelope color
+//        		envelope = new SimpleEnvelopeWithColor(envelope, newColor);
 			}
 		});		
         
@@ -80,7 +83,14 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
         JMenuItem saveItem = new JMenuItem("Save");
         
         //adding listener to save via menu
-//        saveItem.addActionListener(new SaveActionListener(this));
+        saveItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//put text in envelope
+				envelope.text(txtArea().getText());
+			}
+		});
         
         //adding listener to check if it had changed size to save with new size via menu
        
@@ -97,9 +107,7 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea().getFont());
-				
 				txtArea().setFont(newFont);
-
 			}
 		});        
         
@@ -112,7 +120,6 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 
 	@Override
 	public void print() {
-		System.out.println("Printing jdialogsticky");
 		if (!jdialog.isVisible()) jdialog.setVisible(true);
 		jdialog.requestFocus();
 	}

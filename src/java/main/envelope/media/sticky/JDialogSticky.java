@@ -20,5 +20,5 @@ public interface JDialogSticky extends PrintMedia {
 	public abstract Envelope envelope();
 	public abstract JPopupMenu popUp();
 	public abstract JTextArea txtArea();
-	
+
 }

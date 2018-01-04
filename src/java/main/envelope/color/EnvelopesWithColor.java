@@ -11,12 +11,12 @@ import main.envelope.Envelopes;
  * @author paulodamaso
  *
  */
-public interface EnvelopesWithColor extends Envelopes {
+public interface EnvelopesWithColor<T extends EnvelopeWithColor> extends Envelopes<T> {
 
 	/**
 	 * <p> Retrieves all {@link Envelope} instances with color data from this collection.
 	 * 
 	 * @return
 	 */
-	public Collection<EnvelopeWithColor> iterateInColor();
+	public Collection<T> iterateInColor();
 }

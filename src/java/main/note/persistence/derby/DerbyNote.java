@@ -15,11 +15,11 @@ import main.note.Note;
  */
 public final class DerbyNote implements Note {
 	
-	private final String database;
+	private final String database = "resources/database/sticky-notes-db";
 	private final int id;
 	
-	public DerbyNote(String database, int id) {
-		this.database = database;
+	public DerbyNote(int id) {
+//		this.database = database;
 		this.id = id;
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -66,20 +66,24 @@ public final class DerbyNote implements Note {
 		return null;
 	}
 
+	@Override
+	public int id() {
+		return id;
+	}
+
 	private final String save_query = "update note set text = ? where id = ?";
 	@Override
-	public Note persist(Note note) {
+	public void text(String text) {
 		Connection conn = null;
 		try {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(save_query);
-			ps.setString(1, note.text());
+			ps.setString(1, text);
 			ps.setInt(2, this.id());
 			ps.executeUpdate();
 
-			return new DerbyNote(database, this.id());
 		}catch(Exception e) {
-			/* @todo #12 implement better exception handling when saving derbynote
+			/* @todo #12 implement better exception handling when updating text
 			 * 
 			 */
 			e.printStackTrace();
@@ -87,17 +91,11 @@ public final class DerbyNote implements Note {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				/* @todo #12 implement better exception handling closing connection after saving derbynote
+				/* @todo #12 implement better exception handling closing connection after updating text
 				 * 
 				 */
 				e.printStackTrace();
 			}
 		}
-		return null;
-	}
-
-	@Override
-	public int id() {
-		return id;
 	}
 }

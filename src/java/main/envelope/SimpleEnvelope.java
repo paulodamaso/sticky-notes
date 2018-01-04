@@ -13,6 +13,7 @@ import main.note.Note;
 public final class SimpleEnvelope implements Envelope {
 
 	private final Note origin;
+	
 	public SimpleEnvelope(Note origin) {
 		this.origin = origin;
 	}
@@ -28,13 +29,18 @@ public final class SimpleEnvelope implements Envelope {
 	}
 
 	@Override
-	public Note persist(Note persistent) {
-		return this.origin.persist(persistent);	
-	}
-
-	@Override
 	public PrintMedia media() {
 		return new MediaFactoryImpl().create(this);
 	}
 
+	@Override
+	public void text(String text) {
+		origin.text(text);
+	}
+
+//	@Override
+//	public void save() {
+//		//just to pretend we are changing state
+//		origin.text(origin.text());
+//	}
 }

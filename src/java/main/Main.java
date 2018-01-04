@@ -1,7 +1,5 @@
 package main;
 
-import main.note.persistence.derby.DerbyNotes;
-
 /**
  * <p> Main entry point for sticky-notes application.
  * 
@@ -9,13 +7,17 @@ import main.note.persistence.derby.DerbyNotes;
  *
  */
 public class Main {
+	
+
 
 	public static void main(String[] args) throws Exception{
+		
+		Configuration configuration = new Configuration();
 
 		/*
 		 * @todo #46 externalize note configuration in properties file and create them using factories
 		 */
-		new SystemTrayApplication(new DerbyNotes("resources/database/sticky-notes-db")).init();
+		new SystemTrayApplication(configuration.notes()).init();
 
 	}
 

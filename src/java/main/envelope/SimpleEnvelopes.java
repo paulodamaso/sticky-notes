@@ -12,7 +12,7 @@ import main.note.Notes;
  * @author paulodamaso
  *
  */
-public final class SimpleEnvelopes implements Envelopes {
+public final class SimpleEnvelopes implements Envelopes<Envelope> {
 
 	private final Notes origin; 
 	
@@ -31,13 +31,12 @@ public final class SimpleEnvelopes implements Envelopes {
 
 	@Override
 	public Envelope add(Note note) {
-//		return add(note.text());
 		return new SimpleEnvelope(origin.add(note.text()));
 	}
-	
-//	@Override
-//	public Envelope add(String note) {
-//		return new SimpleEnvelope(origin.add(note));
-//	}
 
+	@Override
+	public Envelope add(Envelope envelope) {
+		return new SimpleEnvelope(origin.add(envelope.text()));
+	}
+	
 }

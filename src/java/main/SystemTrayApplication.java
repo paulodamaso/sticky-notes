@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -18,11 +19,10 @@ import javax.swing.JOptionPane;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
+import main.envelope.SimpleEnvelope;
 import main.envelope.SimpleEnvelopes;
+import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.color.derby.DerbyEnvelopesWithColor;
-import main.envelope.font.derby.DerbyEnvelopesWithFont;
-import main.envelope.position.derby.DerbyEnvelopesWithPosition;
-import main.envelope.size.derby.DerbyEnvelopesWithSize;
 import main.note.Notes;
 
 /**
@@ -38,8 +38,9 @@ public final class SystemTrayApplication {
 	 */
 
 	private final Notes notes;
-	private final Envelopes envelopes;
+	private final Envelopes<? extends Envelope> envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
+
 	
 	/*
 	 * @todo #46 should we pass the notes or envelopes to SystemTrayApplication ?
@@ -48,16 +49,22 @@ public final class SystemTrayApplication {
     	
     	this.notes = notes;
     	
-    	this.envelopes = 
-    			new DerbyEnvelopesWithSize(
-    				new DerbyEnvelopesWithPosition(
-    					new DerbyEnvelopesWithFont(
-    						new DerbyEnvelopesWithColor( 
-    							new SimpleEnvelopes(this.notes), 
-    						"resources/database/sticky-notes-db"), 
-	    				"resources/database/sticky-notes-db"),
-    				"resources/database/sticky-notes-db"),
-    			"resources/database/sticky-notes-db");
+//    	this.envelopes = 
+//    			new DerbyEnvelopesWithSize(
+//    				new DerbyEnvelopesWithPosition(
+//    					new DerbyEnvelopesWithFont(
+//    						new DerbyEnvelopesWithColor( 
+//    							new SimpleEnvelopes(this.notes), 
+//    						"resources/database/sticky-notes-db"), 
+//	    				"resources/database/sticky-notes-db"),
+//    				"resources/database/sticky-notes-db"),
+//    			"resources/database/sticky-notes-db");
+    	
+    	Envelopes<? extends Envelope> env = new SimpleEnvelopes(this.notes);
+    	
+    	this.envelopes = new DerbyEnvelopesWithColor(env, "resources/database/sticky-notes-db");
+    	
+    	this.envelopes.add(new SimpleEnvelopeWithColor(new SimpleEnvelope(notes.add("Envelope com com enviado direto")), new Color (255,0,0)));
  
 	}
 	
@@ -159,23 +166,22 @@ public final class SystemTrayApplication {
 //        });
 //       
 //
-        paint();
+//        paint();
         
 	}
 	
-	protected void paint() {
-		System.out.println("Clearing screen =================================");
-        for (Envelope envelope : envelopes.iterate()) {
-        	envelope.media().print();
-        }
-	}
+//	protected void paint() {
+//        for (Envelope envelope : envelopes.iterate()) {
+//        	envelope.media().print();
+//        }
+//	}
 	
-	protected void save() {
-
-        for (Envelope envelope : envelopes.iterate()) {
-        	envelope.persist(envelope);
-        }		
-	}
+//	protected void save() {
+//
+//        for (Envelope envelope : envelopes.iterate()) {
+//        	envelope.persist(envelope);
+//        }		
+//	}
 	
     protected static Image createImage(String path, String description) throws Exception{
         

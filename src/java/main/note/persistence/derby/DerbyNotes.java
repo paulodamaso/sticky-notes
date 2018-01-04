@@ -11,10 +11,9 @@ import main.note.Note;
 import main.note.Notes;
 
 public final class DerbyNotes implements Notes {
-	private final String database;
+	private final String database = "resources/database/sticky-notes-db";
 
-	public DerbyNotes(String database) {
-		this.database = database;
+	public DerbyNotes() {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
@@ -25,7 +24,6 @@ public final class DerbyNotes implements Notes {
 			e.printStackTrace();
 		}
 	}
-	
 
 	private Connection connect() throws Exception {
 		
@@ -43,7 +41,7 @@ public final class DerbyNotes implements Notes {
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				it.add(new DerbyNote(database, rs.getInt(1)));
+				it.add(new DerbyNote(rs.getInt(1)));
 			}
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling when getting Iterable<Note>.
@@ -73,7 +71,7 @@ public final class DerbyNotes implements Notes {
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
 			
-			return new DerbyNote(database, rs.getInt(1));
+			return new DerbyNote(rs.getInt(1));
 			
 		}catch (Exception e) {
 			/* @todo #12 implement better exception handling when inserting note.
@@ -88,29 +86,5 @@ public final class DerbyNotes implements Notes {
 			}
 		}
 		return null;
-	}
-
-	private final String delete_query = "delete from note where id = ?";
-	@Override
-	public void remove(Note note) {
-		Connection conn = null;
-		try {
-			conn = connect();
-			PreparedStatement ps = conn.prepareStatement(delete_query);
-			ps.setInt(1, note.id());
-			ps.executeUpdate();
-			
-		}catch (Exception e) {
-			/* @todo #12 implement better exception handling when deleting note.
-			 * 
-			 */
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}	
 }

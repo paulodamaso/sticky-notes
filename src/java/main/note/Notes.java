@@ -12,8 +12,6 @@ public interface Notes  {
 	
 	public Collection<Note> notes();
 	
-	public Note add(String text);
-	
-	public void remove (Note note);
+	public Note add (String text);
 	
 }

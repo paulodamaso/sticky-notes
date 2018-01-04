@@ -2,6 +2,7 @@ package main.note;
 
 /**
  * <p> Basic {@link Note} implementation without persisted data.
+ * 
  * @author paulodamaso
  *
  */
@@ -13,12 +14,6 @@ public final class SimpleNote implements Note {
 	public SimpleNote(int id, String text) {
 		this.id = id;
 		this.text = text;
-}
-
-	@Override
-	public Note persist(Note persistent) {
-		System.out.println("I can't persist!");
-		return this;
 	}
 
 	@Override
@@ -29,6 +24,11 @@ public final class SimpleNote implements Note {
 	@Override
 	public String text() {
 		return this.text;
+	}
+
+	@Override
+	public void text(String text) {
+		//what to do here?
 	}
 
 }

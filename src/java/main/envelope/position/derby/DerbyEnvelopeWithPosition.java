@@ -132,14 +132,14 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		return origin.text();
 	}
 
-	public Note persist(Note persistent) {
-		persistPosition();
-		return origin.persist(persistent);
-	}
-
 	@Override
 	public PrintMedia media () {
 		return new MediaFactoryImpl().create(this, origin.media());
+	}
+
+	@Override
+	public void text(String text) {
+		origin.text(text);
 	}
 
 }

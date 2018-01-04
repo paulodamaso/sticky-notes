@@ -10,7 +10,6 @@ import main.envelope.Envelope;
 import main.envelope.media.MediaFactoryImpl;
 import main.envelope.media.PrintMedia;
 import main.envelope.size.EnvelopeWithSize;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithSize} implementation with size data in derby database, in table 'envelopewithsize'.
@@ -133,14 +132,14 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return origin.text();
 	}
 
-	public Note persist(Note persistent) {
-		persistSize();
-		return origin.persist(persistent);
-	}
-
 	@Override
 	public PrintMedia media () {
 		return new MediaFactoryImpl().create(this, origin.media());
+	}
+
+	@Override
+	public void text(String text) {
+		origin.text(text);
 	}
 
 }
