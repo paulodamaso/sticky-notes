@@ -12,7 +12,7 @@ public final class ConsoleMediaWithColor implements MediaWithColor {
 	private final EnvelopeWithColor envelopeWithColor;
 	private final PrintMedia media; 
 	
-	public ConsoleMediaWithColor(EnvelopeWithColor envelope,PrintMedia media) {
+	public ConsoleMediaWithColor(EnvelopeWithColor envelope, PrintMedia media) {
 		this.envelopeWithColor = envelope;
 		this.media = media;
 	}

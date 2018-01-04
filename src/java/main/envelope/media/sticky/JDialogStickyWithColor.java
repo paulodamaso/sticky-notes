@@ -21,7 +21,7 @@ public final class JDialogStickyWithColor implements JDialogSticky , MediaWithCo
 	private final JDialogSticky media;
 
 	/*
-	 * @ todo #22 make this without typecasting
+	 * @todo #22 make this without typecasting
 	 */
 	public JDialogStickyWithColor(EnvelopeWithColor envelopeWithColor, PrintMedia media) {
 		this.envelopeWithColor = envelopeWithColor;

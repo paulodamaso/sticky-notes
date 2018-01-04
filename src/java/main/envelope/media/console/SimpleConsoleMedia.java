@@ -5,6 +5,7 @@ import main.envelope.media.SimpleMedia;
 
 /**
  * <p> Prints {@link Envelope} to console.
+ * 
  * @author paulodamaso
  *
  */

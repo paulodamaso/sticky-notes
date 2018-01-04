@@ -6,10 +6,10 @@ import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
+import main.envelope.position.EnvelopeWithPosition;
 import main.note.Note;
 import temp.envelope.Envelope;
 import temp.envelope.jdialog.JDialogEnvelope;
-import temp.envelope.position.EnvelopeWithPosition;
 
 public class JDialogEnvelopeWithPosition implements JDialogEnvelope, EnvelopeWithPosition {
 	

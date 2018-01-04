@@ -1,8 +1,8 @@
-package temp.envelope.position;
+package main.envelope.position;
 
 import java.awt.Point;
 
-import temp.envelope.Envelope;
+import main.envelope.Envelope;
 
 /**
  * <p> A decorator to add position to a {@link Envelope}.

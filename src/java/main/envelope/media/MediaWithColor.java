@@ -1,7 +1,9 @@
 package main.envelope.media;
 
+import main.envelope.Envelope;
+
 /**
- * <p> Printing media to deal with color.
+ * <p> {@link PrintMedia} to deal with color information for {@link Envelope}.
  * 
  * @author paulodamaso
  *

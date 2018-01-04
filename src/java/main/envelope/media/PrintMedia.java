@@ -1,9 +1,9 @@
 package main.envelope.media;
 
-import main.note.Note;
+import main.envelope.Envelope;
 
 /**
- * <p> Interface for defining printing media for {@link Note}.
+ * <p> Interface for defining printing media for {@link Envelope}.
  * 
  * @author paulodamaso
  *

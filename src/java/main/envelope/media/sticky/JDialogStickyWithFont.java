@@ -6,6 +6,7 @@ import javax.swing.JTextArea;
 
 import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
+import main.envelope.media.MediaWithFont;
 import main.envelope.media.PrintMedia;
 
 /**
@@ -14,39 +15,37 @@ import main.envelope.media.PrintMedia;
  * @author paulodamaso
  *
  */
-public class JDialogStickyWithFont implements PrintMedia, JDialogSticky {
+public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 
 	private final EnvelopeWithFont envelopeWithFont;
-	private final JDialogSticky origin;
-	private final PrintMedia media;
+	private final JDialogSticky media;
 
-	public JDialogStickyWithFont(EnvelopeWithFont envelopeWithFont, JDialogSticky origin, PrintMedia media) {
+	public JDialogStickyWithFont(EnvelopeWithFont envelopeWithFont, PrintMedia media) {
 		this.envelopeWithFont = envelopeWithFont;
-		this.origin = origin;
-		this.media = media;
+		this.media = (JDialogSticky)media;
 		
-		this.txtArea().setFont(this.envelopeWithFont.font());
+		this.txtArea().setFont((this.envelopeWithFont.font()));
 
 	}
 
 	@Override
 	public JDialog jDialog() {
-		return origin.jDialog();
+		return media.jDialog();
 	}
 
 	@Override
 	public Envelope envelope() {
-		return origin.envelope();
+		return media.envelope();
 	}
 
 	@Override
 	public JPopupMenu popUp() {
-		return origin.popUp();
+		return media.popUp();
 	}
 
 	@Override
 	public JTextArea txtArea() {
-		return origin.txtArea();
+		return media.txtArea();
 	}
 
 	@Override

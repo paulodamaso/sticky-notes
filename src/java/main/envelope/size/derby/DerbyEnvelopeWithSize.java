@@ -1,4 +1,4 @@
-package temp.envelope.size.derby;
+package main.envelope.size.derby;
 
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -6,9 +6,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.note.Envelope;
-import temp.envelope.size.EnvelopeWithSize;
+import main.envelope.Envelope;
+import main.envelope.media.MediaFactoryImpl;
+import main.envelope.media.PrintMedia;
+import main.envelope.size.EnvelopeWithSize;
+import main.note.Note;
 
+/**
+ * <p> {@link EnvelopeWithSize} implementation with size data in derby database, in table 'envelopewithsize'.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 	
 	private final Envelope origin;
@@ -40,21 +49,8 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return origin.id();
 	}
 
-	@Override
-	public String text() {
-		return origin.text();
-	}
-
-	@Override
-	public DerbyEnvelopeWithSize persist(Envelope note) {
-		//delegating note saving behavior to origin, persisting size only
-		origin.persist(note);
-		
-		return new DerbyEnvelopeWithSize(origin, persistSize(), database);
-	}
-
-	private final String insert_position_query = "insert into notewithsize (id, width, height) values ( ?, ?, ?)";
-	private final String update_position_query = "update notewithsize set width = ?, height = ? where id = ?";
+	private final String insert_position_query = "insert into envelopewithsize (id, width, height) values ( ?, ?, ?)";
+	private final String update_position_query = "update envelopewithsize set width = ?, height = ? where id = ?";
 	private Dimension persistSize () {
 		Connection conn = null;
 		try {
@@ -98,7 +94,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return null;		
 	}
 	
-	private final String size_query = "select width, height from notewithsize where id = ?";
+	private final String size_query = "select width, height from envelopewithsize where id = ?";
 	@Override
 	public Dimension size() {
 		Connection conn = null;
@@ -130,6 +126,21 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 			}
 		}
 		return size;
+	}
+	
+	@Override
+	public String text() {
+		return origin.text();
+	}
+
+	public Note persist(Note persistent) {
+		persistSize();
+		return origin.persist(persistent);
+	}
+
+	@Override
+	public PrintMedia media () {
+		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 }

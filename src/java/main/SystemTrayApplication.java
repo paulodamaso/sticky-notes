@@ -1,7 +1,6 @@
-package temp.ui.swing;
+package main;
 
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -10,6 +9,8 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,44 +21,63 @@ import main.envelope.Envelopes;
 import main.envelope.SimpleEnvelopes;
 import main.envelope.color.derby.DerbyEnvelopesWithColor;
 import main.envelope.font.derby.DerbyEnvelopesWithFont;
+import main.envelope.position.derby.DerbyEnvelopesWithPosition;
+import main.envelope.size.derby.DerbyEnvelopesWithSize;
 import main.note.Notes;
 
-
-
-
+/**
+ * <p> System tray wrapper for sticky-notes envelopes.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class SystemTrayApplication {
+	
+	/*
+	 * @todo #50 internationalize SystemTrayApplication logged messages
+	 */
 
 	private final Envelopes envelopes;
+	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
+	
+	/*
+	 * @todo #46 should we pass the notes or envelopes to SystemTrayApplication ?
+	 */
+    public SystemTrayApplication(Notes notes) {
+    	
+    	this.envelopes = 
+    			new DerbyEnvelopesWithSize(
+    			new DerbyEnvelopesWithPosition(
+	    			new DerbyEnvelopesWithFont(new DerbyEnvelopesWithColor( 
+	    			new SimpleEnvelopes(notes), 
+	    					"resources/database/sticky-notes-db"), 
+	    			"resources/database/sticky-notes-db"),
+    					"resources/database/sticky-notes-db"),
+    					"resources/database/sticky-notes-db");
+ 
+	}
 	
 	public void init() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
-            //System.out.println("SystemTray is not supported");
+			logger.severe("SystemTray is not supported");
             return;
         }
 		
-		//checking trayicon image size
+
 		final SystemTray tray = SystemTray.getSystemTray();
-		Dimension trayIconSize = tray.getTrayIconSize();
-		//System.out.println(trayIconSize);
-		
-		
-		//System.out.println("Creating popupmenu");
-		
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
                 new TrayIcon(createImage("/images/sticky-note16x16.png", "tray icon"));
-        
 
-        
-         
-        // Create a popup menu components
+		/*
+		 * @todo #50 internationalize system tray menu item labels 
+		 */
         MenuItem aboutItem = new MenuItem("About");
         MenuItem newTaskItem = new MenuItem("New Sticker...");
         MenuItem saveAllItem = new MenuItem("Save All Sticker...");
         MenuItem exitItem = new MenuItem("Exit");
          
-        //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newTaskItem);
@@ -71,10 +91,11 @@ public final class SystemTrayApplication {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            //System.out.println("TrayIcon could not be added.");
+			logger.log(Level.SEVERE, "TrayIcon could not be added.", e);
             return;
         }
-         
+
+        
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
@@ -86,6 +107,9 @@ public final class SystemTrayApplication {
         /*
          * @todo #48 add relevant information in about dialog
          */
+		/*
+		 * @todo #50 internationalize about menu item information 
+		 */
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
@@ -96,8 +120,6 @@ public final class SystemTrayApplication {
         /*
          * @todo #48 implement show all menu item in task bar icon
          */
-         
-
         // action listener to newTaskItem: add a new sticker with a 
         // default task and print it
         newTaskItem.addActionListener(new ActionListener() {
@@ -141,59 +163,16 @@ public final class SystemTrayApplication {
         
 	}
 	
-    //Obtain the image URL
     protected static Image createImage(String path, String description) throws Exception{
         
         InputStream is = SystemTrayApplication.class.getResourceAsStream(path);
         Image image = ImageIO.read(is);
          
         if (image == null) {
-            System.err.println("Resource not found: " + path);
+			logger.severe("Resource not found: " + path);        	
             return null;
         } else {
             return (new ImageIcon(image, description)).getImage();
         }
     }
-
-
-    public SystemTrayApplication(Notes notes) {
-    	
-    	this.envelopes = 
-    			new DerbyEnvelopesWithFont(new DerbyEnvelopesWithColor( 
-    			new SimpleEnvelopes(notes), 
-    					"resources/database/sticky-notes-db"), 
-    			"resources/database/sticky-notes-db");
-    	
-
-    	//method 01:
-    	//first create basic jdialogs
-//    	SimpleStickyJDialogEnvelopes basicEnvelopes = new SimpleStickyJDialogEnvelopes(notes);
-//    	//then add first decoration (color)
-//    	StickyJDialogEnvelopesWithFont envelopesWithFont =  new StickyJDialogEnvelopesWithFont(basicEnvelopes, );
-//    	StickyJDialogEnvelopesWithColor envelopesWithColor = new StickyJDialogEnvelopesWithColor( envelopesWithFont, new DerbyEnvelopesWithColor(envelopesWithFont, "resources/database/sticky-notes-db"));
-      	//then add second decoration (font)
-//    	StickyJDialogEnvelopesWithFont envelopesWithFont =  new StickyJDialogEnvelopesWithFont(basicEnvelopes, new DerbyEnvelopesWithFont(envelopesWithColor, "resources/database/sticky-notes-db"));
-
-    	//method 02:
-    	//envelope notes
-
-    	
-//    	Envelopes basicEnvelopes = new DerbyEnvelopes(notes, database) 
-//    	this.envelopes = envelopesWithColor;
-//    	
-//    	for (Envelope env : envelopesWithFont.envelopes()) {
-//    		System.out.println(env.getClass() + " - " + env.text());
-//    	}
-    	
-//    	this.envelopes =
-//    			new StickyJDialogEnvelopesWithColor(    			
-//    					new StickyJDialogEnvelopesWithFont(
-//    					 //jdialogswithcolor
-//    							new SimpleStickyJDialogEnvelopes(notes), //jdialoginfo 
-//    						 //color info
-//    							),
-//    					new DerbyEnvelopesWithFont(basicEnvelopes, "resources/database/sticky-notes-db") //font info
-//    					)
-//; 
-	}
 }

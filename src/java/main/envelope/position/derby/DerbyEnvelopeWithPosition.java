@@ -1,4 +1,4 @@
-package temp.envelope.position.derby;
+package main.envelope.position.derby;
 
 import java.awt.Point;
 import java.sql.Connection;
@@ -6,10 +6,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.envelope.Envelope;
+import main.envelope.media.MediaFactoryImpl;
+import main.envelope.media.PrintMedia;
+import main.envelope.position.EnvelopeWithPosition;
 import main.note.Note;
-import temp.envelope.Envelope;
-import temp.envelope.position.EnvelopeWithPosition;
 
+/**
+ * <p> {@link EnvelopeWithPosition} implementation with position data in derby database, in table 'envelopewithposition'.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 
 	private final Envelope origin;
@@ -25,7 +33,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for JDialogEnvelopeWithPosition
+			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopeWithPosition
 			 * 
 			 */
 			e.printStackTrace();
@@ -41,21 +49,12 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		return origin.id();
 	}
 
-	@Override
-	public DerbyEnvelopeWithPosition persist(Envelope note) {
-		//delegating note saving behavior to origin, persisting position only
-		origin.persist(note);
-		
-		return new DerbyEnvelopeWithPosition(origin, persistPosition(), database);
-	}
-
 	private final String insert_position_query = "insert into envelopewithposition (id, x, y) values ( ?, ?, ?)";
 	private final String update_position_query = "update envelopewithposition set x = ?, y = ? where id = ?";
 	private Point persistPosition () {
 		Connection conn = null;
 		try {
-			
-			//saving position info
+
 			PreparedStatement ps = null;
 			
 			if (position() != null) {
@@ -129,8 +128,18 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 	}
 
 	@Override
-	public Note note() {
-		return origin.note();
+	public String text() {
+		return origin.text();
+	}
+
+	public Note persist(Note persistent) {
+		persistPosition();
+		return origin.persist(persistent);
+	}
+
+	@Override
+	public PrintMedia media () {
+		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 }

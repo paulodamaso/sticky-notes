@@ -11,8 +11,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
+import main.envelope.position.StickerWithPosition;
 import main.note.Note;
-import temp.envelope.position.StickerWithPosition;
 import temp.ui.jdialog.JDialogSticker;
 
 /**

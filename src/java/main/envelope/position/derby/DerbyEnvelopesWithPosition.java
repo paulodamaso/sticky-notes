@@ -1,4 +1,4 @@
-package temp.envelope.position.derby;
+package main.envelope.position.derby;
 
 import java.awt.Point;
 import java.sql.Connection;
@@ -8,11 +8,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.note.Note;
-import temp.envelope.Envelope;
-import temp.envelope.Envelopes;
-import temp.envelope.position.EnvelopeWithPosition;
-import temp.envelope.position.EnvelopesWithPosition;
+import main.envelope.Envelope;
+import main.envelope.Envelopes;
+import main.envelope.position.EnvelopeWithPosition;
+import main.envelope.position.EnvelopesWithPosition;
 
 /**
  * <p> {@link EnvelopeWithPosition} repository in derby database, in table 'envelopewithposition'
@@ -128,9 +127,5 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 		return ret;
 	}
 
-	@Override
-	public Envelope add(Note note) {
-		return origin.add(note);
-	}
 
 }

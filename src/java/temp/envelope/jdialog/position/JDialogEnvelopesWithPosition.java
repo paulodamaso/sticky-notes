@@ -3,12 +3,12 @@ package temp.envelope.jdialog.position;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import main.envelope.position.EnvelopeWithPosition;
+import main.envelope.position.EnvelopesWithPosition;
 import main.note.Note;
 import temp.envelope.Envelope;
 import temp.envelope.jdialog.JDialogEnvelope;
 import temp.envelope.jdialog.JDialogEnvelopes;
-import temp.envelope.position.EnvelopeWithPosition;
-import temp.envelope.position.EnvelopesWithPosition;
 
 public class JDialogEnvelopesWithPosition implements JDialogEnvelopes, EnvelopesWithPosition {
 

@@ -1,4 +1,4 @@
-package temp.envelope.size.derby;
+package main.envelope.size.derby;
 
 import java.awt.Dimension;
 import java.sql.Connection;
@@ -8,12 +8,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import main.note.Envelope;
-import main.note.Envelopes;
-import temp.envelope.size.EnvelopeWithSize;
+import main.envelope.Envelope;
+import main.envelope.Envelopes;
+import main.envelope.size.EnvelopeWithSize;
 
 /**
- * <p> {@link EnvelopeWithSize} repository in derby database, in table 'notewithsize'
+ * <p> {@link EnvelopeWithSize} repository in derby database, in table 'envelopewithsize'
  * 
  * @author paulodamaso
  *
@@ -31,7 +31,7 @@ public class DerbyEnvelopesWithSize implements Envelopes {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
 		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for JDialogEnvelopesWithPosition
+			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithSize
 			 * 
 			 */
 			e.printStackTrace();
@@ -42,17 +42,12 @@ public class DerbyEnvelopesWithSize implements Envelopes {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
-
-	@Override
-	public Envelope add(String text) {
-		return origin.add(text);
-	}
 	
-	private final String iterate_position_query = "select id, width, height from notewithsize";
+	private final String iterate_position_query = "select id, width, height from envelopewithsize";
 	@Override
 	public Collection<Envelope> iterate() {
 
-		Collection<Envelope> it = origin.notes();
+		Collection<Envelope> it = origin.iterate();
 		
 		Collection<Envelope> toRemove = new ArrayList<Envelope>();
 		Collection<Envelope> toAdd = new ArrayList<Envelope>();
