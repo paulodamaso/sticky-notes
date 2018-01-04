@@ -1,4 +1,4 @@
-package temp.sticky.font;
+package main.envelope.media.sticky;
 
 /* This code was found posted on a forum without any copyright
  * restrictions. It was written by someone named Noah W.

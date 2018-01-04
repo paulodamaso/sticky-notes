@@ -5,29 +5,29 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
 import main.envelope.Envelope;
-import main.envelope.color.EnvelopeWithColor;
-import main.envelope.media.MediaWithColor;
+import main.envelope.media.MediaWithPosition;
 import main.envelope.media.PrintMedia;
+import main.envelope.position.EnvelopeWithPosition;
 
 /**
- * <p> {@link JDialogSticky} with color information.
+ * <p> {@link JDialogSticky} with position information.
  * 
  * @author paulodamaso
  *
  */
-public final class JDialogStickyWithColor implements JDialogSticky , MediaWithColor{
+public final class JDialogStickyWithPosition implements JDialogSticky , MediaWithPosition{
 	
-	private final EnvelopeWithColor envelopeWithColor;
+	private final EnvelopeWithPosition envelopeWithPosition;
 	private final JDialogSticky media;
 
 	/*
-	 * @todo #22 create a JDialogStickyWithColor without type casting
+	 * @todo #22 create a JDialogStickyWithPosition without type casting
 	 */
-	public JDialogStickyWithColor(EnvelopeWithColor envelopeWithColor, PrintMedia media) {
-		this.envelopeWithColor = envelopeWithColor;
+	public JDialogStickyWithPosition(EnvelopeWithPosition envelopeWithPosition, PrintMedia media) {
+		this.envelopeWithPosition = envelopeWithPosition;
 		this.media = (JDialogSticky)media;
 		
-		this.txtArea().setBackground(this.envelopeWithColor.color());
+		jDialog().setLocation(this.envelopeWithPosition.position());
 
 	}
 

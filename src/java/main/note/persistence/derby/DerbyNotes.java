@@ -88,5 +88,29 @@ public final class DerbyNotes implements Notes {
 			}
 		}
 		return null;
+	}
+
+	private final String delete_query = "delete from note where id = ?";
+	@Override
+	public void remove(Note note) {
+		Connection conn = null;
+		try {
+			conn = connect();
+			PreparedStatement ps = conn.prepareStatement(delete_query);
+			ps.setInt(1, note.id());
+			ps.executeUpdate();
+			
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when deleting note.
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}	
 }

@@ -20,6 +20,9 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 	private final EnvelopeWithFont envelopeWithFont;
 	private final JDialogSticky media;
 
+	/*
+	 * @todo #22 create a JDialogStickyWithFont without type casting
+	 */
 	public JDialogStickyWithFont(EnvelopeWithFont envelopeWithFont, PrintMedia media) {
 		this.envelopeWithFont = envelopeWithFont;
 		this.media = (JDialogSticky)media;

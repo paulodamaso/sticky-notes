@@ -2,7 +2,11 @@ package main.envelope.media.sticky;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -29,6 +33,7 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 		this.envelope = envelope;
 		
 		this.jdialog = new JDialog();
+		jdialog.setTitle(jdialog.toString());
 		this.popup = new JPopupMenu();
 		
 		//formatting the textarea with default values
@@ -48,7 +53,6 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
         //adding the textarea
         this.jdialog.getContentPane().add(this.txtArea, BorderLayout.CENTER);
         
-        
         //setting the default popup menu (empty)
 		this.txtArea.setComponentPopupMenu(popup);
 		
@@ -57,8 +61,20 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
         
         //setting the popup menu to show color select option
         JMenuItem colorMenu = new JMenuItem("Color...");
+        
         //adding action to color menu
-//        colorMenu.addActionListener(new JDialogColorActionListener(this));
+        colorMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//show a colorchooser
+        		Color newColor = JColorChooser.showDialog(null,
+                        "Choose Color",
+                        new Color(251,247,174)
+                        );
+        		if (newColor != null) txtArea().setBackground(newColor);
+			}
+		});		
         
         //setting the popup menu to show save option
         JMenuItem saveItem = new JMenuItem("Save");
@@ -67,36 +83,38 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 //        saveItem.addActionListener(new SaveActionListener(this));
         
         //adding listener to check if it had changed size to save with new size via menu
-        /*
-         * @todo #25 very disgusting way of propagating persist behavior called from menuitem in JDialogEnvelopeWithSize
-         *  had to do this way because i don't want to save the note object in each decoration of jdialognote
-         */        
+       
 //        this.saveItem.addActionListener(new EnvelopeSizeActionListener(this));
         
         //adding listener to detect if this note had moved or resized
 //        this.jDialog().addComponentListener(new EnvelopeComponentListener(this));
         
-        /*
-         * @todo #12 each decoration added (actionlistener) saves the note one more time; it should be saved just once
-         */
-        
         //setting the popup menu to show font select option
         JMenuItem fontMenu = new JMenuItem("Font...");
         //adding action to font menu
-//        fontMenu.addActionListener(new JDialogFontActionListener(this));        
-        
-
-        
-	        popUp().add(colorMenu);
-	        popUp().add(fontMenu);
-	        popUp().add(saveItem);
+        fontMenu.addActionListener(new ActionListener() {
 			
-	        jdialog.pack();		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea().getFont());
+				
+				txtArea().setFont(newFont);
+
+			}
+		});        
+        
+        popUp().add(colorMenu);
+        popUp().add(fontMenu);
+        popUp().add(saveItem);
+			
+        jdialog.pack();		
 	}
 
 	@Override
 	public void print() {
+		System.out.println("Printing jdialogsticky");
 		if (!jdialog.isVisible()) jdialog.setVisible(true);
+		jdialog.requestFocus();
 	}
 
 	@Override

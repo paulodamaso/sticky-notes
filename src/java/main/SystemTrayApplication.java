@@ -37,6 +37,7 @@ public final class SystemTrayApplication {
 	 * @todo #50 internationalize SystemTrayApplication logged messages
 	 */
 
+	private final Notes notes;
 	private final Envelopes envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
 	
@@ -45,15 +46,18 @@ public final class SystemTrayApplication {
 	 */
     public SystemTrayApplication(Notes notes) {
     	
+    	this.notes = notes;
+    	
     	this.envelopes = 
     			new DerbyEnvelopesWithSize(
-    			new DerbyEnvelopesWithPosition(
-	    			new DerbyEnvelopesWithFont(new DerbyEnvelopesWithColor( 
-	    			new SimpleEnvelopes(notes), 
-	    					"resources/database/sticky-notes-db"), 
-	    			"resources/database/sticky-notes-db"),
-    					"resources/database/sticky-notes-db"),
-    					"resources/database/sticky-notes-db");
+    				new DerbyEnvelopesWithPosition(
+    					new DerbyEnvelopesWithFont(
+    						new DerbyEnvelopesWithColor( 
+    							new SimpleEnvelopes(this.notes), 
+    						"resources/database/sticky-notes-db"), 
+	    				"resources/database/sticky-notes-db"),
+    				"resources/database/sticky-notes-db"),
+    			"resources/database/sticky-notes-db");
  
 	}
 	
@@ -74,8 +78,8 @@ public final class SystemTrayApplication {
 		 * @todo #50 internationalize system tray menu item labels 
 		 */
         MenuItem aboutItem = new MenuItem("About");
-        MenuItem newTaskItem = new MenuItem("New Sticker...");
-        MenuItem saveAllItem = new MenuItem("Save All Sticker...");
+        MenuItem newTaskItem = new MenuItem("New Sticky Note...");
+        MenuItem saveAllItem = new MenuItem("Save All Sticky Notes...");
         MenuItem exitItem = new MenuItem("Exit");
          
         popup.add(aboutItem);
@@ -120,12 +124,11 @@ public final class SystemTrayApplication {
         /*
          * @todo #48 implement show all menu item in task bar icon
          */
-        // action listener to newTaskItem: add a new sticker with a 
-        // default task and print it
+
         newTaskItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-//				envelopes.envelope(notes.add("Type your text here")).print();
+				envelopes.add(notes.add("Type your text here")).media().print();;
 			}
 		});
         
@@ -156,11 +159,22 @@ public final class SystemTrayApplication {
 //        });
 //       
 //
-
+        paint();
+        
+	}
+	
+	protected void paint() {
+		System.out.println("Clearing screen =================================");
         for (Envelope envelope : envelopes.iterate()) {
         	envelope.media().print();
         }
-        
+	}
+	
+	protected void save() {
+
+        for (Envelope envelope : envelopes.iterate()) {
+        	envelope.persist(envelope);
+        }		
 	}
 	
     protected static Image createImage(String path, String description) throws Exception{

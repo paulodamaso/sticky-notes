@@ -11,6 +11,8 @@ import java.util.Collection;
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.size.EnvelopeWithSize;
+import main.envelope.size.EnvelopesWithSize;
+import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithSize} repository in derby database, in table 'envelopewithsize'
@@ -18,7 +20,7 @@ import main.envelope.size.EnvelopeWithSize;
  * @author paulodamaso
  *
  */
-public class DerbyEnvelopesWithSize implements Envelopes {
+public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 	
 	private final String database;
 	private final Envelopes origin;
@@ -43,7 +45,7 @@ public class DerbyEnvelopesWithSize implements Envelopes {
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
 	
-	private final String iterate_position_query = "select id, width, height from envelopewithsize";
+	private final String iterate_size_query = "select id, width, height from envelopewithsize";
 	@Override
 	public Collection<Envelope> iterate() {
 
@@ -57,7 +59,7 @@ public class DerbyEnvelopesWithSize implements Envelopes {
 		try {
 			conn = connect();
 			
-			PreparedStatement ps = conn.prepareStatement(iterate_position_query);
+			PreparedStatement ps = conn.prepareStatement(iterate_size_query);
 			ResultSet rs = ps.executeQuery();
 			
 			//iterate in all notes, setting size in the note with size
@@ -87,6 +89,50 @@ public class DerbyEnvelopesWithSize implements Envelopes {
 		}
 
 		return it;
+	}
+
+	@Override
+	public Envelope add(Note note) {
+		return origin.add(note);
+	}
+
+	@Override
+	public Collection<EnvelopeWithSize> iterateInSize() {
+		Collection<Envelope> it = origin.iterate();
+		Collection<EnvelopeWithSize> ret = new ArrayList<EnvelopeWithSize>();
+
+		Connection conn = null;
+		try {
+			conn = connect();
+			
+			//notes with color
+			PreparedStatement ps = conn.prepareStatement(iterate_size_query);
+			ResultSet rs = ps.executeQuery();
+			
+			//iterate in all tasks, setting color in the task with color
+			while(rs.next()) {
+				for (Envelope stk : it) {
+
+					int id = rs.getInt(1);
+					if (id == stk.id()) {
+						ret.add(new DerbyEnvelopeWithSize(stk, new Dimension(rs.getInt(2), rs.getInt(3)), database));
+					}
+				}
+			}
+
+		}catch (Exception e) {
+			/* @todo #12 implement better exception handling when getting DerbyEnvelopesWithSize.iterateInSize
+			 * 
+			 */
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
 	}
 
 }

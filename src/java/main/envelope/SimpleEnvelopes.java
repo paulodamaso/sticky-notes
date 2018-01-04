@@ -6,6 +6,12 @@ import java.util.Collection;
 import main.note.Note;
 import main.note.Notes;
 
+/**
+ * <p> Basic {@link Envelopes} implementation.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class SimpleEnvelopes implements Envelopes {
 
 	private final Notes origin; 
@@ -22,5 +28,16 @@ public final class SimpleEnvelopes implements Envelopes {
 		}
 		return ret;
 	}
+
+	@Override
+	public Envelope add(Note note) {
+//		return add(note.text());
+		return new SimpleEnvelope(origin.add(note.text()));
+	}
+	
+//	@Override
+//	public Envelope add(String note) {
+//		return new SimpleEnvelope(origin.add(note));
+//	}
 
 }

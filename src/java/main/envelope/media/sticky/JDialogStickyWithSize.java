@@ -5,9 +5,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
 import main.envelope.Envelope;
-import main.envelope.color.EnvelopeWithColor;
-import main.envelope.media.MediaWithColor;
+import main.envelope.media.MediaWithSize;
 import main.envelope.media.PrintMedia;
+import main.envelope.size.EnvelopeWithSize;
 
 /**
  * <p> {@link JDialogSticky} with color information.
@@ -15,19 +15,19 @@ import main.envelope.media.PrintMedia;
  * @author paulodamaso
  *
  */
-public final class JDialogStickyWithColor implements JDialogSticky , MediaWithColor{
+public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSize{
 	
-	private final EnvelopeWithColor envelopeWithColor;
+	private final EnvelopeWithSize envelopeWithSize;
 	private final JDialogSticky media;
 
 	/*
-	 * @todo #22 create a JDialogStickyWithColor without type casting
+	 * @todo #22 create a JDialogStickyWithSize without type casting
 	 */
-	public JDialogStickyWithColor(EnvelopeWithColor envelopeWithColor, PrintMedia media) {
-		this.envelopeWithColor = envelopeWithColor;
+	public JDialogStickyWithSize(EnvelopeWithSize envelopeWithSize, PrintMedia media) {
+		this.envelopeWithSize = envelopeWithSize;
 		this.media = (JDialogSticky)media;
 		
-		this.txtArea().setBackground(this.envelopeWithColor.color());
+		jDialog().setSize((this.envelopeWithSize.size()));
 
 	}
 

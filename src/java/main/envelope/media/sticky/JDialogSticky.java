@@ -14,7 +14,7 @@ import main.note.Note;
  * @author paulodamaso
  *
  */
-public interface JDialogSticky extends PrintMedia{
+public interface JDialogSticky extends PrintMedia {
 
 	public abstract JDialog jDialog();
 	public abstract Envelope envelope();

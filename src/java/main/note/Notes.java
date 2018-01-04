@@ -14,4 +14,6 @@ public interface Notes  {
 	
 	public Note add(String text);
 	
+	public void remove (Note note);
+	
 }

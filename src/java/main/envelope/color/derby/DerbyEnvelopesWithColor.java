@@ -12,6 +12,7 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.color.EnvelopesWithColor;
+import main.note.Note;
 
 
 /**
@@ -130,8 +131,8 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 		return ret;
 	}
 
-//	@Override
-//	public Envelope add(String text) {
-//		return new DerbyEnvelopeWithColor(origin.add(text), null, text);
-//	}
+	@Override
+	public Envelope add(Note note) {
+		return origin.add(note);
+	}
 }
