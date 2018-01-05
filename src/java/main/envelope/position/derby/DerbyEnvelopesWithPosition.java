@@ -1,6 +1,5 @@
 package main.envelope.position.derby;
 
-import java.awt.Point;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,9 +22,9 @@ import main.note.Note;
 public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	
 	private final String database;
-	private final Envelopes origin;
+	private final Envelopes<? extends Envelope> origin;
 
-	public DerbyEnvelopesWithPosition(Envelopes origin, String database) {
+	public DerbyEnvelopesWithPosition(Envelopes<? extends Envelope> origin, String database) {
 
 		this.origin = origin;
 		this.database = database;
@@ -68,7 +67,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 						toRemove.add(stk);
-						toAdd.add(new DerbyEnvelopeWithPosition(stk, new Point(rs.getInt(2), rs.getInt(3)), database));
+						toAdd.add(new DerbyEnvelopeWithPosition(stk, database));
 					}
 				}
 			}
@@ -107,7 +106,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 				for (Envelope stk : it) {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						ret.add(new DerbyEnvelopeWithPosition(stk, new Point(rs.getInt(2), rs.getInt(3)), database));
+						ret.add(new DerbyEnvelopeWithPosition(stk, database));
 					}
 				}
 			}
@@ -131,6 +130,13 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	@Override
 	public Envelope add(Note note) {
 		return origin.add(note);
+	}
+
+	@Override
+	public <T extends EnvelopeWithPosition> Envelope add(EnvelopeWithPosition envelope) {
+		origin.add(envelope.origin());
+		DerbyEnvelopeWithPosition derby = new DerbyEnvelopeWithPosition(envelope.origin(), database);
+		return derby.position(envelope.position());
 	}
 
 

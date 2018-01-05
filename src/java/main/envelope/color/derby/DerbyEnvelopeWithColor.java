@@ -69,7 +69,7 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
 	private final String insert_color_query = "insert into envelopewithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
 	private final String update_color_query = "update envelopewithcolor set red = ?, green = ?, blue = ? where id = ?";
-	public EnvelopeWithColor color(Color color) {
+	public DerbyEnvelopeWithColor color(Color color) {
 		Connection conn = null;
 		try {
 //			Color color = color;

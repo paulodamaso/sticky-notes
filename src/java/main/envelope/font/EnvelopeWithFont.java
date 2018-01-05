@@ -12,5 +12,9 @@ import main.envelope.Envelope;
  */
 public interface EnvelopeWithFont extends Envelope {
 
-	public Font font();
+	public abstract Envelope origin();
+	
+	public abstract Font font();
+	
+	public abstract EnvelopeWithFont font(Font font);
 }

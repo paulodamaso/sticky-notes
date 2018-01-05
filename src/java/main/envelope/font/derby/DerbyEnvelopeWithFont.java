@@ -10,7 +10,6 @@ import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.media.MediaFactoryImpl;
 import main.envelope.media.PrintMedia;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithFont} implementations with color data in derby database, in table 'envelopewithfont'.
@@ -22,12 +21,10 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	
 	private final Envelope origin;
 	private final String database;
-	private final Font font;
 
-	public DerbyEnvelopeWithFont(Envelope origin, Font font, String database) {
+	public DerbyEnvelopeWithFont(Envelope origin, String database) {
 		this.origin = origin;
 		this.database = database;
-		this.font = font;
 		
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -52,7 +49,7 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 
 	private final String insert_font_query = "insert into envelopewithfont (id, name, style, size) values ( ?, ?, ?, ?)";
 	private final String update_font_query = "update envelopewithfont set name = ?, style = ?, size = ? where id = ?";
-	private Font persistFont() {
+	public DerbyEnvelopeWithFont font(Font font) {
 		Connection conn = null;
 		try {
 			
@@ -78,7 +75,7 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	
 			ps.executeUpdate();
 			
-			return font;
+			return new DerbyEnvelopeWithFont(origin, database);
 	
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving JDialogEnvelopeWithFont
@@ -145,5 +142,10 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	@Override
 	public void text(String text) {
 		origin.text();
+	}
+
+	@Override
+	public Envelope origin() {
+		return origin;
 	}
 }

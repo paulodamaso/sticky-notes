@@ -1,6 +1,5 @@
 package main.envelope.font.derby;
 
-import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +9,7 @@ import java.util.Collection;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
+import main.envelope.color.EnvelopeWithColor;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
 import main.note.Note;
@@ -22,10 +22,10 @@ import main.note.Note;
  */
 public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 
-	private final Envelopes origin;
+	private final Envelopes<? extends Envelope> origin;
 	private final String database;
 	
-	public DerbyEnvelopesWithFont(Envelopes origin, String database) {
+	public DerbyEnvelopesWithFont(Envelopes<? extends Envelope> origin, String database) {
 		this.origin = origin;
 		this.database = database;
 		
@@ -68,7 +68,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 						toRemove.add(stk);
-						toAdd.add(new DerbyEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+						toAdd.add(new DerbyEnvelopeWithFont(stk,  database));
 					}
 				}
 			}
@@ -111,7 +111,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 
-						ret.add(new DerbyEnvelopeWithFont(stk, new Font(rs.getString(2), rs.getInt(3), rs.getInt(4)), database));
+						ret.add(new DerbyEnvelopeWithFont(stk,  database));
 					}
 				}
 			}
@@ -135,5 +135,12 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	@Override
 	public Envelope add(Note note) {
 		return origin.add(note);
+	}
+
+	@Override
+	public <T extends EnvelopeWithFont> Envelope add(EnvelopeWithFont envelope) {
+		origin.add(envelope.origin());
+		DerbyEnvelopeWithFont derby = new DerbyEnvelopeWithFont(envelope.origin(), database);
+		return derby.font(envelope.font());
 	}
 }

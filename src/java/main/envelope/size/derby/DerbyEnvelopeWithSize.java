@@ -20,12 +20,10 @@ import main.envelope.size.EnvelopeWithSize;
 public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 	
 	private final Envelope origin;
-	private final Dimension size;
 	private final String database;
 
-	public DerbyEnvelopeWithSize(Envelope origin, Dimension size, String database) {
+	public DerbyEnvelopeWithSize(Envelope origin, String database) {
 		this.origin = origin;
-		this.size = size;
 		this.database = database;
 		
 		try {
@@ -50,7 +48,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 
 	private final String insert_position_query = "insert into envelopewithsize (id, width, height) values ( ?, ?, ?)";
 	private final String update_position_query = "update envelopewithsize set width = ?, height = ? where id = ?";
-	private Dimension persistSize () {
+	public DerbyEnvelopeWithSize size(Dimension size) {
 		Connection conn = null;
 		try {
 			
@@ -73,7 +71,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 
 			ps.executeUpdate();
 			
-			return size;
+			return new DerbyEnvelopeWithSize(origin, database);
 
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving DerbyEnvelopeWithSize
@@ -140,6 +138,11 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 	@Override
 	public void text(String text) {
 		origin.text(text);
+	}
+
+	@Override
+	public Envelope origin() {
+		return this.origin;
 	}
 
 }

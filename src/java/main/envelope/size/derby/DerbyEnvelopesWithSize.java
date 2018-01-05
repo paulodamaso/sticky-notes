@@ -1,6 +1,5 @@
 package main.envelope.size.derby;
 
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,6 +9,7 @@ import java.util.Collection;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
+import main.envelope.color.EnvelopeWithColor;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
 import main.note.Note;
@@ -23,9 +23,9 @@ import main.note.Note;
 public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 	
 	private final String database;
-	private final Envelopes origin;
+	private final Envelopes<? extends Envelope> origin;
 
-	public DerbyEnvelopesWithSize(Envelopes origin, String database) {
+	public DerbyEnvelopesWithSize(Envelopes<? extends Envelope> origin, String database) {
 
 		this.origin = origin;
 		this.database = database;
@@ -68,7 +68,7 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
 						toRemove.add(stk);
-						toAdd.add(new DerbyEnvelopeWithSize(stk, new Dimension(rs.getInt(2), rs.getInt(3)), database));
+						toAdd.add(new DerbyEnvelopeWithSize(stk, database));
 					}
 				}
 			}
@@ -115,7 +115,7 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 
 					int id = rs.getInt(1);
 					if (id == stk.id()) {
-						ret.add(new DerbyEnvelopeWithSize(stk, new Dimension(rs.getInt(2), rs.getInt(3)), database));
+						ret.add(new DerbyEnvelopeWithSize(stk, database));
 					}
 				}
 			}
@@ -133,6 +133,13 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 			}
 		}
 		return ret;
+	}
+
+	@Override
+	public <T extends EnvelopeWithSize> Envelope add(EnvelopeWithSize envelope) {
+		origin.add(envelope.origin());
+		DerbyEnvelopeWithSize derby = new DerbyEnvelopeWithSize(envelope.origin(), database);
+		return derby.size(envelope.size());
 	}
 
 }

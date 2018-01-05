@@ -17,12 +17,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.SimpleEnvelope;
 import main.envelope.SimpleEnvelopes;
 import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.color.derby.DerbyEnvelopesWithColor;
+import main.envelope.font.derby.DerbyEnvelopesWithFont;
+import main.envelope.position.derby.DerbyEnvelopesWithPosition;
+import main.envelope.size.derby.DerbyEnvelopesWithSize;
 import main.note.Notes;
 
 /**
@@ -38,7 +40,7 @@ public final class SystemTrayApplication {
 	 */
 
 	private final Notes notes;
-	private final Envelopes<? extends Envelope> envelopes;
+	private final Envelopes<?> envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
 
 	
@@ -49,23 +51,19 @@ public final class SystemTrayApplication {
     	
     	this.notes = notes;
     	
-//    	this.envelopes = 
-//    			new DerbyEnvelopesWithSize(
-//    				new DerbyEnvelopesWithPosition(
-//    					new DerbyEnvelopesWithFont(
-//    						new DerbyEnvelopesWithColor( 
-//    							new SimpleEnvelopes(this.notes), 
-//    						"resources/database/sticky-notes-db"), 
-//	    				"resources/database/sticky-notes-db"),
-//    				"resources/database/sticky-notes-db"),
-//    			"resources/database/sticky-notes-db");
+    	this.envelopes = 
+    			new DerbyEnvelopesWithSize(
+    				new DerbyEnvelopesWithPosition(
+    					new DerbyEnvelopesWithFont(
+    						new DerbyEnvelopesWithColor( 
+    							new SimpleEnvelopes(this.notes), 
+    						"resources/database/sticky-notes-db"), 
+	    				"resources/database/sticky-notes-db"),
+    				"resources/database/sticky-notes-db"),
+    			"resources/database/sticky-notes-db");
     	
-    	Envelopes<? extends Envelope> env = new SimpleEnvelopes(this.notes);
-    	
-    	this.envelopes = new DerbyEnvelopesWithColor(env, "resources/database/sticky-notes-db");
-    	
-    	this.envelopes.add(new SimpleEnvelopeWithColor(new SimpleEnvelope(notes.add("Envelope com com enviado direto")), new Color (255,0,0)));
- 
+    	envelopes.add(new SimpleEnvelopeWithColor(new SimpleEnvelope(notes.add("hop")), new Color(255, 255, 0)));
+
 	}
 	
 	public void init() throws Exception {
@@ -135,7 +133,7 @@ public final class SystemTrayApplication {
         newNoteItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				envelopes.add(notes.add("Type your text here")).media().print();;
+//				envelopes.add(notes.add("Type your text here")).media().print();;
 			}
 		});
         

@@ -20,8 +20,8 @@ import main.note.Note;
  * @author paulodamaso
  *
  */
-public final class DerbyEnvelopesWithColor implements EnvelopesWithColor<EnvelopeWithColor> {
-	
+public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
+
 	private final Envelopes<? extends Envelope> origin;
 	private final String database;
 
@@ -46,7 +46,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor<Envelop
 	}
 
 	private final String iterate_color_query = "select id, red, green, blue from envelopewithcolor";
-	@Override
+
 	public Collection<Envelope> iterate() {
 		Collection<Envelope> it = origin.iterate();
 
@@ -130,15 +130,16 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor<Envelop
 		return ret;
 	}
 
-	@Override
+
 	public Envelope add(Note note) {
 		return origin.add(note);
 	}
 
 	@Override
-	public EnvelopeWithColor add(EnvelopeWithColor envelope) {
-		origin.add(envelope);
-		EnvelopeWithColor derby = new DerbyEnvelopeWithColor(envelope.origin(), database);
+	public <T extends EnvelopeWithColor> Envelope add(EnvelopeWithColor envelope) {
+		origin.add(envelope.origin());
+		DerbyEnvelopeWithColor derby = new DerbyEnvelopeWithColor(envelope.origin(), database);
 		return derby.color(envelope.color());
 	}
+
 }

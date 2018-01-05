@@ -11,7 +11,11 @@ import main.envelope.Envelope;
  *
  */
 public interface EnvelopeWithPosition extends Envelope {
+	
+	public abstract Envelope origin();
+	
+	public abstract EnvelopeWithPosition position(Point position);
 
-	public Point position();
+	public abstract Point position();
 	
 }

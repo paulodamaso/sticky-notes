@@ -10,7 +10,6 @@ import main.envelope.Envelope;
 import main.envelope.media.MediaFactoryImpl;
 import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithPosition} implementation with position data in derby database, in table 'envelopewithposition'.
@@ -21,12 +20,10 @@ import main.note.Note;
 public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 
 	private final Envelope origin;
-	private final Point position;
 	private final String database;
 	
-	public DerbyEnvelopeWithPosition(Envelope origin, Point position, String database) {
+	public DerbyEnvelopeWithPosition(Envelope origin, String database) {
 		this.origin = origin;
-		this.position = position;
 		this.database = database;
 		
 		try {
@@ -51,7 +48,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 
 	private final String insert_position_query = "insert into envelopewithposition (id, x, y) values ( ?, ?, ?)";
 	private final String update_position_query = "update envelopewithposition set x = ?, y = ? where id = ?";
-	private Point persistPosition () {
+	public DerbyEnvelopeWithPosition position (Point position) {
 		Connection conn = null;
 		try {
 
@@ -73,7 +70,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 
 			ps.executeUpdate();
 			
-			return position;
+			return new DerbyEnvelopeWithPosition(origin, database);
 
 		}catch(Exception e) {
 			/* @todo #12 implement better exception handling when saving DerbyEnvelopeWithPosition
@@ -140,6 +137,11 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 	@Override
 	public void text(String text) {
 		origin.text(text);
+	}
+
+	@Override
+	public Envelope origin() {
+		return this.origin;
 	}
 
 }
