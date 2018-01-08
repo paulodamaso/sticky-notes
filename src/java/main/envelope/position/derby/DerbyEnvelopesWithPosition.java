@@ -22,9 +22,9 @@ import main.note.Note;
 public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	
 	private final String database;
-	private final Envelopes<? extends Envelope> origin;
+	private final Envelopes origin;
 
-	public DerbyEnvelopesWithPosition(Envelopes<? extends Envelope> origin, String database) {
+	public DerbyEnvelopesWithPosition(Envelopes origin, String database) {
 
 		this.origin = origin;
 		this.database = database;
@@ -131,13 +131,4 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	public Envelope add(Note note) {
 		return origin.add(note);
 	}
-
-	@Override
-	public <T extends EnvelopeWithPosition> Envelope add(EnvelopeWithPosition envelope) {
-		origin.add(envelope.origin());
-		DerbyEnvelopeWithPosition derby = new DerbyEnvelopeWithPosition(envelope.origin(), database);
-		return derby.position(envelope.position());
-	}
-
-
 }

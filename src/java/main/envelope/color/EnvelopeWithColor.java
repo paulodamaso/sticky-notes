@@ -11,7 +11,7 @@ import main.envelope.Envelope;
  * @author paulodamaso
  *
  */
-public interface EnvelopeWithColor extends Envelope{
+public interface EnvelopeWithColor extends Envelope {
 	
 	public abstract Envelope origin();
 	

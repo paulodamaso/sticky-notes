@@ -11,7 +11,7 @@ import main.envelope.Envelopes;
  * @author paulodamaso
  *
  */
-public interface EnvelopesWithSize extends Envelopes<EnvelopeWithSize> {
+public interface EnvelopesWithSize extends Envelopes {
 	
 	/**
 	 * <p> Retrieves all {@link Envelope} instances with size data from this collection.

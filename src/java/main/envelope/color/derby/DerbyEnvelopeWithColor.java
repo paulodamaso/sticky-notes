@@ -140,5 +140,4 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	public Envelope origin() {
 		return this.origin;
 	}
-
 }

@@ -11,7 +11,7 @@ import main.envelope.Envelopes;
  * @author paulodamaso
  *
  */
-public interface EnvelopesWithColor extends Envelopes<EnvelopeWithColor> {
+public interface EnvelopesWithColor extends Envelopes {
 
 	/**
 	 * <p> Retrieves all {@link Envelope} instances with color data from this collection.

@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.AWTException;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -17,10 +16,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import main.envelope.Envelope;
 import main.envelope.Envelopes;
-import main.envelope.SimpleEnvelope;
 import main.envelope.SimpleEnvelopes;
-import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.color.derby.DerbyEnvelopesWithColor;
 import main.envelope.font.derby.DerbyEnvelopesWithFont;
 import main.envelope.position.derby.DerbyEnvelopesWithPosition;
@@ -40,7 +38,7 @@ public final class SystemTrayApplication {
 	 */
 
 	private final Notes notes;
-	private final Envelopes<?> envelopes;
+	private final Envelopes envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
 
 	
@@ -62,8 +60,9 @@ public final class SystemTrayApplication {
     				"resources/database/sticky-notes-db"),
     			"resources/database/sticky-notes-db");
     	
-    	envelopes.add(new SimpleEnvelopeWithColor(new SimpleEnvelope(notes.add("hop")), new Color(255, 255, 0)));
-
+    	for (Envelope envelope : envelopes.iterate()) {
+    		envelope.media().print();
+    	}
 	}
 	
 	public void init() throws Exception {
@@ -86,7 +85,7 @@ public final class SystemTrayApplication {
         MenuItem newNoteItem = new MenuItem("New Sticky Note...");
         MenuItem saveAllItem = new MenuItem("Save All Sticky Notes...");
         MenuItem exitItem = new MenuItem("Exit");
-         
+        
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newNoteItem);

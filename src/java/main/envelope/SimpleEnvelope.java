@@ -37,10 +37,4 @@ public final class SimpleEnvelope implements Envelope {
 	public void text(String text) {
 		origin.text(text);
 	}
-
-//	@Override
-//	public void save() {
-//		//just to pretend we are changing state
-//		origin.text(origin.text());
-//	}
 }

@@ -12,7 +12,7 @@ import main.envelope.Envelopes;
  * @author paulodamaso
  *
  */
-public interface EnvelopesWithFont extends Envelopes<EnvelopeWithFont> {
+public interface EnvelopesWithFont extends Envelopes {
 
 	/**
 	 * <p> Retrieves all {@link Envelope} instances with font data from this collection.

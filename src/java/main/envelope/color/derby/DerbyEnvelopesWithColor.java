@@ -22,10 +22,10 @@ import main.note.Note;
  */
 public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 
-	private final Envelopes<? extends Envelope> origin;
+	private final Envelopes origin;
 	private final String database;
 
-	public DerbyEnvelopesWithColor(Envelopes<? extends Envelope> origin, String database) {
+	public DerbyEnvelopesWithColor(Envelopes origin, String database) {
 		this.origin = origin;
 		this.database = database;
 		
@@ -130,16 +130,14 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 		return ret;
 	}
 
-
 	public Envelope add(Note note) {
+		if (note instanceof EnvelopeWithColor) {
+			EnvelopeWithColor envelopeWithColor = (EnvelopeWithColor)note;
+			DerbyEnvelopeWithColor derbyEnvelopeWithColor = new DerbyEnvelopeWithColor(envelopeWithColor.origin(), database);
+			derbyEnvelopeWithColor.color(envelopeWithColor.color());
+		}
+			
 		return origin.add(note);
-	}
-
-	@Override
-	public <T extends EnvelopeWithColor> Envelope add(EnvelopeWithColor envelope) {
-		origin.add(envelope.origin());
-		DerbyEnvelopeWithColor derby = new DerbyEnvelopeWithColor(envelope.origin(), database);
-		return derby.color(envelope.color());
 	}
 
 }

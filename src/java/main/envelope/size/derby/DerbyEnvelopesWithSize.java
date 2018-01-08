@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
-import main.envelope.color.EnvelopeWithColor;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
 import main.note.Note;
@@ -23,9 +22,9 @@ import main.note.Note;
 public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 	
 	private final String database;
-	private final Envelopes<? extends Envelope> origin;
+	private final Envelopes origin;
 
-	public DerbyEnvelopesWithSize(Envelopes<? extends Envelope> origin, String database) {
+	public DerbyEnvelopesWithSize(Envelopes origin, String database) {
 
 		this.origin = origin;
 		this.database = database;
@@ -134,12 +133,4 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 		}
 		return ret;
 	}
-
-	@Override
-	public <T extends EnvelopeWithSize> Envelope add(EnvelopeWithSize envelope) {
-		origin.add(envelope.origin());
-		DerbyEnvelopeWithSize derby = new DerbyEnvelopeWithSize(envelope.origin(), database);
-		return derby.size(envelope.size());
-	}
-
 }

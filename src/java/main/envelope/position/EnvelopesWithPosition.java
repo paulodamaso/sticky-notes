@@ -11,7 +11,7 @@ import main.envelope.Envelopes;
  * @author paulodamaso
  *
  */
-public interface EnvelopesWithPosition extends Envelopes<EnvelopeWithPosition> {
+public interface EnvelopesWithPosition extends Envelopes {
 	
 	/**
 	 * <p> Retrieves all {@link Envelope} instances with position data from this collection.

@@ -9,7 +9,6 @@ import java.util.Collection;
 
 import main.envelope.Envelope;
 import main.envelope.Envelopes;
-import main.envelope.color.EnvelopeWithColor;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
 import main.note.Note;
@@ -22,10 +21,10 @@ import main.note.Note;
  */
 public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 
-	private final Envelopes<? extends Envelope> origin;
+	private final Envelopes origin;
 	private final String database;
 	
-	public DerbyEnvelopesWithFont(Envelopes<? extends Envelope> origin, String database) {
+	public DerbyEnvelopesWithFont(Envelopes origin, String database) {
 		this.origin = origin;
 		this.database = database;
 		
@@ -135,12 +134,5 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	@Override
 	public Envelope add(Note note) {
 		return origin.add(note);
-	}
-
-	@Override
-	public <T extends EnvelopeWithFont> Envelope add(EnvelopeWithFont envelope) {
-		origin.add(envelope.origin());
-		DerbyEnvelopeWithFont derby = new DerbyEnvelopeWithFont(envelope.origin(), database);
-		return derby.font(envelope.font());
 	}
 }
