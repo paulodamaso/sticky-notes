@@ -19,5 +19,7 @@ public interface EnvelopesWithPosition extends Envelopes {
 	 * @return
 	 */
 	public Collection<EnvelopeWithPosition> iterateInPosition();
+	
+	public Envelopes origin() ;
 
 }

@@ -31,7 +31,7 @@ import main.note.Notes;
  * @author paulodamaso
  *
  */
-public final class SystemTrayApplication {
+public final class SystemTrayApplication implements  Application {
 	
 	/*
 	 * @todo #50 internationalize SystemTrayApplication logged messages
@@ -40,7 +40,6 @@ public final class SystemTrayApplication {
 	private final Notes notes;
 	private final Envelopes envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
-
 	
 	/*
 	 * @todo #46 should we pass the notes or envelopes to SystemTrayApplication ?
@@ -59,17 +58,13 @@ public final class SystemTrayApplication {
 	    				"resources/database/sticky-notes-db"),
     				"resources/database/sticky-notes-db"),
     			"resources/database/sticky-notes-db");
-    	
-    	for (Envelope envelope : envelopes.iterate()) {
-    		envelope.media().print();
-    	}
 	}
 	
-	public void init() throws Exception {
+	public Application init() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
 			logger.severe("SystemTray is not supported");
-            return;
+            return this;
         }
 		
 
@@ -100,7 +95,7 @@ public final class SystemTrayApplication {
             tray.add(trayIcon);
         } catch (AWTException e) {
 			logger.log(Level.SEVERE, "TrayIcon could not be added.", e);
-            return;
+            return this;
         }
 
         
@@ -161,25 +156,10 @@ public final class SystemTrayApplication {
 //                System.exit(0);
 //            }
 //        });
-//       
-//
-//        paint();
-        
+
+        return this;
 	}
-	
-//	protected void paint() {
-//        for (Envelope envelope : envelopes.iterate()) {
-//        	envelope.media().print();
-//        }
-//	}
-	
-//	protected void save() {
-//
-//        for (Envelope envelope : envelopes.iterate()) {
-//        	envelope.persist(envelope);
-//        }		
-//	}
-	
+
     protected static Image createImage(String path, String description) throws Exception{
         
         InputStream is = SystemTrayApplication.class.getResourceAsStream(path);
@@ -192,4 +172,15 @@ public final class SystemTrayApplication {
             return (new ImageIcon(image, description)).getImage();
         }
     }
+
+	@Override
+	public Envelope add(Envelope envelope) {
+		return envelopes.add(envelope);
+	}
+
+	@Override
+	public Envelopes envelopes() {
+		return envelopes;
+	}
+	
 }

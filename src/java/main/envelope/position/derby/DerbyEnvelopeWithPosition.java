@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import main.envelope.Envelope;
-import main.envelope.media.MediaFactoryImpl;
-import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
 
 /**
@@ -127,11 +125,6 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 	@Override
 	public String text() {
 		return origin.text();
-	}
-
-	@Override
-	public PrintMedia media () {
-		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 	@Override

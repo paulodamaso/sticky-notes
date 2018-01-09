@@ -19,4 +19,11 @@ public interface EnvelopesWithColor extends Envelopes {
 	 * @return
 	 */
 	public Collection<EnvelopeWithColor> iterateInColor();
+	
+	/**
+	 * <p> Retrieves the collection being decorated by thios {@link EnvelopesWithColor} object.
+	 * 
+	 * @return
+	 */
+	public Envelopes origin();
 }

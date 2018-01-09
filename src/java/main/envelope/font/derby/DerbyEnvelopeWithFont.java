@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 
 import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
-import main.envelope.media.MediaFactoryImpl;
-import main.envelope.media.PrintMedia;
 
 /**
  * <p> {@link EnvelopeWithFont} implementations with color data in derby database, in table 'envelopewithfont'.
@@ -132,11 +130,6 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	@Override
 	public String text() {
 		return origin.text();
-	}
-
-	@Override
-	public PrintMedia media() {
-		return new MediaFactoryImpl().create(this, origin.media());
 	}
 
 	@Override

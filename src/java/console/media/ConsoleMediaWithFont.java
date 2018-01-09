@@ -1,5 +1,6 @@
-package main.envelope.media.console;
+package console.media;
 
+import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.media.MediaWithFont;
 import main.envelope.media.PrintMedia;
@@ -18,8 +19,8 @@ public final class ConsoleMediaWithFont implements MediaWithFont {
 	}
 
 	@Override
-	public void print() {
-		media.print();
+	public void print(Envelope envelope) {
+		media.print(envelope);
 		System.out.println(" with font " + envelopeWithFont.font());
 	}
 

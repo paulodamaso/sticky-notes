@@ -133,4 +133,9 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 		}
 		return ret;
 	}
+
+	@Override
+	public Envelopes origin() {
+		return origin;
+	}
 }

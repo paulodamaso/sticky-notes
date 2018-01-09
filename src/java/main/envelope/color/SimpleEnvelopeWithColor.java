@@ -3,7 +3,6 @@ package main.envelope.color;
 import java.awt.Color;
 
 import main.envelope.Envelope;
-import main.envelope.media.PrintMedia;
 
 public final class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 
@@ -13,11 +12,6 @@ public final class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 	public SimpleEnvelopeWithColor(Envelope origin, Color color) {
 		this.envelope = origin;
 		this.color = color;
-	}
-
-	@Override
-	public PrintMedia media() {
-		return envelope.media();
 	}
 
 	@Override

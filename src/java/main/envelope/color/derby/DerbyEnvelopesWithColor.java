@@ -129,7 +129,7 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 		}
 		return ret;
 	}
-
+	
 	public Envelope add(Note note) {
 		if (note instanceof EnvelopeWithColor) {
 			EnvelopeWithColor envelopeWithColor = (EnvelopeWithColor)note;
@@ -138,6 +138,11 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 		}
 			
 		return origin.add(note);
+	}
+
+	@Override
+	public Envelopes origin() {
+		return this.origin;
 	}
 
 }

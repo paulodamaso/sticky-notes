@@ -1,5 +1,6 @@
-package main.envelope.media.console;
+package console.media;
 
+import main.envelope.Envelope;
 import main.envelope.media.MediaWithPosition;
 import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
@@ -18,8 +19,8 @@ public final class ConsoleMediaWithPosition implements MediaWithPosition {
 	}
 
 	@Override
-	public void print() {
-		media.print();
+	public void print(Envelope envelope) {
+		media.print(envelope);
 		System.out.println(" with position " + envelopeWithPosition.position());
 	}
 

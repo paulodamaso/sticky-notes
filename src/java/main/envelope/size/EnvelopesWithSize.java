@@ -19,5 +19,7 @@ public interface EnvelopesWithSize extends Envelopes {
 	 * @return
 	 */
 	public Collection<EnvelopeWithSize> iterateInSize();
+	
+	public Envelopes origin();
 
 }

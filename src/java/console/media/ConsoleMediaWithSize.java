@@ -1,5 +1,6 @@
-package main.envelope.media.console;
+package console.media;
 
+import main.envelope.Envelope;
 import main.envelope.media.MediaWithSize;
 import main.envelope.media.PrintMedia;
 import main.envelope.size.EnvelopeWithSize;
@@ -18,8 +19,8 @@ public final class ConsoleMediaWithSize implements MediaWithSize {
 	}
 
 	@Override
-	public void print() {
-		media.print();
+	public void print(Envelope envelope) {
+		media.print(envelope);
 		System.out.println(" with size " + envelopeWithSize.size());
 	}
 

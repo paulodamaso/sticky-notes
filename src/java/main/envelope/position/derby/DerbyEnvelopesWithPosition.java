@@ -131,4 +131,9 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	public Envelope add(Note note) {
 		return origin.add(note);
 	}
+
+	@Override
+	public Envelopes origin() {
+		return origin;
+	}
 }

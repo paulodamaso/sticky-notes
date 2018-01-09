@@ -20,4 +20,11 @@ public interface EnvelopesWithFont extends Envelopes {
 	 * @return
 	 */
 	public Collection<EnvelopeWithFont> iterateInFont();
+	
+	/**
+	 * <p> Retrieves the {@link Envelopes} decorated by this object.
+	 *   
+	 * @return
+	 */
+	public Envelopes origin();
 }

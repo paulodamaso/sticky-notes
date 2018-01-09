@@ -12,10 +12,13 @@ import main.note.Note;
 public interface Envelope extends Note {
 	
 	/**
-	 * <p> Returns the {@link PrintMedia} in which this object is printed.
+	 * <p> Defines the {@link PrintMedia} in which this object is printed.
+	 * 
 	 * @param media
 	 * @return
 	 */
-	public PrintMedia media ();
+	public default void print(PrintMedia media) {
+		media.print(this);
+	}
 	
 }

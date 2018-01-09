@@ -135,4 +135,9 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	public Envelope add(Note note) {
 		return origin.add(note);
 	}
+
+	@Override
+	public Envelopes origin() {
+		return origin;
+	}
 }

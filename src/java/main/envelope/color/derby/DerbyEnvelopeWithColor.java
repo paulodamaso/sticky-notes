@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
-import main.envelope.media.MediaFactoryImpl;
-import main.envelope.media.PrintMedia;
 
 
 /**
@@ -127,11 +125,6 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	}
 
 	@Override
-	public PrintMedia media () {
-		return new MediaFactoryImpl().create(this, origin.media());
-	}
-
-	@Override
 	public void text(String text) {
 		origin.text(text);
 	}
@@ -140,4 +133,8 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	public Envelope origin() {
 		return this.origin;
 	}
+//	
+//	public EnvelopeWithColor save (Envelope envelope, Color color) {
+//		return new DerbyEnvelopeWithColor(envelope, database).color(color);
+//	}
 }

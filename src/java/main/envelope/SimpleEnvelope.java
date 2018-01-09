@@ -1,7 +1,5 @@
 package main.envelope;
 
-import main.envelope.media.MediaFactoryImpl;
-import main.envelope.media.PrintMedia;
 import main.note.Note;
 
 /**
@@ -26,11 +24,6 @@ public final class SimpleEnvelope implements Envelope {
 	@Override
 	public String text() {
 		return this.origin.text();
-	}
-
-	@Override
-	public PrintMedia media() {
-		return new MediaFactoryImpl().create(this);
 	}
 
 	@Override
