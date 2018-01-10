@@ -1,6 +1,7 @@
 package main.envelope.size.derby;
 
 import main.envelope.EnvelopeFactory;
+import main.envelope.Envelopes;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
 
@@ -19,8 +20,8 @@ public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWit
 	}
 
 	@Override
-	public EnvelopesWithSize createEnvelopes(EnvelopesWithSize envelopes) {
-		EnvelopesWithSize envelopesWithSize = new DerbyEnvelopesWithSize(envelopes.origin(), database);
+	public EnvelopesWithSize createEnvelopes(Envelopes envelopes) {
+		EnvelopesWithSize envelopesWithSize = new DerbyEnvelopesWithSize(envelopes, database);
 		return envelopesWithSize;
 	}
 

@@ -12,20 +12,29 @@ import java.util.Scanner;
 import console.media.ConsoleMediaFactoryImpl;
 import main.Application;
 import main.envelope.Envelope;
+import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.SimpleEnvelope;
 import main.envelope.SimpleEnvelopes;
+import main.envelope.color.EnvelopeWithColor;
+import main.envelope.color.EnvelopesWithColor;
 import main.envelope.color.SimpleEnvelopeWithColor;
-import main.envelope.color.derby.DerbyEnvelopesWithColor;
+import main.envelope.color.derby.DerbyEnvelopeWithColorFactory;
+import main.envelope.font.EnvelopeWithFont;
+import main.envelope.font.EnvelopesWithFont;
 import main.envelope.font.SimpleEnvelopeWithFont;
-import main.envelope.font.derby.DerbyEnvelopesWithFont;
+import main.envelope.font.derby.DerbyEnvelopeWithFontFactory;
+import main.envelope.media.MediaFactory;
 import main.envelope.media.PrintMedia;
+import main.envelope.position.EnvelopeWithPosition;
+import main.envelope.position.EnvelopesWithPosition;
 import main.envelope.position.SimpleEnvelopeWithPosition;
-import main.envelope.position.derby.DerbyEnvelopesWithPosition;
+import main.envelope.position.derby.DerbyEnvelopeWithPositionFactory;
+import main.envelope.size.EnvelopeWithSize;
+import main.envelope.size.EnvelopesWithSize;
 import main.envelope.size.SimpleEnvelopeWithSize;
-import main.envelope.size.derby.DerbyEnvelopesWithSize;
+import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
 import main.note.Notes;
-import main.note.SimpleNote;
 
 /**
  * <p> Command line interface for sticky-notes. 
@@ -37,20 +46,26 @@ public class CommandLineApplication implements Application {
 	
 	private final Notes notes;
 	private final Envelopes envelopes;
+	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
+	
+	private final MediaFactory mediaFactory = new ConsoleMediaFactoryImpl();
 
 	public CommandLineApplication(Notes notes) {
 		this.notes = notes;
 		
     	this.envelopes = 
-    			new DerbyEnvelopesWithSize(
-    				new DerbyEnvelopesWithPosition(
-    					new DerbyEnvelopesWithFont(
-    						new DerbyEnvelopesWithColor( 
-    							new SimpleEnvelopes(this.notes), 
-    						"resources/database/sticky-notes-db"), 
-	    				"resources/database/sticky-notes-db"),
-    				"resources/database/sticky-notes-db"),
-    			"resources/database/sticky-notes-db");
+    			sizeFactory.createEnvelopes(
+    					positionFactory.createEnvelopes(
+    							fontFactory.createEnvelopes(
+    									colorFactory.createEnvelopes(
+    											new SimpleEnvelopes(this.notes)
+    											)
+    									)
+    							)
+    					);
 	}
 
 	@Override
@@ -104,43 +119,43 @@ public class CommandLineApplication implements Application {
 					if (str.equalsIgnoreCase("add")) {
 						String noteText = it.next();
 //						System.out.println("Adding a note " + noteText);
-						envelope = new SimpleEnvelope(new SimpleNote(0, noteText));
+						envelope = new SimpleEnvelope(notes.add(noteText));
 					} else if (str.equalsIgnoreCase("color")) {
 						Color color = new Color (
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next())
 								);
-						envelope = new SimpleEnvelopeWithColor(envelope, color);
+						envelope = colorFactory.create(new SimpleEnvelopeWithColor(envelope, color));
 //						System.out.println("Decorating with color " + color);
 					} else if (str.equalsIgnoreCase("font")) {
 						Font font = new Font(
 								it.next(),
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()));
-						envelope = new SimpleEnvelopeWithFont (envelope, font);
+						envelope = fontFactory.create(new SimpleEnvelopeWithFont (envelope, font));
+
 //						System.out.println("Decorating with font " + font);
 					} else if (str.equalsIgnoreCase("position")) {
 						Point position = new Point(
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()));
-						envelope = new SimpleEnvelopeWithPosition (envelope, position);
+						envelope = positionFactory.create(new SimpleEnvelopeWithPosition (envelope, position));
 //						System.out.println("Decorating with position " + position);
 					}  else if (str.equalsIgnoreCase("size")) {
 						Dimension size = new Dimension(
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()));
-						envelope = new SimpleEnvelopeWithSize (envelope, size);
+						envelope = sizeFactory.create(new SimpleEnvelopeWithSize (envelope, size));
 						//System.out.println("Decorating with size " + size);
 					}
 					//i'm adding a new note. need to know which note to add and which decorations use
 					//now I add all decorations
 				}
-				add(envelope);
 			} else if (line.equalsIgnoreCase("print")) {
 				//print all envelopes
 				for (Envelope enve : envelopes.iterate()) {
-					PrintMedia pm = new ConsoleMediaFactoryImpl().create(enve);
+					PrintMedia pm =	mediaFactory.create(enve);
 					enve.print(pm);
 				}
 

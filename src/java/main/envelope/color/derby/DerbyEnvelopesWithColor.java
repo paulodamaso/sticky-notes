@@ -131,12 +131,6 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 	}
 	
 	public Envelope add(Note note) {
-		if (note instanceof EnvelopeWithColor) {
-			EnvelopeWithColor envelopeWithColor = (EnvelopeWithColor)note;
-			DerbyEnvelopeWithColor derbyEnvelopeWithColor = new DerbyEnvelopeWithColor(envelopeWithColor.origin(), database);
-			derbyEnvelopeWithColor.color(envelopeWithColor.color());
-		}
-			
 		return origin.add(note);
 	}
 

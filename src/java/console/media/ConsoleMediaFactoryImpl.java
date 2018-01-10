@@ -18,11 +18,12 @@ public class ConsoleMediaFactoryImpl implements MediaFactory {
 	
 	@Override
 	public PrintMedia create(Envelope envelope) {
-		PrintMedia ret = new SimpleConsoleMedia();
-		if (envelope instanceof EnvelopeWithColor) ret = new ConsoleMediaWithColor((EnvelopeWithColor)envelope, ret);
-		if (envelope instanceof EnvelopeWithFont) ret = new ConsoleMediaWithFont((EnvelopeWithFont)envelope, ret);
-		if (envelope instanceof EnvelopeWithSize) ret = new ConsoleMediaWithSize((EnvelopeWithSize)envelope, ret);
-		if (envelope instanceof EnvelopeWithPosition) ret = new ConsoleMediaWithPosition((EnvelopeWithPosition)envelope, ret);
+		PrintMedia ret = null; 
+		if (envelope instanceof Envelope) ret = new SimpleConsoleMedia(); 
+		if (envelope instanceof EnvelopeWithColor) ret = new ConsoleMediaWithColor(((EnvelopeWithColor)envelope), create(((EnvelopeWithColor)envelope).origin()));
+		if (envelope instanceof EnvelopeWithFont) ret = new ConsoleMediaWithFont((EnvelopeWithFont)envelope, create(((EnvelopeWithFont)envelope).origin()));
+		if (envelope instanceof EnvelopeWithSize) ret = new ConsoleMediaWithSize((EnvelopeWithSize)envelope, create(((EnvelopeWithSize)envelope).origin()));
+		if (envelope instanceof EnvelopeWithPosition) ret = new ConsoleMediaWithPosition((EnvelopeWithPosition)envelope, create(((EnvelopeWithPosition)envelope).origin()));
 		
 		return ret;
 	}

@@ -3,7 +3,7 @@ package main.envelope;
 public interface EnvelopeFactory<T extends Envelope, U extends Envelopes> {
 
 	public T create (T envelope);
-	public U createEnvelopes (U envelopes);
+	public U createEnvelopes (Envelopes envelopes);
 	
 //	public EnvelopeWithFont create (Envelope envelope, Font font);
 //	public EnvelopeWithPosition create (Envelope envelope, Point point);

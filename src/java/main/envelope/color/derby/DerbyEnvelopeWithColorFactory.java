@@ -1,6 +1,7 @@
 package main.envelope.color.derby;
 
 import main.envelope.EnvelopeFactory;
+import main.envelope.Envelopes;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.color.EnvelopesWithColor;
 
@@ -19,8 +20,8 @@ public final class DerbyEnvelopeWithColorFactory implements EnvelopeFactory<Enve
 	}
 
 	@Override
-	public EnvelopesWithColor createEnvelopes(EnvelopesWithColor envelopes) {
-		EnvelopesWithColor envelopesWithColor = new DerbyEnvelopesWithColor(envelopes.origin(), database);
+	public EnvelopesWithColor createEnvelopes(Envelopes envelopes) {
+		EnvelopesWithColor envelopesWithColor = new DerbyEnvelopesWithColor(envelopes, database);
 		return envelopesWithColor;
 	}
 }

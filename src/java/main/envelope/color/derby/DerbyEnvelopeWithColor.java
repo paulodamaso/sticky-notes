@@ -133,8 +133,5 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	public Envelope origin() {
 		return this.origin;
 	}
-//	
-//	public EnvelopeWithColor save (Envelope envelope, Color color) {
-//		return new DerbyEnvelopeWithColor(envelope, database).color(color);
-//	}
+
 }

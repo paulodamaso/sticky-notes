@@ -1,6 +1,7 @@
 package main.envelope.position.derby;
 
 import main.envelope.EnvelopeFactory;
+import main.envelope.Envelopes;
 import main.envelope.position.EnvelopeWithPosition;
 import main.envelope.position.EnvelopesWithPosition;
 
@@ -19,8 +20,8 @@ public class DerbyEnvelopeWithPositionFactory implements EnvelopeFactory<Envelop
 	}
 
 	@Override
-	public EnvelopesWithPosition createEnvelopes(EnvelopesWithPosition envelopes) {
-		EnvelopesWithPosition envelopesWithPosition = new DerbyEnvelopesWithPosition(envelopes.origin(), database);
+	public EnvelopesWithPosition createEnvelopes(Envelopes envelopes) {
+		EnvelopesWithPosition envelopesWithPosition = new DerbyEnvelopesWithPosition(envelopes, database);
 		return envelopesWithPosition;
 	}
 

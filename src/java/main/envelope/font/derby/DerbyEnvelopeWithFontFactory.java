@@ -1,6 +1,7 @@
 package main.envelope.font.derby;
 
 import main.envelope.EnvelopeFactory;
+import main.envelope.Envelopes;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
 
@@ -19,8 +20,8 @@ public class DerbyEnvelopeWithFontFactory implements EnvelopeFactory<EnvelopeWit
 	}
 
 	@Override
-	public EnvelopesWithFont createEnvelopes(EnvelopesWithFont envelopes) {
-		EnvelopesWithFont envelopesWithFont = new DerbyEnvelopesWithFont(envelopes.origin(), database);
+	public EnvelopesWithFont createEnvelopes(Envelopes envelopes) {
+		EnvelopesWithFont envelopesWithFont = new DerbyEnvelopesWithFont(envelopes, database);
 		return envelopesWithFont;
 	}
 
