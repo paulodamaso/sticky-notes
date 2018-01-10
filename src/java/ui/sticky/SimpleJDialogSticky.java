@@ -1,4 +1,4 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,9 +13,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import main.Application;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
-import main.envelope.media.SimpleMedia;
+import ui.PrintMedia;
+import ui.SimpleMedia;
 
 /**
  * <p> A sticky implementation of a {@link Envelope} using {@link JDialog}.
@@ -26,15 +28,15 @@ import main.envelope.media.SimpleMedia;
 public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 
 	private final JDialog jdialog;
-	private final Envelope envelope;
 	private final JPopupMenu popup;
 	private final JTextArea txtArea;
+	private final Application application;
 
-	public SimpleJDialogSticky(Envelope envelope) {
-		this.envelope = envelope;
+	public SimpleJDialogSticky(Envelope envelope, Application application) {
+		this.application = application;
 		
 		this.jdialog = new JDialog();
-		jdialog.setTitle(jdialog.toString());
+		jdialog.setTitle(envelope.getClass().toString());
 		this.popup = new JPopupMenu();
 		
 		//formatting the textarea with default values
@@ -64,20 +66,7 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
         JMenuItem colorMenu = new JMenuItem("Color...");
         
         //adding action to color menu
-        colorMenu.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//show a colorchooser
-        		Color newColor = JColorChooser.showDialog(null,
-                        "Choose Color",
-                        new Color(251,247,174)
-                        );
-        		if (newColor != null) txtArea().setBackground(newColor);
-        		//save this envelope color
-//        		envelope = new SimpleEnvelopeWithColor(envelope, newColor);
-			}
-		});		
+        colorMenu.addActionListener(new ColorActionListener(envelope, application));		
         
         //setting the popup menu to show save option
         JMenuItem saveItem = new JMenuItem("Save");
@@ -119,12 +108,6 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 	}
 
 	@Override
-	public void print() {
-		if (!jdialog.isVisible()) jdialog.setVisible(true);
-		jdialog.requestFocus();
-	}
-
-	@Override
 	public JDialog jDialog() {
 		return this.jdialog;
 	}
@@ -137,11 +120,6 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 	@Override
 	public JTextArea txtArea() {
 		return this.txtArea;
-	}
-
-	@Override
-	public Envelope envelope() {
-		return this.envelope;
 	}
 
 }

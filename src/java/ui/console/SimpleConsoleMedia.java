@@ -1,7 +1,7 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
-import main.envelope.media.SimpleMedia;
+import ui.SimpleMedia;
 
 /**
  * <p> Prints {@link Envelope} to console.

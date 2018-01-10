@@ -1,4 +1,4 @@
-package main.envelope.media;
+package ui;
 
 /**
  * <p> Simple print media for printing basic types.

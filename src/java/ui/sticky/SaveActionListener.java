@@ -1,4 +1,4 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

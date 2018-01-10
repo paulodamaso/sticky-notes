@@ -1,9 +1,9 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
-import main.envelope.media.MediaWithSize;
-import main.envelope.media.PrintMedia;
 import main.envelope.size.EnvelopeWithSize;
+import ui.MediaWithSize;
+import ui.PrintMedia;
 
 /**
  * <p> Print {@link EnvelopeWithSize} to console.

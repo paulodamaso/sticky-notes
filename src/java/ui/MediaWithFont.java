@@ -1,4 +1,4 @@
-package main.envelope.media;
+package ui;
 
 import main.envelope.Envelope;
 

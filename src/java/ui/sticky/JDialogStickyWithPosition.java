@@ -1,13 +1,12 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.envelope.Envelope;
-import main.envelope.media.MediaWithPosition;
-import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
+import ui.MediaWithPosition;
+import ui.PrintMedia;
 
 /**
  * <p> {@link JDialogSticky} with position information.
@@ -27,6 +26,8 @@ public final class JDialogStickyWithPosition implements JDialogSticky , MediaWit
 		this.envelopeWithPosition = envelopeWithPosition;
 		this.media = (JDialogSticky)media;
 		
+		this.media.jDialog().setTitle(this.envelopeWithPosition.getClass().toString());
+		
 		jDialog().setLocation(this.envelopeWithPosition.position());
 
 	}
@@ -37,11 +38,6 @@ public final class JDialogStickyWithPosition implements JDialogSticky , MediaWit
 	}
 
 	@Override
-	public Envelope envelope() {
-		return media.envelope();
-	}
-
-	@Override
 	public JPopupMenu popUp() {
 		return media.popUp();
 	}
@@ -49,10 +45,5 @@ public final class JDialogStickyWithPosition implements JDialogSticky , MediaWit
 	@Override
 	public JTextArea txtArea() {
 		return media.txtArea();
-	}
-
-	@Override
-	public void print() {
-		media.print();
 	}
 }

@@ -1,9 +1,9 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
-import main.envelope.media.MediaWithColor;
-import main.envelope.media.PrintMedia;
+import ui.MediaWithColor;
+import ui.PrintMedia;
 
 /**
  * <p> Print {@link EnvelopeWithColor} to console.

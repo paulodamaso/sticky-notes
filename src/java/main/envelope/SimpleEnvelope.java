@@ -30,4 +30,11 @@ public final class SimpleEnvelope implements Envelope {
 	public void text(String text) {
 		origin.text(text);
 	}
+
+	@Override
+	public Envelope origin() {
+		return null;
+	}
+	
+	
 }

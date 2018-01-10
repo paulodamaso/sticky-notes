@@ -17,13 +17,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import main.envelope.Envelope;
+import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.SimpleEnvelopes;
-import main.envelope.color.derby.DerbyEnvelopesWithColor;
-import main.envelope.font.derby.DerbyEnvelopesWithFont;
-import main.envelope.position.derby.DerbyEnvelopesWithPosition;
-import main.envelope.size.derby.DerbyEnvelopesWithSize;
+import main.envelope.color.EnvelopeWithColor;
+import main.envelope.color.EnvelopesWithColor;
+import main.envelope.color.derby.DerbyEnvelopeWithColorFactory;
+import main.envelope.font.EnvelopeWithFont;
+import main.envelope.font.EnvelopesWithFont;
+import main.envelope.font.derby.DerbyEnvelopeWithFontFactory;
+import main.envelope.position.EnvelopeWithPosition;
+import main.envelope.position.EnvelopesWithPosition;
+import main.envelope.position.derby.DerbyEnvelopeWithPositionFactory;
+import main.envelope.size.EnvelopeWithSize;
+import main.envelope.size.EnvelopesWithSize;
+import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
 import main.note.Notes;
+import ui.MediaFactory;
+import ui.sticky.AddNoteJDialog;
+import ui.sticky.JDialogSticky;
+import ui.sticky.JDialogStickyMediaFactory;
 
 /**
  * <p> System tray wrapper for sticky-notes envelopes.
@@ -36,31 +49,38 @@ public final class SystemTrayApplication implements  Application {
 	/*
 	 * @todo #50 internationalize SystemTrayApplication logged messages
 	 */
-
-	private final Notes notes;
-	private final Envelopes envelopes;
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
 	
 	/*
-	 * @todo #46 should we pass the notes or envelopes to SystemTrayApplication ?
+	 * @todo #119 Add persistence and factory info to Configuration interface
+	 *  
 	 */
-    public SystemTrayApplication(Notes notes) {
-    	
-    	this.notes = notes;
-    	
+	private final Notes notes;
+	private final Configuration config;
+	private final Envelopes envelopes;
+	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
+	private final MediaFactory mediaFactory = new JDialogStickyMediaFactory(this);
+	
+    public SystemTrayApplication(Configuration config) {
+		this.config = config;
+		this.notes = this.config.notes();
+		
     	this.envelopes = 
-    			new DerbyEnvelopesWithSize(
-    				new DerbyEnvelopesWithPosition(
-    					new DerbyEnvelopesWithFont(
-    						new DerbyEnvelopesWithColor( 
-    							new SimpleEnvelopes(this.notes), 
-    						"resources/database/sticky-notes-db"), 
-	    				"resources/database/sticky-notes-db"),
-    				"resources/database/sticky-notes-db"),
-    			"resources/database/sticky-notes-db");
+    			sizeFactory.createEnvelopes(
+    					positionFactory.createEnvelopes(
+    							fontFactory.createEnvelopes(
+    									colorFactory.createEnvelopes(
+    											new SimpleEnvelopes(this.notes)
+    											)
+    									)
+    							)
+    					);
 	}
 	
-	public Application init() throws Exception {
+	public Application start() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
 			logger.severe("SystemTray is not supported");
@@ -116,7 +136,7 @@ public final class SystemTrayApplication implements  Application {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from the About menu item");
+                        config.about());
             }
         });
         
@@ -124,10 +144,16 @@ public final class SystemTrayApplication implements  Application {
          * @todo #48 implement show all menu item in task bar icon
          */
 
+
+        /*
+         * @todo #48 make sticky note visible after creation
+         */
         newNoteItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-//				envelopes.add(notes.add("Type your text here")).media().print();;
+				AddNoteJDialog jdialog = new AddNoteJDialog(SystemTrayApplication.this);
+				JDialogSticky pm =	(JDialogSticky) mediaFactory.create(jdialog.envelope());
+				jdialog.envelope().print(pm);
 			}
 		});
         
@@ -146,19 +172,26 @@ public final class SystemTrayApplication implements  Application {
         /*
          * @todo #48 should we save all stickers on closing application?
          */
-//        // closing application, saves all stickers?
-//        exitItem.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//				for (Sticker stk : stickers.iterate()) {
-////					stk.persist(stk);
-//				}
-//                tray.remove(trayIcon);
-//                System.exit(0);
-//            }
-//        });
+        // closing application, saves all stickers?
+        exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tray.remove(trayIcon);
+                System.exit(0);
+            }
+        });
+        
+        printAll();
 
         return this;
 	}
+	
+	public void printAll () {
+		for (Envelope enve : envelopes.iterate()) {
+			enve.printDecorations(enve);
+			JDialogSticky pm =	(JDialogSticky) mediaFactory.create(enve);
+			enve.print(pm);
+		}
+	} 
 
     protected static Image createImage(String path, String description) throws Exception{
         
@@ -181,6 +214,31 @@ public final class SystemTrayApplication implements  Application {
 	@Override
 	public Envelopes envelopes() {
 		return envelopes;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory() {
+		return colorFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory() {
+		return fontFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory() {
+		return positionFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory() {
+		return sizeFactory;
+	}
+
+	@Override
+	public MediaFactory mediaFactory() {
+		return mediaFactory;
 	}
 	
 }

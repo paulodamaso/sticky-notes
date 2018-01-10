@@ -1,12 +1,12 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
 import main.envelope.font.EnvelopeWithFont;
-import main.envelope.media.MediaFactory;
-import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
 import main.envelope.size.EnvelopeWithSize;
+import ui.MediaFactory;
+import ui.PrintMedia;
 
 /**
  * <p> {@link MediaFactory} for {@link PrintMedia} which prints to console.
@@ -14,10 +14,11 @@ import main.envelope.size.EnvelopeWithSize;
  * @author paulodamaso
  *
  */
-public class ConsoleMediaFactoryImpl implements MediaFactory {
+public class ConsoleMediaFactory implements MediaFactory {
 	
 	@Override
 	public PrintMedia create(Envelope envelope) {
+	
 		PrintMedia ret = null; 
 		if (envelope instanceof Envelope) ret = new SimpleConsoleMedia(); 
 		if (envelope instanceof EnvelopeWithColor) ret = new ConsoleMediaWithColor(((EnvelopeWithColor)envelope), create(((EnvelopeWithColor)envelope).origin()));

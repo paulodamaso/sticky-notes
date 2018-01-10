@@ -1,4 +1,4 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 /* This code was found posted on a forum without any copyright
  * restrictions. It was written by someone named Noah W.

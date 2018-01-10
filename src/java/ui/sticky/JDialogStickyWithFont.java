@@ -1,13 +1,12 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
-import main.envelope.media.MediaWithFont;
-import main.envelope.media.PrintMedia;
+import ui.MediaWithFont;
+import ui.PrintMedia;
 
 /**
  * <p> {@link JDialogSticky} with font information.
@@ -27,6 +26,8 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 		this.envelopeWithFont = envelopeWithFont;
 		this.media = (JDialogSticky)media;
 		
+		this.media.jDialog().setTitle(this.envelopeWithFont.getClass().toString());
+		
 		this.txtArea().setFont((this.envelopeWithFont.font()));
 
 	}
@@ -37,11 +38,6 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 	}
 
 	@Override
-	public Envelope envelope() {
-		return media.envelope();
-	}
-
-	@Override
 	public JPopupMenu popUp() {
 		return media.popUp();
 	}
@@ -49,11 +45,6 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 	@Override
 	public JTextArea txtArea() {
 		return media.txtArea();
-	}
-
-	@Override
-	public void print() {
-		media.print();
 	}
 
 }

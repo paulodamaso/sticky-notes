@@ -1,9 +1,9 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
-import main.envelope.media.MediaWithFont;
-import main.envelope.media.PrintMedia;
+import ui.MediaWithFont;
+import ui.PrintMedia;
 
 /**
  * <p> Print {@link EnvelopeWithFont} to console.

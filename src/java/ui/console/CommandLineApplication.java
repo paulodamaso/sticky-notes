@@ -1,4 +1,4 @@
-package console;
+package ui.console;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,8 +9,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import console.media.ConsoleMediaFactoryImpl;
 import main.Application;
+import main.Configuration;
 import main.envelope.Envelope;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
@@ -24,8 +24,6 @@ import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
 import main.envelope.font.SimpleEnvelopeWithFont;
 import main.envelope.font.derby.DerbyEnvelopeWithFontFactory;
-import main.envelope.media.MediaFactory;
-import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
 import main.envelope.position.EnvelopesWithPosition;
 import main.envelope.position.SimpleEnvelopeWithPosition;
@@ -35,6 +33,8 @@ import main.envelope.size.EnvelopesWithSize;
 import main.envelope.size.SimpleEnvelopeWithSize;
 import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
 import main.note.Notes;
+import ui.MediaFactory;
+import ui.PrintMedia;
 
 /**
  * <p> Command line interface for sticky-notes. 
@@ -45,16 +45,18 @@ import main.note.Notes;
 public class CommandLineApplication implements Application {
 	
 	private final Notes notes;
+	private final Configuration config;
 	private final Envelopes envelopes;
 	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
 	
-	private final MediaFactory mediaFactory = new ConsoleMediaFactoryImpl();
+	private final MediaFactory mediaFactory = new ConsoleMediaFactory();
 
-	public CommandLineApplication(Notes notes) {
-		this.notes = notes;
+	public CommandLineApplication(Configuration config) {
+		this.config = config;
+		this.notes = this.config.notes();
 		
     	this.envelopes = 
     			sizeFactory.createEnvelopes(
@@ -79,7 +81,7 @@ public class CommandLineApplication implements Application {
 	}
 
 	@Override
-	public Application init() throws Exception {
+	public Application start() throws Exception {
 		Scanner scan = new Scanner(System.in);
 		System.out.println(">");
 		
@@ -155,6 +157,7 @@ public class CommandLineApplication implements Application {
 			} else if (line.equalsIgnoreCase("print")) {
 				//print all envelopes
 				for (Envelope enve : envelopes.iterate()) {
+					enve.printDecorations(enve);
 					PrintMedia pm =	mediaFactory.create(enve);
 					enve.print(pm);
 				}
@@ -163,12 +166,41 @@ public class CommandLineApplication implements Application {
 				System.out.println("Exiting....");
 				scan.close();
 				System.exit(0);
-			} else {
+			} else if (line.equalsIgnoreCase("about")) {
+				System.out.println(config.about());
+				scan.close();
+				System.exit(0);
+			}else {
 				System.out.println("Unrecognized command " + line);
 			}
 				
 		}
 		return null;
+	}
+	
+	@Override
+	public EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory() {
+		return colorFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory() {
+		return fontFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory() {
+		return positionFactory;
+	}
+
+	@Override
+	public EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory() {
+		return sizeFactory;
+	}
+
+	@Override
+	public MediaFactory mediaFactory() {
+		return mediaFactory;
 	}
 
 }

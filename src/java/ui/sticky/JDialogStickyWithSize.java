@@ -1,13 +1,12 @@
-package main.envelope.media.sticky;
+package ui.sticky;
 
 import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
-import main.envelope.Envelope;
-import main.envelope.media.MediaWithSize;
-import main.envelope.media.PrintMedia;
 import main.envelope.size.EnvelopeWithSize;
+import ui.MediaWithSize;
+import ui.PrintMedia;
 
 /**
  * <p> {@link JDialogSticky} with color information.
@@ -27,6 +26,8 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 		this.envelopeWithSize = envelopeWithSize;
 		this.media = (JDialogSticky)media;
 		
+		this.media.jDialog().setTitle(this.envelopeWithSize.getClass().toString());
+		
 		jDialog().setSize((this.envelopeWithSize.size()));
 
 	}
@@ -37,11 +38,6 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 	}
 
 	@Override
-	public Envelope envelope() {
-		return media.envelope();
-	}
-
-	@Override
 	public JPopupMenu popUp() {
 		return media.popUp();
 	}
@@ -49,10 +45,5 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 	@Override
 	public JTextArea txtArea() {
 		return media.txtArea();
-	}
-
-	@Override
-	public void print() {
-		media.print();
 	}
 }

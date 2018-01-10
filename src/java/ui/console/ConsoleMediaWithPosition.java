@@ -1,9 +1,9 @@
-package console.media;
+package ui.console;
 
 import main.envelope.Envelope;
-import main.envelope.media.MediaWithPosition;
-import main.envelope.media.PrintMedia;
 import main.envelope.position.EnvelopeWithPosition;
+import ui.MediaWithPosition;
+import ui.PrintMedia;
 
 /**
  * <p> Print {@link EnvelopeWithPosition} to console.

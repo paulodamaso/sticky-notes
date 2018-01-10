@@ -1,7 +1,7 @@
 package main.envelope;
 
-import main.envelope.media.PrintMedia;
 import main.note.Note;
+import ui.PrintMedia;
 
 /**
  * <p> A envelope decorator responsible for {@link Note} presentation.
@@ -20,5 +20,18 @@ public interface Envelope extends Note {
 	public default void print(PrintMedia media) {
 		media.print(this);
 	}
+	
+	public Envelope origin();
+	
+	public default void printDecorations(Envelope envelope) {
+
+		if (envelope == null) {
+			System.out.println("Last");
+		} else {
+			System.out.println(envelope);
+			printDecorations(envelope.origin());
+		}
+
+	} 
 	
 }
