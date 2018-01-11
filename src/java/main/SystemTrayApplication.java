@@ -34,6 +34,7 @@ import main.envelope.size.EnvelopesWithSize;
 import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
 import main.note.Notes;
 import ui.MediaFactory;
+import ui.PrintMedia;
 import ui.sticky.AddNoteJDialog;
 import ui.sticky.JDialogSticky;
 import ui.sticky.JDialogStickyMediaFactory;
@@ -187,8 +188,9 @@ public final class SystemTrayApplication implements  Application {
 	
 	public void printAll () {
 		for (Envelope enve : envelopes.iterate()) {
-			enve.printDecorations(enve);
-			JDialogSticky pm =	(JDialogSticky) mediaFactory.create(enve);
+//			enve.printDecorations(enve);
+			
+			PrintMedia pm =	mediaFactory.create(enve);
 			enve.print(pm);
 		}
 	} 

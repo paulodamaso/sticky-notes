@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Dimension;
+
 import main.envelope.Envelope;
 
 /**
@@ -10,4 +12,5 @@ import main.envelope.Envelope;
  */
 public interface MediaWithSize extends PrintMedia {
 
+	public Dimension size(Dimension size);
 }

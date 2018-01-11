@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Color;
+
 import main.envelope.Envelope;
 
 /**
@@ -9,5 +11,7 @@ import main.envelope.Envelope;
  *
  */
 public interface MediaWithColor extends PrintMedia {
+
+	public Color color(Color color);
 
 }

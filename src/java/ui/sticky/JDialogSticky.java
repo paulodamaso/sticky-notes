@@ -1,14 +1,10 @@
 package ui.sticky;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.ContainerListener;
-
 import javax.swing.JDialog;
-import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
-import javax.swing.event.AncestorListener;
 
+import main.Application;
 import main.envelope.Envelope;
 import main.note.Note;
 import ui.PrintMedia;
@@ -22,22 +18,22 @@ import ui.PrintMedia;
 public interface JDialogSticky extends PrintMedia {
 
 	public abstract JDialog jDialog();
-//	public abstract Envelope envelope();
-	public abstract JPopupMenu popUp();
+//	public abstract JPopupMenu popUp();
 	public abstract JTextArea txtArea();
+	public abstract Application application();
+//	public abstract JMenuItem colorMenuItem();
+	public abstract JMenuItem saveItem();
+	
+	public abstract Envelope envelope();
 	
 	@Override
-	public default void print(Envelope envelope) {
+	public default void print() {
 		if (!jDialog().isVisible()) jDialog().setVisible(true);
 	}
 	
-	public default void clearListeners() {
-		
-		System.out.println("Clearing listeners ");
-		for (ActionListener listener : txtArea().getLis) {
-			System.out.println( listener);
-//			txtArea().removeContainerListener(listener);
-		}
+	//saves sticky note info
+	public default void save () {
+		envelope().printDecorations(envelope());
 	}
 
 }

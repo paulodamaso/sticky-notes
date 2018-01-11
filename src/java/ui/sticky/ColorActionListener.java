@@ -9,7 +9,6 @@ import javax.swing.JColorChooser;
 import main.Application;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
-import ui.PrintMedia;
 
 public final class ColorActionListener implements ActionListener {
 	
@@ -29,16 +28,13 @@ public final class ColorActionListener implements ActionListener {
                 new Color(251,247,174)
                 );
 		if (newColor != null) {
-//			txtArea().setBackground(newColor);
-			
+
+			//save color to envelope
+			System.out.println("Saving just color " + newColor + " to envelope.");
 			Envelope  env = application.colorFactory().create(new SimpleEnvelopeWithColor(envelope, newColor));
-			//create new sticky
-			PrintMedia pm = application.mediaFactory().create(env);
-			env.print(pm);
-			
-			//dispose of this sticky
-//			SimpleJDialogSticky.this.jdialog.dispose();
-			
+//			//create new sticky
+//			PrintMedia pm = application.mediaFactory().create(env);
+//			env.print(pm);
 		}
 	}
 

@@ -47,12 +47,15 @@ public class CommandLineApplication implements Application {
 	private final Notes notes;
 	private final Configuration config;
 	private final Envelopes envelopes;
+	
 	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
 	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
 	
 	private final MediaFactory mediaFactory = new ConsoleMediaFactory();
+	
+//	private final MediaFactory mediaFactory = new ConsoleMediaFactory();
 
 	public CommandLineApplication(Configuration config) {
 		this.config = config;
@@ -157,7 +160,7 @@ public class CommandLineApplication implements Application {
 			} else if (line.equalsIgnoreCase("print")) {
 				//print all envelopes
 				for (Envelope enve : envelopes.iterate()) {
-					enve.printDecorations(enve);
+//					enve.printDecorations(enve);
 					PrintMedia pm =	mediaFactory.create(enve);
 					enve.print(pm);
 				}

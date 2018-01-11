@@ -18,7 +18,7 @@ public interface Envelope extends Note {
 	 * @return
 	 */
 	public default void print(PrintMedia media) {
-		media.print(this);
+		media.print();
 	}
 	
 	public Envelope origin();

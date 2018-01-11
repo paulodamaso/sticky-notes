@@ -1,6 +1,7 @@
 package ui.console;
 
-import main.envelope.Envelope;
+import java.awt.Color;
+
 import main.envelope.color.EnvelopeWithColor;
 import ui.MediaWithColor;
 import ui.PrintMedia;
@@ -19,9 +20,14 @@ public final class ConsoleMediaWithColor implements MediaWithColor {
 	}
 
 	@Override
-	public void print(Envelope envelope) {
-		media.print(envelope);
+	public void print() {
+		media.print();
 		System.out.println(" with color " + envelopeWithColor.color());
+	}
+
+	@Override
+	public Color color(Color color) {
+		return envelopeWithColor.color();
 	}
 }
 

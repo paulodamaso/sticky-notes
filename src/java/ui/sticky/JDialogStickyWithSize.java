@@ -1,9 +1,15 @@
 package ui.sticky;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JDialog;
-import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
+import main.Application;
+import main.envelope.Envelope;
 import main.envelope.size.EnvelopeWithSize;
 import ui.MediaWithSize;
 import ui.PrintMedia;
@@ -29,6 +35,13 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 		this.media.jDialog().setTitle(this.envelopeWithSize.getClass().toString());
 		
 		jDialog().setSize((this.envelopeWithSize.size()));
+//		saveItem().addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				save();
+//			}
+//		});
 
 	}
 
@@ -38,12 +51,34 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 	}
 
 	@Override
-	public JPopupMenu popUp() {
-		return media.popUp();
-	}
-
-	@Override
 	public JTextArea txtArea() {
 		return media.txtArea();
 	}
+
+	@Override
+	public Dimension size(Dimension size) {
+		return envelopeWithSize.size();
+	}
+
+	@Override
+	public Application application() {
+		return media.application();
+	}
+	
+	@Override
+	public Envelope envelope() {
+		return this.envelopeWithSize;
+	}
+
+	@Override
+	public JMenuItem saveItem() {
+		return this.media.saveItem();
+	}
+	
+	@Override
+	public void save() {
+		System.out.println("Saved " + this.getClass());
+	}
+	
+ 
 }

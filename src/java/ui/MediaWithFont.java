@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Font;
+
 import main.envelope.Envelope;
 
 /**
@@ -10,4 +12,5 @@ import main.envelope.Envelope;
  */
 public interface MediaWithFont extends PrintMedia {
 
+	public Font font (Font font);
 }

@@ -10,5 +10,5 @@ import main.envelope.Envelope;
  */
 public interface PrintMedia {
 
-	public void print(Envelope envelope);
+	public void print();
 }

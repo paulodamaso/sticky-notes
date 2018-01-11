@@ -1,6 +1,7 @@
 package ui.console;
 
-import main.envelope.Envelope;
+import java.awt.Point;
+
 import main.envelope.position.EnvelopeWithPosition;
 import ui.MediaWithPosition;
 import ui.PrintMedia;
@@ -19,10 +20,17 @@ public final class ConsoleMediaWithPosition implements MediaWithPosition {
 	}
 
 	@Override
-	public void print(Envelope envelope) {
-		media.print(envelope);
+	public void print() {
+		media.print();
 		System.out.println(" with position " + envelopeWithPosition.position());
 	}
+
+	@Override
+	public Point position(Point position) {
+		return envelopeWithPosition.position();
+	}
+	
+	
 
 }
 

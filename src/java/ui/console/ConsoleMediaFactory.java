@@ -20,7 +20,7 @@ public class ConsoleMediaFactory implements MediaFactory {
 	public PrintMedia create(Envelope envelope) {
 	
 		PrintMedia ret = null; 
-		if (envelope instanceof Envelope) ret = new SimpleConsoleMedia(); 
+		if (envelope instanceof Envelope) ret = new ConsoleSimpleMedia(envelope); 
 		if (envelope instanceof EnvelopeWithColor) ret = new ConsoleMediaWithColor(((EnvelopeWithColor)envelope), create(((EnvelopeWithColor)envelope).origin()));
 		if (envelope instanceof EnvelopeWithFont) ret = new ConsoleMediaWithFont((EnvelopeWithFont)envelope, create(((EnvelopeWithFont)envelope).origin()));
 		if (envelope instanceof EnvelopeWithSize) ret = new ConsoleMediaWithSize((EnvelopeWithSize)envelope, create(((EnvelopeWithSize)envelope).origin()));

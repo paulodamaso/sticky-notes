@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Point;
+
 import main.envelope.Envelope;
 
 /**
@@ -10,4 +12,5 @@ import main.envelope.Envelope;
  */
 public interface MediaWithPosition extends PrintMedia {
 
+	public Point position(Point position);
 }

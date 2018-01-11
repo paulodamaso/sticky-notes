@@ -1,9 +1,15 @@
 package ui.sticky;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JDialog;
-import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
+import main.Application;
+import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
 import ui.MediaWithFont;
 import ui.PrintMedia;
@@ -29,6 +35,13 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 		this.media.jDialog().setTitle(this.envelopeWithFont.getClass().toString());
 		
 		this.txtArea().setFont((this.envelopeWithFont.font()));
+//		saveItem().addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				save();
+//			}
+//		});
 
 	}
 
@@ -38,13 +51,33 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 	}
 
 	@Override
-	public JPopupMenu popUp() {
-		return media.popUp();
+	public JTextArea txtArea() {
+		return media.txtArea();
 	}
 
 	@Override
-	public JTextArea txtArea() {
-		return media.txtArea();
+	public Font font(Font font) {
+		return envelopeWithFont.font();
+	}
+
+	@Override
+	public Application application() {
+		return media.application();
+	}
+	
+	@Override
+	public Envelope envelope() {
+		return this.envelopeWithFont;
+	}
+	
+	@Override
+	public JMenuItem saveItem() {
+		return this.media.saveItem();
+	}
+	
+	@Override
+	public void save() {
+		System.out.println("Saved " + this.getClass());
 	}
 
 }

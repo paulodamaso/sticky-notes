@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -15,8 +14,8 @@ import javax.swing.border.EmptyBorder;
 
 import main.Application;
 import main.envelope.Envelope;
-import main.envelope.color.SimpleEnvelopeWithColor;
-import ui.PrintMedia;
+import main.envelope.position.SimpleEnvelopeWithPosition;
+import main.envelope.size.SimpleEnvelopeWithSize;
 import ui.SimpleMedia;
 
 /**
@@ -25,15 +24,19 @@ import ui.SimpleMedia;
  * @author paulodamaso
  *
  */
-public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
+public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 
 	private final JDialog jdialog;
 	private final JPopupMenu popup;
 	private final JTextArea txtArea;
 	private final Application application;
+	private final JMenuItem colorMenuItem;
+	private final JMenuItem saveMenuItem;
+	private final Envelope envelope;
 
-	public SimpleJDialogSticky(Envelope envelope, Application application) {
+	public JDialogSimpleSticky(Envelope envelope, Application application) {
 		this.application = application;
+		this.envelope = envelope;
 		
 		this.jdialog = new JDialog();
 		jdialog.setTitle(envelope.getClass().toString());
@@ -63,31 +66,31 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 //        this.txtDescription.addFocusListener(new SimpleEnvelopeFocusListener(this));
         
         //setting the popup menu to show color select option
-        JMenuItem colorMenu = new JMenuItem("Color...");
+        colorMenuItem = new JMenuItem("Color...");
         
         //adding action to color menu
-        colorMenu.addActionListener(new ColorActionListener(envelope, application));		
+        colorMenuItem.addActionListener(new ColorActionListener(envelope, application));		
         
         //setting the popup menu to show save option
-        JMenuItem saveItem = new JMenuItem("Save");
+        saveMenuItem = new JMenuItem("Save");
         
-        //adding listener to save via menu
-        saveItem.addActionListener(new ActionListener() {
+        //adding listener to save text information via menu
+        saveMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//put text in envelope
-				envelope.text(txtArea().getText());
+				//if something changed, save what changed (simple mode, no autosaving)
+				System.out.println(jdialog.getLocation());
+				if (jdialog.getLocation().getY() != 0 && jdialog.getLocation().getX() != 0) {
+					Envelope  env = application.positionFactory().create(new SimpleEnvelopeWithPosition(envelope, jdialog.getLocation()));
+				} else if (jdialog.getSize().getHeight() != 150 && jdialog.getSize().getWidth() != 300) {
+					Envelope  env = application.sizeFactory().create(new SimpleEnvelopeWithSize(envelope, jdialog.getSize()));
+				} //else if ()
+				save();
 			}
 		});
         
-        //adding listener to check if it had changed size to save with new size via menu
-       
-//        this.saveItem.addActionListener(new EnvelopeSizeActionListener(this));
-        
-        //adding listener to detect if this note had moved or resized
-//        this.jDialog().addComponentListener(new EnvelopeComponentListener(this));
-        
+     
         //setting the popup menu to show font select option
         JMenuItem fontMenu = new JMenuItem("Font...");
         //adding action to font menu
@@ -95,14 +98,14 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea().getFont());
-				txtArea().setFont(newFont);
+				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea.getFont());
+				txtArea.setFont(newFont);
 			}
 		});        
         
-        popUp().add(colorMenu);
-        popUp().add(fontMenu);
-        popUp().add(saveItem);
+        popup.add(colorMenuItem);
+        popup.add(fontMenu);
+        popup.add(saveMenuItem);
 			
         jdialog.pack();		
 	}
@@ -111,10 +114,10 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 	public JDialog jDialog() {
 		return this.jdialog;
 	}
-
+	
 	@Override
-	public JPopupMenu popUp() {
-		return this.popup;
+	public Application application() {
+		return this.application;
 	}
 
 	@Override
@@ -122,4 +125,18 @@ public class SimpleJDialogSticky implements SimpleMedia, JDialogSticky {
 		return this.txtArea;
 	}
 
+	@Override
+	public Envelope envelope() {
+		return this.envelope;
+	}
+
+	@Override
+	public JMenuItem saveItem() {
+		return this.saveMenuItem;
+	}
+
+	@Override
+	public void save() {
+		System.out.println("Saved " + this.getClass());
+	}	
 }

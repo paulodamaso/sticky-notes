@@ -1,6 +1,7 @@
 package ui.console;
 
-import main.envelope.Envelope;
+import java.awt.Dimension;
+
 import main.envelope.size.EnvelopeWithSize;
 import ui.MediaWithSize;
 import ui.PrintMedia;
@@ -19,9 +20,14 @@ public final class ConsoleMediaWithSize implements MediaWithSize {
 	}
 
 	@Override
-	public void print(Envelope envelope) {
-		media.print(envelope);
+	public void print() {
+		media.print();
 		System.out.println(" with size " + envelopeWithSize.size());
+	}
+
+	@Override
+	public Dimension size(Dimension size) {
+		return envelopeWithSize.size();
 	}
 
 }
