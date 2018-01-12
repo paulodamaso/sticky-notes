@@ -4,6 +4,12 @@ import java.awt.Point;
 
 import main.envelope.Envelope;
 
+/**
+ * <p> Simple envelope with position support, with position information in memory.
+ * 
+ * @author paulodamaso
+ *
+ */
 public class SimpleEnvelopeWithPosition implements EnvelopeWithPosition {
 
 	private final Envelope origin;

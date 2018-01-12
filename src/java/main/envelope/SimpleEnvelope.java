@@ -31,10 +31,11 @@ public final class SimpleEnvelope implements Envelope {
 		origin.text(text);
 	}
 
+	/*
+	 * @todo #88 does not seem right to just return null here
+	 */
 	@Override
 	public Envelope origin() {
 		return null;
 	}
-	
-	
 }

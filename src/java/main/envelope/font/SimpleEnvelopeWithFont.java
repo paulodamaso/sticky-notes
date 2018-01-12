@@ -4,6 +4,12 @@ import java.awt.Font;
 
 import main.envelope.Envelope;
 
+/**
+ * <p> Simple envelope with font support, with font information in memory.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class SimpleEnvelopeWithFont implements EnvelopeWithFont {
 	
 	private final Envelope origin;

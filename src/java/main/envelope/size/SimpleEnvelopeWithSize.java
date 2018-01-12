@@ -4,6 +4,12 @@ import java.awt.Dimension;
 
 import main.envelope.Envelope;
 
+/**
+ * <p> Simple envelope with size support, with size information in memory.
+ * 
+ * @author paulodamaso
+ *
+ */
 public class SimpleEnvelopeWithSize implements EnvelopeWithSize {
 
 	private final Envelope origin;

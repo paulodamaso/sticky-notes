@@ -11,9 +11,11 @@ import main.note.Note;
 import main.note.Notes;
 
 public final class DerbyNotes implements Notes {
-	private final String database = "resources/database/sticky-notes-db";
+	private final String database;
+	
 
-	public DerbyNotes() {
+	public DerbyNotes(String database) {
+		this.database = database; 
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			 
@@ -24,12 +26,12 @@ public final class DerbyNotes implements Notes {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private Connection connect() throws Exception {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
-
+	
 	private final String iterate_query = "select id from note";
 	@Override
 	public Collection<Note> notes() {
@@ -43,7 +45,7 @@ public final class DerbyNotes implements Notes {
 			while(rs.next()) {
 				it.add(new DerbyNote(rs.getInt(1)));
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			/* @todo #12 implement better exception handling when getting Iterable<Note>.
 			 * 
 			 */

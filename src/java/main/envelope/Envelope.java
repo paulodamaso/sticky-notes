@@ -4,7 +4,7 @@ import main.note.Note;
 import ui.PrintMedia;
 
 /**
- * <p> A envelope decorator responsible for {@link Note} presentation.
+ * <p> A envelope decorator for {@link Note} presentation.
  * 
  * @author paulodamaso
  *
@@ -21,8 +21,18 @@ public interface Envelope extends Note {
 		media.print();
 	}
 	
+
+	/**
+	 * <p> Reference to the {@link Envelope} decorated by this {@link Envelope}.
+	 * @return
+	 */
 	public Envelope origin();
 	
+	/**
+	 * <p> Recursively iterate through decorated {@link Envelopes}.
+	 * 
+	 * @param envelope
+	 */
 	public default void printDecorations(Envelope envelope) {
 
 		if (envelope == null) {

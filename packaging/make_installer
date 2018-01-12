@@ -1,0 +1,1 @@
+compile packaging\IzPack\iZPack.xml -b . -o install.jar -k standard

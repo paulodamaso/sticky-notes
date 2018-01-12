@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,22 +28,13 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 	public DerbyEnvelopesWithColor(Envelopes origin, String database) {
 		this.origin = origin;
 		this.database = database;
-		
-		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-			 
-		}catch (Exception e){
-			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithColor
-			 * 
-			 */
-			e.printStackTrace();
-		}
 	}
 	
 	private Connection connect() throws Exception {
 		
 		return DriverManager.getConnection("jdbc:derby:"+ database +";");
 	}
+	
 
 	private final String iterate_color_query = "select id, red, green, blue from envelopewithcolor";
 

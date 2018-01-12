@@ -1,16 +1,20 @@
 package main;
 
+import main.note.NoteFactory;
 import main.note.Notes;
-import main.note.persistence.derby.DerbyNotes;
+import main.note.persistence.derby.DerbyNoteFactory;
 
 public final class Configuration {
+	
+	private final NoteFactory noteFactory;
 
 	public Configuration() {
+		noteFactory = new DerbyNoteFactory("resources/database/sticky-notes-db"); 
 		
 	}
 	
 	public Notes notes () {
-		return new DerbyNotes();
+		return noteFactory.create();
 	}
 	
 	public Application application() {

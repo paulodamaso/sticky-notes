@@ -91,7 +91,7 @@ public final class SystemTrayApplication implements  Application {
 		final SystemTray tray = SystemTray.getSystemTray();
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("/images/sticky-note16x16.png", "tray icon"));
+                new TrayIcon(createImage("/images/sticky-notes16x16.png", "tray icon"));
 
 		/*
 		 * @todo #50 internationalize system tray menu item labels 

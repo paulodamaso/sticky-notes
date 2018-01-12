@@ -17,6 +17,12 @@ public interface EnvelopeWithColor extends Envelope {
 	
 	public abstract Color color();
 	
+	/**
+	 * <p> Creates a new {@link EnvelopeWithColor} with new color information.
+	 * 
+	 * @param color
+	 * @return
+	 */
 	public abstract EnvelopeWithColor color(Color color);
 
 }

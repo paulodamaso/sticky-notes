@@ -4,6 +4,12 @@ import java.awt.Color;
 
 import main.envelope.Envelope;
 
+/**
+ * <p> Simple envelope with color support, with color information in memory.
+ * 
+ * @author paulodamaso
+ *
+ */
 public final class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 
 	private final Envelope envelope;

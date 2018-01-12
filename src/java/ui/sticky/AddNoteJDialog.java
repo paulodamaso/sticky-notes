@@ -22,7 +22,6 @@ import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.font.SimpleEnvelopeWithFont;
 import main.envelope.position.SimpleEnvelopeWithPosition;
 import main.envelope.size.SimpleEnvelopeWithSize;
-import main.note.SimpleNote;
 
 class NoTabTextArea extends JTextArea {
     /**
