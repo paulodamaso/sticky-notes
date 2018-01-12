@@ -11,7 +11,6 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithSize} repository in derby database, in table 'envelopewithsize'
@@ -91,7 +90,7 @@ public final class DerbyEnvelopesWithSize implements EnvelopesWithSize {
 	}
 
 	@Override
-	public Envelope add(Note note) {
+	public Envelope add(String note) {
 		return origin.add(note);
 	}
 

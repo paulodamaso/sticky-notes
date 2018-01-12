@@ -2,10 +2,14 @@ package ui.sticky;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -14,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 
 import main.Application;
 import main.envelope.Envelope;
+import main.envelope.color.SimpleEnvelopeWithColor;
+import main.envelope.font.SimpleEnvelopeWithFont;
 import main.envelope.position.SimpleEnvelopeWithPosition;
 import main.envelope.size.SimpleEnvelopeWithSize;
 import ui.SimpleMedia;
@@ -25,6 +31,30 @@ import ui.SimpleMedia;
  *
  */
 public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
+	
+	/*
+	 * @todo #25 extract default size
+	 */
+	private final Dimension defaultSize = new Dimension(200, 150);
+	
+	/*
+	 * @todo #25 extract default position
+	 */
+	private final Point defaultPosition = new Point(
+			(Toolkit.getDefaultToolkit().getScreenSize().width - defaultSize.width )/ 2 , 
+			(Toolkit.getDefaultToolkit().getScreenSize().height - defaultSize.height )/ 2);
+
+	/*
+	 * @todo #24 extract default color
+	 */
+	private final Color defaultColor = new Color(251,247,174);
+
+	/*
+	 * @todo #24 extract default font
+	 */
+	private final Font defaultFont = new Font("Segoe UI", 0, 12);
+	
+	private final String originalText; 
 
 	private final JDialog jdialog;
 	private final JPopupMenu popup;
@@ -39,22 +69,25 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 		this.envelope = envelope;
 		
 		this.jdialog = new JDialog();
-		jdialog.setTitle(envelope.getClass().toString());
+
 		this.popup = new JPopupMenu();
+		
+		/* 
+		 * @todo #88 add automatic persistence on moving / resizing
+		 */
+		//this.jdialog.addComponentListener(new JDialogStickyComponentListener());
 		
 		//formatting the textarea with default values
 		this.txtArea = new JTextArea(envelope.text());
+		this.originalText = envelope.text();
 		this.txtArea.setLineWrap(true);
-		/*
-		 * @todo #25 extract default size
-		 */
-        this.txtArea.setSize(300, 150);
+		
+		this.txtArea.setFont(defaultFont);
+		
         this.txtArea.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
-		/*
-		 * @todo #24 extract default color
-		 */
-        this.txtArea.setBackground(new Color(251,247,174));
+        this.jdialog.setLocation(defaultPosition);
+
+        this.txtArea.setBackground(defaultColor);
         
         //adding the textarea
         this.jdialog.getContentPane().add(this.txtArea, BorderLayout.CENTER);
@@ -69,24 +102,48 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
         colorMenuItem = new JMenuItem("Color...");
         
         //adding action to color menu
-        colorMenuItem.addActionListener(new ColorActionListener(envelope, application));		
+        colorMenuItem.addActionListener(new ActionListener() {
+			
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		//show a colorchooser
+        		Color newColor = JColorChooser.showDialog(null,
+                        "Choose Color",
+                        new Color(251,247,174)
+                        );
+        		if (newColor != null) {
+        			//save color to envelope
+        			txtArea.setBackground(newColor);
+//        			application.colorFactory().create(new SimpleEnvelopeWithColor(envelope, newColor));
+        		}
+        	}
+		});		
         
         //setting the popup menu to show save option
         saveMenuItem = new JMenuItem("Save");
         
         //adding listener to save text information via menu
+      //if something changed, save what changed (simple mode, no autosaving)
         saveMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if something changed, save what changed (simple mode, no autosaving)
-				System.out.println(jdialog.getLocation());
-				if (jdialog.getLocation().getY() != 0 && jdialog.getLocation().getX() != 0) {
-					Envelope  env = application.positionFactory().create(new SimpleEnvelopeWithPosition(envelope, jdialog.getLocation()));
-				} else if (jdialog.getSize().getHeight() != 150 && jdialog.getSize().getWidth() != 300) {
-					Envelope  env = application.sizeFactory().create(new SimpleEnvelopeWithSize(envelope, jdialog.getSize()));
-				} //else if ()
-				save();
+				
+				if (!txtArea.getText().equals(originalText)) {
+					envelope.text(txtArea.getText());
+				}
+				if (!jdialog.getLocation().equals(defaultPosition)) {
+					application.positionFactory().create(new SimpleEnvelopeWithPosition(envelope, jdialog.getLocation()));
+				} 
+				if (!jdialog.getSize().equals(defaultSize)) {
+					application.sizeFactory().create(new SimpleEnvelopeWithSize(envelope, jdialog.getSize()));
+				} 
+				if (!txtArea.getBackground().equals(defaultColor)) {
+					application.colorFactory().create(new SimpleEnvelopeWithColor(envelope, txtArea.getBackground()));
+				} 
+				if (!txtArea.getFont().equals(defaultFont)) {
+					application.fontFactory().create(new SimpleEnvelopeWithFont(envelope, txtArea.getFont()));
+				} 
 			}
 		});
         
@@ -100,6 +157,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 			public void actionPerformed(ActionEvent e) {
 				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea.getFont());
 				txtArea.setFont(newFont);
+//				application.fontFactory().create(new SimpleEnvelopeWithFont(envelope, newFont));
 			}
 		});        
         
@@ -108,6 +166,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
         popup.add(saveMenuItem);
 			
         jdialog.pack();		
+		jdialog.setSize(defaultSize);
 	}
 
 	@Override
@@ -134,9 +193,4 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 	public JMenuItem saveItem() {
 		return this.saveMenuItem;
 	}
-
-	@Override
-	public void save() {
-		System.out.println("Saved " + this.getClass());
-	}	
 }

@@ -97,7 +97,7 @@ public final class AddNoteJDialog extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Envelope envelope = AddNoteJDialog.this.app.envelopes().add(new SimpleNote(0, text.getText()));
+				Envelope envelope = AddNoteJDialog.this.app.envelopes().add( text.getText());
 				
 				if (colorValue.getText() != null && !colorValue.getText().contentEquals(new StringBuffer())) {
 					String[] rgb = colorValue.getText().split(",");

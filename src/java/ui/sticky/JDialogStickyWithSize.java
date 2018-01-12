@@ -1,8 +1,6 @@
 package ui.sticky;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
@@ -32,17 +30,7 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 		this.envelopeWithSize = envelopeWithSize;
 		this.media = (JDialogSticky)media;
 		
-		this.media.jDialog().setTitle(this.envelopeWithSize.getClass().toString());
-		
 		jDialog().setSize((this.envelopeWithSize.size()));
-//		saveItem().addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				save();
-//			}
-//		});
-
 	}
 
 	@Override

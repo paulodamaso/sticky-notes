@@ -11,7 +11,6 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.position.EnvelopeWithPosition;
 import main.envelope.position.EnvelopesWithPosition;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithPosition} repository in derby database, in table 'envelopewithposition'
@@ -128,7 +127,7 @@ public class DerbyEnvelopesWithPosition implements EnvelopesWithPosition {
 	}
 
 	@Override
-	public Envelope add(Note note) {
+	public Envelope add(String note) {
 		return origin.add(note);
 	}
 

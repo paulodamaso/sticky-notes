@@ -11,7 +11,6 @@ import main.envelope.Envelope;
 import main.envelope.Envelopes;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
-import main.note.Note;
 
 /**
  * <p> {@link EnvelopeWithFont} repository in derby database, in table 'envelopewithfont'
@@ -132,7 +131,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	}
 
 	@Override
-	public Envelope add(Note note) {
+	public Envelope add(String note) {
 		return origin.add(note);
 	}
 

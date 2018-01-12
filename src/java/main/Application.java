@@ -20,8 +20,6 @@ import ui.MediaFactory;
  *
  */
 public interface Application {
-
-	public Envelope add(Envelope envelope) ;
 	
 	public Envelopes envelopes() ;
 	

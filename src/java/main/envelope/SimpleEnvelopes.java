@@ -30,7 +30,7 @@ public final class SimpleEnvelopes implements Envelopes {
 	}
 
 	@Override
-	public Envelope add(Note note) {
-		return new SimpleEnvelope(origin.add(note.text()));
+	public Envelope add(String note) {
+		return new SimpleEnvelope(origin.add(note));
 	}
 }

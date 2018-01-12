@@ -1,8 +1,6 @@
 package ui.sticky;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
@@ -32,17 +30,7 @@ public class JDialogStickyWithFont implements JDialogSticky, MediaWithFont {
 		this.envelopeWithFont = envelopeWithFont;
 		this.media = (JDialogSticky)media;
 		
-		this.media.jDialog().setTitle(this.envelopeWithFont.getClass().toString());
-		
 		this.txtArea().setFont((this.envelopeWithFont.font()));
-//		saveItem().addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				save();
-//			}
-//		});
-
 	}
 
 	@Override

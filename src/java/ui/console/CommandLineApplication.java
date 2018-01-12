@@ -74,11 +74,6 @@ public class CommandLineApplication implements Application {
 	}
 
 	@Override
-	public Envelope add(Envelope envelope) {
-		return envelopes.add(envelope);
-	}
-
-	@Override
 	public Envelopes envelopes() {
 		return envelopes;
 	}

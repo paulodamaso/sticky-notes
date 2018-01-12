@@ -30,8 +30,7 @@ public final class ColorActionListener implements ActionListener {
 		if (newColor != null) {
 
 			//save color to envelope
-			System.out.println("Saving just color " + newColor + " to envelope.");
-			Envelope  env = application.colorFactory().create(new SimpleEnvelopeWithColor(envelope, newColor));
+			application.colorFactory().create(new SimpleEnvelopeWithColor(envelope, newColor));
 //			//create new sticky
 //			PrintMedia pm = application.mediaFactory().create(env);
 //			env.print(pm);

@@ -1,8 +1,6 @@
 package ui.sticky;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
@@ -32,23 +30,7 @@ public final class JDialogStickyWithColor implements JDialogSticky , MediaWithCo
 		this.envelopeWithColor = envelopeWithColor;
 		this.media = (JDialogSticky)media;
 		
-		this.media.jDialog().setTitle(this.envelopeWithColor.getClass().toString());
-		
-//		this.colorMenuItem().addActionListener(new ColorActionListener(envelopeWithColor, application()));
-		
 		this.media.txtArea().setBackground(this.envelopeWithColor.color());
-		
-//        //adding listener to save via menu
-//        saveItem().addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				application.add(JDialogSimpleSticky.this.envelope);
-//				JDialogStickyWithColor.this.envelopeWithColor.color(envelopeWithColor.color());
-//				save();
-//			}
-//		});
-
 	}
 
 	@Override

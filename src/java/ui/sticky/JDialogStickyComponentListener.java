@@ -5,10 +5,6 @@ import java.awt.event.ComponentListener;
 
 public class JDialogStickyComponentListener implements ComponentListener {
 
-	public JDialogStickyComponentListener() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	public void componentResized(ComponentEvent e) {
 		System.out.println("Resized " + e.getComponent().getSize());

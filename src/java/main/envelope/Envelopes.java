@@ -14,7 +14,7 @@ public interface Envelopes {
 	
 	public Collection<Envelope> iterate();
 	
-	public Envelope add(Note note);
+	public Envelope add(String note);
 	
 //	public Envelope add(String text);
 }
