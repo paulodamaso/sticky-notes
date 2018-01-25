@@ -52,8 +52,7 @@ public final class SystemTrayApplication implements  Application {
 	private static final Logger logger = Logger.getLogger( SystemTrayApplication.class.getName() );
 	
 	/*
-	 * @todo #119 Add persistence and factory info to Configuration interface
-	 *  
+	 * @todo #119 Add persistence and factory info to Configuration interface  
 	 */
 	private final Notes notes;
 	private final Configuration config;
