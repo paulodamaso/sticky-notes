@@ -46,9 +46,12 @@
 			<fileset dir="../../resources/images" targetdir="$INSTALL_PATH/images">
 				<include name="**/*" />
 			</fileset>
+			
 			<file src="../../sticky-notes.sh" targetdir="$INSTALL_PATH" />
 			<file src="../../sticky-notes.bat" targetdir="$INSTALL_PATH" />
 			
+			<executable targetfile="$INSTALL_PATH/sticky-notes.sh" os="unix" stage="never" failure="warn" keep="true"/>
+		
 		</pack>
 		<!-- <pack name="doc" required="no"> <description>Program manual</description> 
 			<file src="docs/manual.pdf" targetdir="$INSTALL_PATH"> </pack> -->
