@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <shortcuts>
 	<programGroup defaultName="sticky-notes" location="startMenu" />
 	<shortcut name="sticky-notes" target="$INSTALL_PATH\sticky-notes.jar"
@@ -9,5 +9,5 @@
 	<!-- <shortcut name="sticky-notes" target="$INSTALL_PATH\manual.pdf" commandLine="" 
 		workingDirectory="" description="Clique aqui para ler o manual do Produto 
 		Java" programGroup="yes" desktop="no" applications="no" startMenu="no" startup="no"> 
-		<createForPack name="Documentação"/> </shortcut> -->
+		<createForPack name="DocumentaÃ§Ã£o"/> </shortcut> -->
 </shortcuts>
