@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
@@ -71,6 +72,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 		this.envelope = envelope;
 		
 		this.jdialog = new JDialog();
+		this.jdialog.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE));
 
 		this.popup = new JPopupMenu();
 		
