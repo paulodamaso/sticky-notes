@@ -1,2 +1,3 @@
-# donkey-tasks
-Task manager for donkeys
+# sticky-notes
+
+sticky-notes is a sticky note emulator.
