@@ -49,4 +49,9 @@ public final class SimpleEnvelopeWithColor implements EnvelopeWithColor {
 	public Envelope origin() {
 		return envelope;
 	}
+
+	@Override
+	public void delete() {
+		envelope.delete();
+	}
 }

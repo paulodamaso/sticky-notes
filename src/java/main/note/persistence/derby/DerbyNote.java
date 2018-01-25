@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import main.note.Note;
 
@@ -14,6 +16,11 @@ import main.note.Note;
  *
  */
 public final class DerbyNote implements Note {
+
+	/*
+	 * @todo #129 internationalize DerbyNote log messages
+	 */
+	private static final Logger logger = Logger.getLogger( DerbyNote.class.getName() );
 	
 	private final String database = "resources/database/sticky-notes-db";
 	private final int id;
@@ -95,6 +102,27 @@ public final class DerbyNote implements Note {
 				 * 
 				 */
 				e.printStackTrace();
+			}
+		}
+	}
+	
+	private final String delete_query = "delete from note where id = ?";
+
+	@Override
+	public void delete() {
+		Connection conn = null;
+		try {
+			conn = connect();
+			PreparedStatement ps = conn.prepareStatement(delete_query);
+			ps.setInt(1, this.id);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, "Error deleting note", e);
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				logger.log(Level.SEVERE, "Error closing connection after deleting note", e);
 			}
 		}
 	}

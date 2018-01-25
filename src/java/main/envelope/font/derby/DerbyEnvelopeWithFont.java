@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
@@ -16,6 +18,11 @@ import main.envelope.font.EnvelopeWithFont;
  *
  */
 public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
+	
+	/*
+	 * @todo #129 internationalize DerbyEnvelopeWithFont log messages
+	 */
+	private static final Logger logger = Logger.getLogger( DerbyEnvelopeWithFont.class.getName() );
 	
 	private final Envelope origin;
 	private final String database;
@@ -140,5 +147,28 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 	@Override
 	public Envelope origin() {
 		return origin;
+	}
+
+	private final String delete_font_query = "delete from envelopewithfont where id = ?";
+	public void delete() {
+		Connection conn = null;
+		try {
+			PreparedStatement ps = null;
+
+			conn = connect();
+			ps = conn.prepareStatement(delete_font_query);
+			ps.setInt(1, id());
+			ps.executeUpdate();
+	
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, "Error deleting envelope font", e);
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				logger.log(Level.SEVERE, "Error closing connection after deleting envelope font", e);
+			}
+		}
+		origin.delete();
 	}
 }

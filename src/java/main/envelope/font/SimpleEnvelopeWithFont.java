@@ -51,4 +51,9 @@ public final class SimpleEnvelopeWithFont implements EnvelopeWithFont {
 		return new SimpleEnvelopeWithFont(origin, font);
 	}
 
+	@Override
+	public void delete() {
+		origin.delete();
+	}
+
 }

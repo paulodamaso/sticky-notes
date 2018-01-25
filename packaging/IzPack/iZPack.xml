@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <installation version="5.0">
 	<info>
 		<appname>sticky-notes</appname>
-		<appversion>v0.0.3</appversion>
+		<appversion>v0.0.4</appversion>
 		<authors>
 			<author name="Paulo Lobo" email="pauloeduardolobo@gmail.com" />
 		</authors>
@@ -19,7 +19,7 @@
 	<!-- 
 		<res src="docs/readme.txt" id="InfoPanel.info" />
 		<res src="docs/licence.txt" id="LicencePanel.licence" />  -->
-		<res src="packaging/IzPack/extras/install/WinShortcutSpec.xml" id="shortcutSpec.xml" />		
+		<res src="extras/install/WinShortcutSpec.xml" id="shortcutSpec.xml" />		
 	</resources>
 	<panels>
 		<panel classname="HelloPanel" />
@@ -34,20 +34,20 @@
 	<packs>
 		<pack name="Principal" required="yes">
 			<description>Program files</description>
-			<file src="resources/images/sticky-notes.ico" targetdir="$INSTALL_PATH" />
-			<fileset dir="bin" targetdir="$INSTALL_PATH">
+			<file src="../../resources/images/sticky-notes.ico" targetdir="$INSTALL_PATH" />
+			<fileset dir="../../bin" targetdir="$INSTALL_PATH">
 				<include name="**/*.class" />
 				<exclude name="database/*" />
 				<exclude name=".gitignore" />
 			</fileset>
-			<fileset dir="lib" targetdir="$INSTALL_PATH/lib">
+			<fileset dir="../../lib" targetdir="$INSTALL_PATH/lib">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="resources/images" targetdir="$INSTALL_PATH/images">
+			<fileset dir="../../resources/images" targetdir="$INSTALL_PATH/images">
 				<include name="**/*" />
 			</fileset>
-			<file src="sticky-notes.sh" targetdir="$INSTALL_PATH" />
-			<file src="sticky-notes.bat" targetdir="$INSTALL_PATH" />
+			<file src="../../sticky-notes.sh" targetdir="$INSTALL_PATH" />
+			<file src="../../sticky-notes.bat" targetdir="$INSTALL_PATH" />
 			
 		</pack>
 		<!-- <pack name="doc" required="no"> <description>Program manual</description> 

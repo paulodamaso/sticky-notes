@@ -38,4 +38,9 @@ public final class SimpleEnvelope implements Envelope {
 	public Envelope origin() {
 		return null;
 	}
+
+	@Override
+	public void delete() {
+		origin.delete();
+	}
 }

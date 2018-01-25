@@ -13,5 +13,7 @@ public interface Note {
 	public abstract String text();
 	
 	public abstract void text(String text);
+	
+	public abstract void delete();
 
 }

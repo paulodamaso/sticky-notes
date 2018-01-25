@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import main.envelope.Envelope;
 import main.envelope.position.EnvelopeWithPosition;
@@ -16,6 +18,11 @@ import main.envelope.position.EnvelopeWithPosition;
  *
  */
 public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
+	
+	/*
+	 * @todo #129 internationalize DerbyEnvelopeWithPosition log messages
+	 */
+	private static final Logger logger = Logger.getLogger( DerbyEnvelopeWithPosition.class.getName() );
 
 	private final Envelope origin;
 	private final String database;
@@ -135,6 +142,30 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 	@Override
 	public Envelope origin() {
 		return this.origin;
+	}
+	
+	private final String delete_position_query = "delete from envelopewithposition where id = ?";
+	public void delete () {
+		Connection conn = null;
+		try {
+
+			PreparedStatement ps = null;
+
+			conn = connect();
+			ps = conn.prepareStatement(delete_position_query);
+			ps.setInt(1, id());
+			ps.executeUpdate();
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, "Error deleting envelope position", e);
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				logger.log(Level.SEVERE, "Error closing connection after deleting envelope position", e);
+			}
+		}
+		origin.delete();
 	}
 
 }

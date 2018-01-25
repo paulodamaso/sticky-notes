@@ -1,6 +1,5 @@
 package main;
 
-import main.envelope.Envelope;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.color.EnvelopeWithColor;

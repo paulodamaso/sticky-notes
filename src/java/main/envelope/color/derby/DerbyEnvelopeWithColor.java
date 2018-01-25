@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
@@ -17,6 +19,11 @@ import main.envelope.color.EnvelopeWithColor;
  *
  */
 public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
+	
+	/*
+	 * @todo #129 internationalize DerbyEnvelopeWithColor log messages
+	 */
+	private static final Logger logger = Logger.getLogger( DerbyEnvelopeWithColor.class.getName() );
 	
 	private final Envelope origin;
 	private final String database;
@@ -112,8 +119,7 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		}
 		return null;		
 	}
-
-
+	
 	@Override
 	public int id() {
 		return origin.id();
@@ -134,4 +140,29 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		return this.origin;
 	}
 
+	private final String delete_color_query = "delete from envelopewithcolor where id = ?";
+	@Override
+	public void delete() {
+		Connection conn = null;
+		try {
+			PreparedStatement ps = null;
+			
+			conn = connect();
+			ps = conn.prepareStatement(delete_color_query);
+			ps.setInt(1, id());
+	
+			ps.executeUpdate();
+	
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, "Error deleting envelope color", e);
+		}finally {
+			try {
+				conn.close();
+			}catch(Exception e) {
+				logger.log(Level.SEVERE, "Error closing connection after envelope color", e);
+			}
+		}
+		
+		origin.delete();
+	}
 }

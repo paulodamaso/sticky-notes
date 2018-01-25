@@ -18,11 +18,15 @@ import ui.PrintMedia;
 public interface JDialogSticky extends PrintMedia {
 
 	public abstract JDialog jDialog();
-//	public abstract JPopupMenu popUp();
+
 	public abstract JTextArea txtArea();
 	public abstract Application application();
-//	public abstract JMenuItem colorMenuItem();
+	
+	/*
+	 * @todo #125 remove this two ugly getters
+	 */
 	public abstract JMenuItem saveItem();
+	public abstract JMenuItem deleteItem();
 	
 	public abstract Envelope envelope();
 	

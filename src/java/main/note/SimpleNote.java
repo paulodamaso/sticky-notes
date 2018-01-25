@@ -31,4 +31,9 @@ public final class SimpleNote implements Note {
 		//what to do here?
 	}
 
+	@Override
+	public void delete() {
+		//and here?
+	}
+
 }

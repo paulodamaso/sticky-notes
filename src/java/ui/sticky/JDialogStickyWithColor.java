@@ -64,6 +64,11 @@ public final class JDialogStickyWithColor implements JDialogSticky , MediaWithCo
 	}
 	
 	@Override
+	public JMenuItem deleteItem() {
+		return this.media.deleteItem();
+	}
+	
+	@Override
 	public void save() {
 		System.out.println("Saved " + this.getClass());
 	}

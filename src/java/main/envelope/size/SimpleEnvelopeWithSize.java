@@ -50,4 +50,9 @@ public class SimpleEnvelopeWithSize implements EnvelopeWithSize {
 	public EnvelopeWithSize size(Dimension size) {
 		return new SimpleEnvelopeWithSize(origin, size);
 	}
+
+	@Override
+	public void delete() {
+		origin.delete();
+	}
 }

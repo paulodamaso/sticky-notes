@@ -1,1 +1,1 @@
-java -cp .:lib/derby.jar main.Main
+javaw -cp .:lib/derby.jar main.Main

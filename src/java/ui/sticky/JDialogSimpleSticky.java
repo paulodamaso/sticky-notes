@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -62,6 +63,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 	private final Application application;
 	private final JMenuItem colorMenuItem;
 	private final JMenuItem saveMenuItem;
+	private final JMenuItem deleteMenuItem;
 	private final Envelope envelope;
 
 	public JDialogSimpleSticky(Envelope envelope, Application application) {
@@ -147,6 +149,22 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 			}
 		});
         
+        //setting the popup menu to show delete option
+        deleteMenuItem = new JMenuItem("Delete");
+        
+        //show confirmation and delete this note and its envelopes
+        deleteMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(jdialog, "Are you sure you want to delete this note?", 
+					       "Delete note", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					envelope.delete();
+					jdialog.dispose();
+				}
+			}
+		});
+        
      
         //setting the popup menu to show font select option
         JMenuItem fontMenu = new JMenuItem("Font...");
@@ -164,6 +182,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
         popup.add(colorMenuItem);
         popup.add(fontMenu);
         popup.add(saveMenuItem);
+        popup.add(deleteMenuItem);
 			
         jdialog.pack();		
 		jdialog.setSize(defaultSize);
@@ -192,5 +211,10 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 	@Override
 	public JMenuItem saveItem() {
 		return this.saveMenuItem;
+	}
+
+	@Override
+	public JMenuItem deleteItem() {
+		return this.deleteMenuItem;
 	}
 }

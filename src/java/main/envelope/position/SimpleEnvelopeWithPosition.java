@@ -50,4 +50,9 @@ public class SimpleEnvelopeWithPosition implements EnvelopeWithPosition {
 	public EnvelopeWithPosition position(Point position) {
 		return new SimpleEnvelopeWithPosition(origin, position);
 	}
+
+	@Override
+	public void delete() {
+		origin.delete();
+	}
 }
