@@ -85,6 +85,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 		this.txtArea = new JTextArea(envelope.text());
 		this.originalText = envelope.text();
 		this.txtArea.setLineWrap(true);
+		this.txtArea.setWrapStyleWord(true);
 		
 		this.txtArea.setFont(defaultFont);
 		
