@@ -8,32 +8,41 @@
 		</authors>
 		<url>https://github.com/paulodamaso/sticky-notes</url>
 		<javaversion>1.8</javaversion>
-		<!-- <run-privileged/>  -->
+		<run-privileged/>
 	</info>
 	<guiprefs width="480" height="320" resizable="no" />
 	<locale>
 		<langpack iso3="eng" />
+		<langpack iso3="bra" />
 	</locale>
-	<native type="izpack" name="ShellLink.dll" />
+	<natives>
+    	<native type="izpack" name="ShellLink.dll"/>
+    	<native type="izpack" name="ShellLink_x64.dll"/>
+	    <native type="izpack" name="WinSetupAPI.dll"/>
+    	<native type="izpack" name="WinSetupAPI_x64.dll"/>
+	</natives>
+
 	<resources>
 	<!-- 
 		<res src="docs/readme.txt" id="InfoPanel.info" />
 		<res src="docs/licence.txt" id="LicencePanel.licence" />  -->
-		<res src="extras/install/WinShortcutSpec.xml" id="shortcutSpec.xml" />		
+		<res src="shortcutSpec.xml" id="shortcutSpec.xml" />
+		<res id="CustomLangPack.xml_bra" src="customLangPack_bra.xml"/>
+<!--		<res id="Installer.image" src="../../resources/images/sticky-notes16x16.png" /> -->
 	</resources>
 	<panels>
 		<panel classname="HelloPanel" />
 		<panel classname="InfoPanel" />
 <!-- <panel classname="LicensePanel" />  -->		
 		<panel classname="TargetPanel" />
-		<panel classname="PacksPanel" />
+		<panel classname="TreePacksPanel" />
 		<panel classname="ShortcutPanel" />
 		<panel classname="InstallPanel" />
 		<panel classname="SimpleFinishPanel" />
 	</panels>
 	<packs>
 		<pack name="Principal" required="yes">
-			<description>Program files</description>
+			<description>Program data</description>
 			<file src="../../resources/images/sticky-notes.ico" targetdir="$INSTALL_PATH" />
 			<fileset dir="../../bin" targetdir="$INSTALL_PATH">
 				<include name="**/*.class" />
