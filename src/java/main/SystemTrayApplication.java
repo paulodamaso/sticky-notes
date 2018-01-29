@@ -9,6 +9,7 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,10 +58,10 @@ public final class SystemTrayApplication implements  Application {
 	private final Notes notes;
 	private final Configuration config;
 	private final Envelopes envelopes;
-	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
 	private final MediaFactory mediaFactory = new JDialogStickyMediaFactory(this);
 	
     public SystemTrayApplication(Configuration config) {
@@ -82,7 +83,7 @@ public final class SystemTrayApplication implements  Application {
 	public Application start() throws Exception {
 		
 		if (!SystemTray.isSupported()) {
-			logger.severe("SystemTray is not supported");
+			logger.severe(Messages.getString("systemTray.notSupported")); //$NON-NLS-1$
             return this;
         }
 		
@@ -90,20 +91,23 @@ public final class SystemTrayApplication implements  Application {
 		final SystemTray tray = SystemTray.getSystemTray();
 		final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("/images/sticky-notes16x16.png", "tray icon"));
+                new TrayIcon(createImage("/images/sticky-notes16x16.png", "tray icon")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		/*
 		 * @todo #50 internationalize system tray menu item labels 
 		 */
-        MenuItem aboutItem = new MenuItem("About");
-        MenuItem newNoteItem = new MenuItem("New Sticky Note...");
-        MenuItem saveAllItem = new MenuItem("Save All Sticky Notes...");
-        MenuItem exitItem = new MenuItem("Exit");
+        MenuItem aboutItem = new MenuItem(Messages.getString("menuItem.about")); //$NON-NLS-1$
+        MenuItem newNoteItem = new MenuItem(Messages.getString("menuItem.newNote")); //$NON-NLS-1$
+        MenuItem saveAllItem = new MenuItem(Messages.getString("menuItem.saveAll")); //$NON-NLS-1$
+        MenuItem exitItem = new MenuItem(Messages.getString("menuItem.Exit")); //$NON-NLS-1$
+        MenuItem langaugeItem = new MenuItem(Messages.getString("menuItem.Language")); //$NON-NLS-1$
         
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newNoteItem);
         popup.add(saveAllItem);
+        popup.addSeparator();
+        popup.add(langaugeItem);
         popup.addSeparator();
         popup.add(exitItem);
          
@@ -113,7 +117,7 @@ public final class SystemTrayApplication implements  Application {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-			logger.log(Level.SEVERE, "TrayIcon could not be added.", e);
+			logger.log(Level.SEVERE, Messages.getString("systemTray.canntoAddIcon"), e); //$NON-NLS-1$
             return this;
         }
 
@@ -121,7 +125,7 @@ public final class SystemTrayApplication implements  Application {
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from System Tray");
+                        Messages.getString("systemTray.dialog")); //$NON-NLS-1$
             }
         });
          
@@ -150,9 +154,29 @@ public final class SystemTrayApplication implements  Application {
         newNoteItem.addActionListener(new ActionListener() {
 			@Override			
 			public void actionPerformed(ActionEvent e) {
-				Envelope newEnvelope = envelopes.add("Insert your text here!");
+				Envelope newEnvelope = envelopes.add(Messages.getString("newNote.text")); //$NON-NLS-1$
 				JDialogSticky pm =	(JDialogSticky) mediaFactory.create(newEnvelope);
 				newEnvelope.print(pm);
+			}
+		});
+        
+        langaugeItem.addActionListener(new ActionListener() {
+			@Override			
+			public void actionPerformed(ActionEvent e) {
+				Object[] possibilities = config.locales();
+				Locale locale = (Locale)JOptionPane.showInputDialog(null,
+				                    Messages.getString("languageDialog.text"), //$NON-NLS-1$
+				                    Messages.getString("languageDialog.title"), //$NON-NLS-1$
+				                    JOptionPane.QUESTION_MESSAGE,
+				                    null,
+				                    possibilities,
+				                    config.locale()
+				                    );
+				
+				if (locale != null) {
+					config.locale(locale);
+					Messages.setLocale(locale);
+				}
 			}
 		});
         
@@ -197,7 +221,7 @@ public final class SystemTrayApplication implements  Application {
         Image image = ImageIO.read(is);
          
         if (image == null) {
-			logger.severe("Resource not found: " + path);        	
+			logger.severe(Messages.getString("systemTray.resourceNotFound") + path);        	 //$NON-NLS-1$
             return null;
         } else {
             return (new ImageIcon(image, description)).getImage();

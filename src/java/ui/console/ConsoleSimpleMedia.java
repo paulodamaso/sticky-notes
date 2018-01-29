@@ -1,5 +1,8 @@
 package ui.console;
 
+import java.text.MessageFormat;
+
+import main.Messages;
 import main.envelope.Envelope;
 import ui.PrintMedia;
 
@@ -19,6 +22,10 @@ public final class ConsoleSimpleMedia implements PrintMedia {
 	
 	@Override
 	public void print() {
-		System.out.println(envelope.id() + " - This is a note with the text: \"" + envelope.text()+"\"");		
+		Object[] messageArguments = {
+				envelope.id(),
+				envelope.text()
+			};
+		System.out.println(new MessageFormat(Messages.getString("ConsoleSimpleMedia.printText")).format(messageArguments));		 //$NON-NLS-1$
 	}
 }

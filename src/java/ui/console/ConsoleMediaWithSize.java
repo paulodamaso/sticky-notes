@@ -2,6 +2,7 @@ package ui.console;
 
 import java.awt.Dimension;
 
+import main.Messages;
 import main.envelope.size.EnvelopeWithSize;
 import ui.MediaWithSize;
 import ui.PrintMedia;
@@ -22,7 +23,7 @@ public final class ConsoleMediaWithSize implements MediaWithSize {
 	@Override
 	public void print() {
 		media.print();
-		System.out.println(" with size " + envelopeWithSize.size());
+		System.out.println(Messages.getString("ConsoleMediaWithSize.printText") + envelopeWithSize.size()); //$NON-NLS-1$
 	}
 
 	@Override

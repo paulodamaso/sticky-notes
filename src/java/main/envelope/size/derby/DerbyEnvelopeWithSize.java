@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.size.EnvelopeWithSize;
 
@@ -32,7 +33,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopeWithSize
@@ -43,7 +44,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 	}
 	
 	private Connection connect() throws Exception {
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
@@ -51,8 +52,8 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return origin.id();
 	}
 
-	private final String insert_size_query = "insert into envelopewithsize (id, width, height) values ( ?, ?, ?)";
-	private final String update_size_query = "update envelopewithsize set width = ?, height = ? where id = ?";
+	private final String insert_size_query = "insert into envelopewithsize (id, width, height) values ( ?, ?, ?)"; //$NON-NLS-1$
+	private final String update_size_query = "update envelopewithsize set width = ?, height = ? where id = ?"; //$NON-NLS-1$
 	public DerbyEnvelopeWithSize size(Dimension size) {
 		Connection conn = null;
 		try {
@@ -95,7 +96,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return null;		
 	}
 	
-	private final String size_query = "select width, height from envelopewithsize where id = ?";
+	private final String size_query = "select width, height from envelopewithsize where id = ?"; //$NON-NLS-1$
 	@Override
 	public Dimension size() {
 		Connection conn = null;
@@ -144,7 +145,7 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 		return this.origin;
 	}
 	
-	private final String delete_size_query = "update envelopewithsize set width = ?, height = ? where id = ?";
+	private final String delete_size_query = "update envelopewithsize set width = ?, height = ? where id = ?"; //$NON-NLS-1$
 	public void delete() {
 		Connection conn = null;
 		try {
@@ -158,12 +159,12 @@ public final class DerbyEnvelopeWithSize implements EnvelopeWithSize{
 			ps.executeUpdate();
 
 		}catch(Exception e) {
-			logger.log(Level.SEVERE, "Error deleting envelope size", e);
+			logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithSize.errorDeleting"), e); //$NON-NLS-1$
 		}finally {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				logger.log(Level.SEVERE, "Error closing connection after deleting envelope size", e);
+				logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithSize.errorClosingConnection"), e); //$NON-NLS-1$
 			}
 		}
 		origin.delete();

@@ -31,11 +31,11 @@ public final class DerbyEnvelopesWithColor implements EnvelopesWithColor {
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 
-	private final String iterate_color_query = "select id, red, green, blue from envelopewithcolor";
+	private final String iterate_color_query = "select id, red, green, blue from envelopewithcolor"; //$NON-NLS-1$
 
 	public Collection<Envelope> iterate() {
 		Collection<Envelope> it = origin.iterate();

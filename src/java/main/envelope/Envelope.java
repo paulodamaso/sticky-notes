@@ -28,20 +28,4 @@ public interface Envelope extends Note {
 	 */
 	public Envelope origin();
 	
-	/**
-	 * <p> Recursively iterate through decorated {@link Envelopes}.
-	 * 
-	 * @param envelope
-	 */
-	public default void printDecorations(Envelope envelope) {
-
-		if (envelope == null) {
-			System.out.println("Last");
-		} else {
-			System.out.println(envelope);
-			printDecorations(envelope.origin());
-		}
-
-	} 
-	
 }

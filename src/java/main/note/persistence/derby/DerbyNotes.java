@@ -17,7 +17,7 @@ public final class DerbyNotes implements Notes {
 	public DerbyNotes(String database) {
 		this.database = database; 
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing derby driver
@@ -29,10 +29,10 @@ public final class DerbyNotes implements Notes {
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
-	private final String iterate_query = "select id from note";
+	private final String iterate_query = "select id from note"; //$NON-NLS-1$
 	@Override
 	public Collection<Note> notes() {
 		ArrayList<Note> it = new ArrayList<Note>();
@@ -60,7 +60,7 @@ public final class DerbyNotes implements Notes {
 		return it;
 	}
 
-	private final String insert_query = "insert into note (text) values (?)";
+	private final String insert_query = "insert into note (text) values (?)"; //$NON-NLS-1$
 	@Override
 	public DerbyNote add(String description) {
 		Connection conn = null;

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JColorChooser;
 
 import main.Application;
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
 
@@ -24,7 +25,7 @@ public final class ColorActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		//show a colorchooser
 		Color newColor = JColorChooser.showDialog(null,
-                "Choose Color",
+                Messages.getString("colorChooser.title"), //$NON-NLS-1$
                 new Color(251,247,174)
                 );
 		if (newColor != null) {

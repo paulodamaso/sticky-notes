@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.Messages;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.size.EnvelopeWithSize;
@@ -18,13 +19,13 @@ public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWit
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			
-			System.out.println("Checking 'envelopewithsize' table in database...");
+			System.out.println(Messages.getString("DerbyEnvelopeWithSizeFactory.checkingTable")); //$NON-NLS-1$
 			boolean good = check();
 			
 			if (!good) {
-				System.out.println("'envelopewithsize' table not found, creating...");
+				System.out.println(Messages.getString("DerbyEnvelopeWithSizeFactory.tableNotFound")); //$NON-NLS-1$
 				init();
 			}
 			
@@ -53,7 +54,7 @@ public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWit
 
 		    while (rs.next())
 		    {
-		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithsize")) {
+		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithsize")) { //$NON-NLS-1$ //$NON-NLS-2$
 		    	  found = true;
 		    	  break;
 		      }
@@ -66,16 +67,16 @@ public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWit
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String create_query = "create TABLE envelopewithsize\r\n" + 
-										"\r\n" + 
-										"(    \r\n" + 
-										"   id INT CONSTRAINT envelopewithsize_foreignkey\r\n" + 
-										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" + 
-										"   width int, height int    \r\n" + 
-										")";
+	private final String create_query = "create TABLE envelopewithsize\r\n" +  //$NON-NLS-1$
+										"\r\n" +  //$NON-NLS-1$
+										"(    \r\n" +  //$NON-NLS-1$
+										"   id INT CONSTRAINT envelopewithsize_foreignkey\r\n" +  //$NON-NLS-1$
+										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" +  //$NON-NLS-1$
+										"   width int, height int    \r\n" +  //$NON-NLS-1$
+										")"; //$NON-NLS-1$
 	
 	@Override
 	public void init() {
@@ -84,7 +85,7 @@ public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWit
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(create_query);
 			ps.executeUpdate();
-			System.out.println("created 'envelopewithsize' table");
+			System.out.println(Messages.getString("DerbyEnvelopeWithSizeFactory.tableCreated")); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

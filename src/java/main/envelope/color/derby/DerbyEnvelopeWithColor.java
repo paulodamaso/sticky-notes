@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
 
@@ -35,10 +36,10 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String color_query = "select  red, green, blue from envelopewithcolor where id = ?";
+	private final String color_query = "select  red, green, blue from envelopewithcolor where id = ?"; //$NON-NLS-1$
 	@Override
 	public Color color() {
 		Connection conn = null;
@@ -72,8 +73,8 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		return color;
 	}
 	
-	private final String insert_color_query = "insert into envelopewithcolor (id, red, green, blue) values ( ?, ?, ?, ?)";
-	private final String update_color_query = "update envelopewithcolor set red = ?, green = ?, blue = ? where id = ?";
+	private final String insert_color_query = "insert into envelopewithcolor (id, red, green, blue) values ( ?, ?, ?, ?)"; //$NON-NLS-1$
+	private final String update_color_query = "update envelopewithcolor set red = ?, green = ?, blue = ? where id = ?"; //$NON-NLS-1$
 	public DerbyEnvelopeWithColor color(Color color) {
 		Connection conn = null;
 		try {
@@ -140,7 +141,7 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 		return this.origin;
 	}
 
-	private final String delete_color_query = "delete from envelopewithcolor where id = ?";
+	private final String delete_color_query = "delete from envelopewithcolor where id = ?"; //$NON-NLS-1$
 	@Override
 	public void delete() {
 		Connection conn = null;
@@ -154,12 +155,12 @@ public final class DerbyEnvelopeWithColor implements EnvelopeWithColor {
 			ps.executeUpdate();
 	
 		}catch(Exception e) {
-			logger.log(Level.SEVERE, "Error deleting envelope color", e);
+			logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithColor.errorDeleting"), e); //$NON-NLS-1$
 		}finally {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				logger.log(Level.SEVERE, "Error closing connection after envelope color", e);
+				logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithColor.errorClosingConnection"), e); //$NON-NLS-1$
 			}
 		}
 		

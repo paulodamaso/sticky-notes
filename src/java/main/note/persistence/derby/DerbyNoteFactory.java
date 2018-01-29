@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.Messages;
 import main.note.Note;
 import main.note.NoteFactory;
 import main.note.Notes;
@@ -22,13 +23,13 @@ public class DerbyNoteFactory implements NoteFactory {
 	public DerbyNoteFactory(String database) {
 		this.database = database;
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			
-			System.out.println("Checking 'note' table in database...");
+			System.out.println(Messages.getString("DerbyNoteFactory.checkingTable")); //$NON-NLS-1$
 			boolean good = check();
 			
 			if (!good) {
-				System.out.println("'note' table not found, creating...");
+				System.out.println(Messages.getString("DerbyNoteFactory.tableNotFound")); //$NON-NLS-1$
 				init();
 			}
 			
@@ -45,7 +46,7 @@ public class DerbyNoteFactory implements NoteFactory {
 
 		    while (rs.next())
 		    {
-		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("note")) {
+		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("note")) { //$NON-NLS-1$ //$NON-NLS-2$
 		    	  found = true;
 		    	  break;
 		      }
@@ -58,17 +59,17 @@ public class DerbyNoteFactory implements NoteFactory {
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String create_query = "create TABLE note\r\n" + 
-										"\r\n" + 
-										"(    \r\n" + 
-										"   id INT not null primary key\r\n" + 
-										"        GENERATED ALWAYS AS IDENTITY\r\n" + 
-										"        (START WITH 1, INCREMENT BY 1),   \r\n" + 
-										"   text VARCHAR(4096)    \r\n" + 
-										")";
+	private final String create_query = "create TABLE note\r\n" +  //$NON-NLS-1$
+										"\r\n" +  //$NON-NLS-1$
+										"(    \r\n" +  //$NON-NLS-1$
+										"   id INT not null primary key\r\n" +  //$NON-NLS-1$
+										"        GENERATED ALWAYS AS IDENTITY\r\n" +  //$NON-NLS-1$
+										"        (START WITH 1, INCREMENT BY 1),   \r\n" +  //$NON-NLS-1$
+										"   text VARCHAR(4096)    \r\n" +  //$NON-NLS-1$
+										")"; //$NON-NLS-1$
 	@Override
 	public void init() {
 		Connection conn = null;
@@ -76,7 +77,7 @@ public class DerbyNoteFactory implements NoteFactory {
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(create_query);
 			ps.executeUpdate();
-			System.out.println("created 'note' table");
+			System.out.println(Messages.getString("DerbyNoteFactory.tableCreated")); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

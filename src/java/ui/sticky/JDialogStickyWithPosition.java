@@ -67,10 +67,4 @@ public final class JDialogStickyWithPosition implements JDialogSticky , MediaWit
 	public JMenuItem deleteItem() {
 		return this.media.deleteItem();
 	}
-	
-	@Override
-	public void save() {
-		System.out.println("Saved " + this.getClass());
-	}
-
 }

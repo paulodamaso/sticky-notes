@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.Messages;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.font.EnvelopeWithFont;
@@ -24,13 +25,13 @@ public class DerbyEnvelopeWithFontFactory implements EnvelopeFactory<EnvelopeWit
 		this.database = database;
 	
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			
-			System.out.println("Checking 'envelopewithcolor' table in database...");
+			System.out.println(Messages.getString("DerbyEnvelopeWithFontFactory.checkingTable")); //$NON-NLS-1$
 			boolean good = check();
 			
 			if (!good) {
-				System.out.println("'envelopewithcolor' table not found, creating...");
+				System.out.println(Messages.getString("DerbyEnvelopeWithFontFactory.tableNotFound")); //$NON-NLS-1$
 				init();
 			}
 			
@@ -59,7 +60,7 @@ public class DerbyEnvelopeWithFontFactory implements EnvelopeFactory<EnvelopeWit
 
 		    while (rs.next())
 		    {
-		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithfont")) {
+		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithfont")) { //$NON-NLS-1$ //$NON-NLS-2$
 		    	  found = true;
 		    	  break;
 		      }
@@ -72,16 +73,16 @@ public class DerbyEnvelopeWithFontFactory implements EnvelopeFactory<EnvelopeWit
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String create_query = "create TABLE envelopewithfont\r\n" + 
-										"\r\n" + 
-										"(    \r\n" + 
-										"   id INT CONSTRAINT envelopewithfont_foreignkey\r\n" + 
-										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" + 
-										"   name varchar(256), style int, size int    \r\n" + 
-										")";
+	private final String create_query = "create TABLE envelopewithfont\r\n" +  //$NON-NLS-1$
+										"\r\n" +  //$NON-NLS-1$
+										"(    \r\n" +  //$NON-NLS-1$
+										"   id INT CONSTRAINT envelopewithfont_foreignkey\r\n" +  //$NON-NLS-1$
+										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" +  //$NON-NLS-1$
+										"   name varchar(256), style int, size int    \r\n" +  //$NON-NLS-1$
+										")"; //$NON-NLS-1$
 	
 	@Override
 	public void init() {
@@ -90,7 +91,7 @@ public class DerbyEnvelopeWithFontFactory implements EnvelopeFactory<EnvelopeWit
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(create_query);
 			ps.executeUpdate();
-			System.out.println("created 'envelopewithfont' table");
+			System.out.println(Messages.getString("DerbyEnvelopeWithFontFactory.tableCreated")); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

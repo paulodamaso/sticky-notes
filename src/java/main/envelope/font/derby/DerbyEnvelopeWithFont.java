@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.font.EnvelopeWithFont;
 
@@ -32,7 +33,7 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopeWithFont
@@ -49,11 +50,11 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String insert_font_query = "insert into envelopewithfont (id, name, style, size) values ( ?, ?, ?, ?)";
-	private final String update_font_query = "update envelopewithfont set name = ?, style = ?, size = ? where id = ?";
+	private final String insert_font_query = "insert into envelopewithfont (id, name, style, size) values ( ?, ?, ?, ?)"; //$NON-NLS-1$
+	private final String update_font_query = "update envelopewithfont set name = ?, style = ?, size = ? where id = ?"; //$NON-NLS-1$
 	public DerbyEnvelopeWithFont font(Font font) {
 		Connection conn = null;
 		try {
@@ -100,7 +101,7 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 		return null;		
 	}
 	
-	private final String font_query = "select name, style, size from envelopewithfont where id = ?";
+	private final String font_query = "select name, style, size from envelopewithfont where id = ?"; //$NON-NLS-1$
 	@Override
 	public Font font() {
 		Connection conn = null;
@@ -149,7 +150,7 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 		return origin;
 	}
 
-	private final String delete_font_query = "delete from envelopewithfont where id = ?";
+	private final String delete_font_query = "delete from envelopewithfont where id = ?"; //$NON-NLS-1$
 	public void delete() {
 		Connection conn = null;
 		try {
@@ -161,12 +162,12 @@ public class DerbyEnvelopeWithFont implements EnvelopeWithFont {
 			ps.executeUpdate();
 	
 		}catch(Exception e) {
-			logger.log(Level.SEVERE, "Error deleting envelope font", e);
+			logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithFont.errorDeleting"), e); //$NON-NLS-1$
 		}finally {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				logger.log(Level.SEVERE, "Error closing connection after deleting envelope font", e);
+				logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithFont.errorClosinConnection"), e); //$NON-NLS-1$
 			}
 		}
 		origin.delete();

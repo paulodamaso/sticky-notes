@@ -64,11 +64,6 @@ public final class JDialogStickyWithSize implements JDialogSticky , MediaWithSiz
 	}
 	
 	@Override
-	public void save() {
-		System.out.println("Saved " + this.getClass());
-	}
-	
-	@Override
 	public JMenuItem deleteItem() {
 		return this.media.deleteItem();
 	}

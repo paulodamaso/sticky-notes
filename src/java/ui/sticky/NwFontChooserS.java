@@ -51,42 +51,44 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FontUIResource;
 
+import main.Messages;
+
 
 //
 // FontChooser by Noah w.
 //
 
 public class NwFontChooserS extends JDialog {
-    String[] styleList = new String[] { "Plain", "Bold", "Italic" };
+    String[] styleList = new String[] { Messages.getString("fontChooser.styleList.plain"), Messages.getString("fontChooser.styleList.bold"), Messages.getString("fontChooser.styleList.italic") }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     String[] sizeList =
     new String[] {
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-        "22",
-        "24",
-        "27",
-        "30",
-        "34",
-        "39",
-        "45",
-        "51",
-        "60" };
+        "3", //$NON-NLS-1$
+        "4", //$NON-NLS-1$
+        "5", //$NON-NLS-1$
+        "6", //$NON-NLS-1$
+        "7", //$NON-NLS-1$
+        "8", //$NON-NLS-1$
+        "9", //$NON-NLS-1$
+        "10", //$NON-NLS-1$
+        "11", //$NON-NLS-1$
+        "12", //$NON-NLS-1$
+        "13", //$NON-NLS-1$
+        "14", //$NON-NLS-1$
+        "15", //$NON-NLS-1$
+        "16", //$NON-NLS-1$
+        "17", //$NON-NLS-1$
+        "18", //$NON-NLS-1$
+        "19", //$NON-NLS-1$
+        "20", //$NON-NLS-1$
+        "22", //$NON-NLS-1$
+        "24", //$NON-NLS-1$
+        "27", //$NON-NLS-1$
+        "30", //$NON-NLS-1$
+        "34", //$NON-NLS-1$
+        "39", //$NON-NLS-1$
+        "45", //$NON-NLS-1$
+        "51", //$NON-NLS-1$
+        "60" }; //$NON-NLS-1$
         NwList StyleList;
         NwList FontList;
         NwList SizeList;
@@ -96,11 +98,11 @@ public class NwFontChooserS extends JDialog {
         private NwFontChooserS(Frame parent, boolean modal, Font font) {
             super(parent, modal);
             initAll();
-            setTitle("Font Choosr");
+            setTitle(Messages.getString("fontChooser.title")); //$NON-NLS-1$
             if (font == null)
                 font = Sample.getFont();
             FontList.setSelectedItem(font.getName());
-            SizeList.setSelectedItem(font.getSize() + "");
+            SizeList.setSelectedItem(font.getSize() + ""); //$NON-NLS-1$
             StyleList.setSelectedItem(styleList[font.getStyle()]);
             
         }
@@ -145,14 +147,14 @@ public class NwFontChooserS extends JDialog {
             getContentPane().add(SizeList);
         }
         private void addButtons() {
-            JButton ok = new JButton("OK");
+            JButton ok = new JButton(Messages.getString("fontChooser.okButton.label")); //$NON-NLS-1$
             ok.setMargin(new Insets(0, 0, 0, 0));
-            JButton ca = new JButton("Cancel");
+            JButton ca = new JButton(Messages.getString("fontChooser.cancelButton.label")); //$NON-NLS-1$
             ca.setMargin(new Insets(0, 0, 0, 0));
             ok.setBounds(260, 350, 70, 20);
-            ok.setFont(new Font(" ", 1, 11));
+            ok.setFont(new Font(" ", 1, 11)); //$NON-NLS-1$
             ca.setBounds(340, 350, 70, 20);
-            ca.setFont(new Font(" ", 1, 12));
+            ca.setFont(new Font(" ", 1, 12)); //$NON-NLS-1$
             getContentPane().add(ok);
             getContentPane().add(ca);
             ok.addActionListener(new ActionListener() {
@@ -177,19 +179,19 @@ public class NwFontChooserS extends JDialog {
             }
             String st = StyleList.getSelectedValue();
             int s = Font.PLAIN;
-            if (st.equalsIgnoreCase("Bold"))
+            if (st.equalsIgnoreCase(Messages.getString("fontChooser.styleList.bold"))) //$NON-NLS-1$
                 s = Font.BOLD;
-            if (st.equalsIgnoreCase("Italic"))
+            if (st.equalsIgnoreCase(Messages.getString("fontChooser.styleList.italic"))) //$NON-NLS-1$
                 s = Font.ITALIC;
             Sample.setFont(new Font(FontList.getSelectedValue(), s, g));
-            Sample.setText("The quick brown fox jumped over the lazy dog.");
+            Sample.setText(Messages.getString("fontChooser.sampleText")); //$NON-NLS-1$
         }
         //////////////////////////////////////////////////////////////////////
         private class NwList extends JPanel {
             JList jl;
             JScrollPane sp;
             JLabel jt;
-            String si = " ";
+            String si = " "; //$NON-NLS-1$
             
             public NwList(String[] values) {
                 setLayout(null);
@@ -230,15 +232,15 @@ public class NwFontChooserS extends JDialog {
         static public String fontString(Font font) {
             String fs = font.getFamily();
             if( !font.isPlain() ) {
-                fs += "-";
+                fs += "-"; //$NON-NLS-1$
                 if( font.isBold()) {
-                    fs += "BOLD";
+                    fs += "BOLD"; //$NON-NLS-1$
                 }
                 if( font.isItalic()) {
-                    fs += "ITALIC";
+                    fs += "ITALIC"; //$NON-NLS-1$
                 }
             }
-            fs += "-" + font.getSize();
+            fs += "-" + font.getSize(); //$NON-NLS-1$
             return(fs);
         }
         

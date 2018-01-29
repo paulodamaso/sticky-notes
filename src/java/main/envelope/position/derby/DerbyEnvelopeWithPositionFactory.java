@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import main.Messages;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.position.EnvelopeWithPosition;
@@ -18,13 +19,13 @@ public class DerbyEnvelopeWithPositionFactory implements EnvelopeFactory<Envelop
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			
-			System.out.println("Checking 'envelopewithposition' table in database...");
+			System.out.println(Messages.getString("DerbyEnvelopeWithPositionFactory.checkingTable")); //$NON-NLS-1$
 			boolean good = check();
 			
 			if (!good) {
-				System.out.println("'envelopewithposition' table not found, creating...");
+				System.out.println(Messages.getString("DerbyEnvelopeWithPositionFactory.tableNotFound")); //$NON-NLS-1$
 				init();
 			}
 			
@@ -53,7 +54,7 @@ public class DerbyEnvelopeWithPositionFactory implements EnvelopeFactory<Envelop
 
 		    while (rs.next())
 		    {
-		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithposition")) {
+		      if(rs.getString("TABLE_NAME").toLowerCase().equalsIgnoreCase("envelopewithposition")) { //$NON-NLS-1$ //$NON-NLS-2$
 		    	  found = true;
 		    	  break;
 		      }
@@ -66,16 +67,16 @@ public class DerbyEnvelopeWithPositionFactory implements EnvelopeFactory<Envelop
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";create=true"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String create_query = "create TABLE envelopewithposition\r\n" + 
-										"\r\n" + 
-										"(    \r\n" + 
-										"   id INT CONSTRAINT envelopewithposition_foreignkey\r\n" + 
-										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" + 
-										"   x int, y int    \r\n" + 
-										")";
+	private final String create_query = "create TABLE envelopewithposition\r\n" +  //$NON-NLS-1$
+										"\r\n" +  //$NON-NLS-1$
+										"(    \r\n" +  //$NON-NLS-1$
+										"   id INT CONSTRAINT envelopewithposition_foreignkey\r\n" +  //$NON-NLS-1$
+										"	REFERENCES note ON DELETE CASCADE ON UPDATE RESTRICT,   \r\n" +  //$NON-NLS-1$
+										"   x int, y int    \r\n" +  //$NON-NLS-1$
+										")"; //$NON-NLS-1$
 	
 	@Override
 	public void init() {
@@ -84,7 +85,7 @@ public class DerbyEnvelopeWithPositionFactory implements EnvelopeFactory<Envelop
 			conn = connect();
 			PreparedStatement ps = conn.prepareStatement(create_query);
 			ps.executeUpdate();
-			System.out.println("created 'envelopewithposition' table");
+			System.out.println(Messages.getString("DerbyEnvelopeWithPositionFactory.tableCreated")); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

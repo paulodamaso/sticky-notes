@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.Application;
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.font.SimpleEnvelopeWithFont;
@@ -54,7 +55,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 	/*
 	 * @todo #24 extract default font
 	 */
-	private final Font defaultFont = new Font("Segoe UI", 0, 12);
+	private final Font defaultFont = new Font("Segoe UI", 0, 12); //$NON-NLS-1$
 	
 	private final String originalText; 
 
@@ -104,7 +105,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 //        this.txtDescription.addFocusListener(new SimpleEnvelopeFocusListener(this));
         
         //setting the popup menu to show color select option
-        colorMenuItem = new JMenuItem("Color...");
+        colorMenuItem = new JMenuItem(Messages.getString("colorMenuItem.text")); //$NON-NLS-1$
         
         //adding action to color menu
         colorMenuItem.addActionListener(new ActionListener() {
@@ -113,7 +114,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
         	public void actionPerformed(ActionEvent e) {
         		//show a colorchooser
         		Color newColor = JColorChooser.showDialog(null,
-                        "Choose Color",
+                        Messages.getString("colorChooser.title"), //$NON-NLS-1$
                         new Color(251,247,174)
                         );
         		if (newColor != null) {
@@ -125,7 +126,7 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 		});		
         
         //setting the popup menu to show save option
-        saveMenuItem = new JMenuItem("Save");
+        saveMenuItem = new JMenuItem(Messages.getString("saveMenuItem.text")); //$NON-NLS-1$
         
         //adding listener to save text information via menu
       //if something changed, save what changed (simple mode, no autosaving)
@@ -153,15 +154,15 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
 		});
         
         //setting the popup menu to show delete option
-        deleteMenuItem = new JMenuItem("Delete");
+        deleteMenuItem = new JMenuItem(Messages.getString("deleteMenuItem.text")); //$NON-NLS-1$
         
         //show confirmation and delete this note and its envelopes
         deleteMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(jdialog, "Are you sure you want to delete this note?", 
-					       "Delete note", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showConfirmDialog(jdialog, Messages.getString("deleteConfirmationDialog.question"),  //$NON-NLS-1$
+					       Messages.getString("deleteConfirmationDialog.title"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) { //$NON-NLS-1$
 					envelope.delete();
 					jdialog.dispose();
 				}
@@ -170,13 +171,13 @@ public class JDialogSimpleSticky implements SimpleMedia, JDialogSticky {
         
      
         //setting the popup menu to show font select option
-        JMenuItem fontMenu = new JMenuItem("Font...");
+        JMenuItem fontMenu = new JMenuItem(Messages.getString("fontMenuItem.text")); //$NON-NLS-1$
         //adding action to font menu
         fontMenu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Font newFont = NwFontChooserS.showDialog(null, "Choose font", txtArea.getFont());
+				Font newFont = NwFontChooserS.showDialog(null, Messages.getString("fontChooser.text"), txtArea.getFont()); //$NON-NLS-1$
 				txtArea.setFont(newFont);
 //				application.fontFactory().create(new SimpleEnvelopeWithFont(envelope, newFont));
 			}

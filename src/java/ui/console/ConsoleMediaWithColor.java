@@ -2,6 +2,7 @@ package ui.console;
 
 import java.awt.Color;
 
+import main.Messages;
 import main.envelope.color.EnvelopeWithColor;
 import ui.MediaWithColor;
 import ui.PrintMedia;
@@ -22,7 +23,7 @@ public final class ConsoleMediaWithColor implements MediaWithColor {
 	@Override
 	public void print() {
 		media.print();
-		System.out.println(" with color " + envelopeWithColor.color());
+		System.out.println(Messages.getString("ConsoleMediaWithColor.printText") + envelopeWithColor.color()); //$NON-NLS-1$
 	}
 
 	@Override

@@ -7,10 +7,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Scanner;
 
 import main.Application;
 import main.Configuration;
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
@@ -48,10 +50,10 @@ public class CommandLineApplication implements Application {
 	private final Configuration config;
 	private final Envelopes envelopes;
 	
-	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db");
-	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db");
+	private final EnvelopeFactory<EnvelopeWithColor, EnvelopesWithColor> colorFactory = new DerbyEnvelopeWithColorFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithFont, EnvelopesWithFont> fontFactory = new DerbyEnvelopeWithFontFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithPosition, EnvelopesWithPosition> positionFactory = new DerbyEnvelopeWithPositionFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
+	private final EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> sizeFactory = new DerbyEnvelopeWithSizeFactory("resources/database/sticky-notes-db"); //$NON-NLS-1$
 	
 	private final MediaFactory mediaFactory = new ConsoleMediaFactory();
 	
@@ -81,31 +83,31 @@ public class CommandLineApplication implements Application {
 	@Override
 	public Application start() throws Exception {
 		Scanner scan = new Scanner(System.in);
-		System.out.println(">");
+		System.out.println(">"); //$NON-NLS-1$
 		
 		while (scan.hasNextLine()) {
-			System.out.println(">");
+			System.out.println(">"); //$NON-NLS-1$
 			String line = scan.nextLine();
 			
-			if (line.startsWith("add ")) {
+			if (line.startsWith("add ")) { //$NON-NLS-1$
 				Collection<String> arguments =  new ArrayList<>();
 			
-				String[] split = line.split(" ");
+				String[] split = line.split(" "); //$NON-NLS-1$
 				boolean text = false;
 				StringBuffer txtString = new StringBuffer();
 				
 				for (String str : split) {
-					if (str.startsWith("\"")) { 
+					if (str.startsWith("\"")) {  //$NON-NLS-1$
 						text = true;						
 					}
 					if (text) {
-						txtString.append(str).append(" ");
+						txtString.append(str).append(" "); //$NON-NLS-1$
 					} else {
 						arguments.add(str);
 					}
 					
-					if (str.endsWith("\"")) {
-						arguments.add(txtString.toString().replace("\"", ""));
+					if (str.endsWith("\"")) { //$NON-NLS-1$
+						arguments.add(txtString.toString().replace("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
 						text = false;
 						txtString = new StringBuffer();		
 					}
@@ -116,11 +118,11 @@ public class CommandLineApplication implements Application {
 			
 				while (it.hasNext()) {
 					String str = it.next();
-					if (str.equalsIgnoreCase("add")) {
+					if (str.equalsIgnoreCase("add")) { //$NON-NLS-1$
 						String noteText = it.next();
 //						System.out.println("Adding a note " + noteText);
 						envelope = new SimpleEnvelope(notes.add(noteText));
-					} else if (str.equalsIgnoreCase("color")) {
+					} else if (str.equalsIgnoreCase("color")) { //$NON-NLS-1$
 						Color color = new Color (
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()),
@@ -128,7 +130,7 @@ public class CommandLineApplication implements Application {
 								);
 						envelope = colorFactory.create(new SimpleEnvelopeWithColor(envelope, color));
 //						System.out.println("Decorating with color " + color);
-					} else if (str.equalsIgnoreCase("font")) {
+					} else if (str.equalsIgnoreCase("font")) { //$NON-NLS-1$
 						Font font = new Font(
 								it.next(),
 								Integer.parseInt(it.next()),
@@ -136,13 +138,13 @@ public class CommandLineApplication implements Application {
 						envelope = fontFactory.create(new SimpleEnvelopeWithFont (envelope, font));
 
 //						System.out.println("Decorating with font " + font);
-					} else if (str.equalsIgnoreCase("position")) {
+					} else if (str.equalsIgnoreCase("position")) { //$NON-NLS-1$
 						Point position = new Point(
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()));
 						envelope = positionFactory.create(new SimpleEnvelopeWithPosition (envelope, position));
 //						System.out.println("Decorating with position " + position);
-					}  else if (str.equalsIgnoreCase("size")) {
+					}  else if (str.equalsIgnoreCase("size")) { //$NON-NLS-1$
 						Dimension size = new Dimension(
 								Integer.parseInt(it.next()),
 								Integer.parseInt(it.next()));
@@ -152,7 +154,7 @@ public class CommandLineApplication implements Application {
 					//i'm adding a new note. need to know which note to add and which decorations use
 					//now I add all decorations
 				}
-			} else if (line.equalsIgnoreCase("print")) {
+			} else if (line.equalsIgnoreCase("print")) { //$NON-NLS-1$
 				//print all envelopes
 				for (Envelope enve : envelopes.iterate()) {
 //					enve.printDecorations(enve);
@@ -160,16 +162,17 @@ public class CommandLineApplication implements Application {
 					enve.print(pm);
 				}
 
-			} else if (line.equalsIgnoreCase("exit")) {
-				System.out.println("Exiting....");
+			} else if (line.equalsIgnoreCase("exit")) { //$NON-NLS-1$
+				System.out.println(Messages.getString("CommandLineApplication.exit")); //$NON-NLS-1$
 				scan.close();
 				System.exit(0);
-			} else if (line.equalsIgnoreCase("about")) {
+			} else if (line.equalsIgnoreCase("about")) {  //$NON-NLS-1$
 				System.out.println(config.about());
-				scan.close();
-				System.exit(0);
-			}else {
-				System.out.println("Unrecognized command " + line);
+			} else if (line.startsWith("locale")) {  //$NON-NLS-1$
+				String[] split = line.split(" "); //$NON-NLS-1$
+				this.config.locale(new Locale(split[1]));
+			} else {
+				System.out.println(Messages.getString("CommandLineApplication.unrecognizedCommand") + line); //$NON-NLS-1$
 			}
 				
 		}

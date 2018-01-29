@@ -34,10 +34,5 @@ public interface JDialogSticky extends PrintMedia {
 	public default void print() {
 		if (!jDialog().isVisible()) jDialog().setVisible(true);
 	}
-	
-	//saves sticky note info
-	public default void save () {
-		envelope().printDecorations(envelope());
-	}
 
 }

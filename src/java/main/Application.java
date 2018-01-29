@@ -13,7 +13,7 @@ import main.envelope.size.EnvelopesWithSize;
 import ui.MediaFactory;
 
 /**
- * <p> Application interface for actions.
+ * <p> Application interface.
  * 
  * @author paulodamaso
  *

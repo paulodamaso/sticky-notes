@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.position.EnvelopeWithPosition;
 
@@ -32,7 +33,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopeWithPosition
@@ -43,7 +44,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 	}
 	
 	private Connection connect() throws Exception {
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
@@ -51,8 +52,8 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		return origin.id();
 	}
 
-	private final String insert_position_query = "insert into envelopewithposition (id, x, y) values ( ?, ?, ?)";
-	private final String update_position_query = "update envelopewithposition set x = ?, y = ? where id = ?";
+	private final String insert_position_query = "insert into envelopewithposition (id, x, y) values ( ?, ?, ?)"; //$NON-NLS-1$
+	private final String update_position_query = "update envelopewithposition set x = ?, y = ? where id = ?"; //$NON-NLS-1$
 	public DerbyEnvelopeWithPosition position (Point position) {
 		Connection conn = null;
 		try {
@@ -95,7 +96,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		return null;		
 	}
 	
-	private final String position_query = "select x, y from envelopewithposition where id = ?";
+	private final String position_query = "select x, y from envelopewithposition where id = ?"; //$NON-NLS-1$
 	@Override
 	public Point position() {
 		Connection conn = null;
@@ -144,7 +145,7 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 		return this.origin;
 	}
 	
-	private final String delete_position_query = "delete from envelopewithposition where id = ?";
+	private final String delete_position_query = "delete from envelopewithposition where id = ?"; //$NON-NLS-1$
 	public void delete () {
 		Connection conn = null;
 		try {
@@ -157,12 +158,12 @@ public final class DerbyEnvelopeWithPosition implements EnvelopeWithPosition {
 			ps.executeUpdate();
 
 		}catch(Exception e) {
-			logger.log(Level.SEVERE, "Error deleting envelope position", e);
+			logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithPosition.errorDeleting"), e); //$NON-NLS-1$
 		}finally {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				logger.log(Level.SEVERE, "Error closing connection after deleting envelope position", e);
+				logger.log(Level.SEVERE, Messages.getString("DerbyEnvelopeWithPosition.errorClosingConnection"), e); //$NON-NLS-1$
 			}
 		}
 		origin.delete();

@@ -2,6 +2,7 @@ package ui.console;
 
 import java.awt.Font;
 
+import main.Messages;
 import main.envelope.font.EnvelopeWithFont;
 import ui.MediaWithFont;
 import ui.PrintMedia;
@@ -22,7 +23,7 @@ public final class ConsoleMediaWithFont implements MediaWithFont {
 	@Override
 	public void print() {
 		media.print();
-		System.out.println(" with font " + envelopeWithFont.font());
+		System.out.println(Messages.getString("ConsoleMediaWithFont.printText") + envelopeWithFont.font()); //$NON-NLS-1$
 	}
 
 	@Override

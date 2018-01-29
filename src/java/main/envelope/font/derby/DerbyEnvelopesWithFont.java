@@ -28,7 +28,7 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 		this.database = database;
 		
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			 
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing database driver for DerbyEnvelopesWithFont
@@ -40,10 +40,10 @@ public final class DerbyEnvelopesWithFont implements EnvelopesWithFont {
 	
 	private Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String iterate_font_query = "select id, name, style, size from envelopewithfont";
+	private final String iterate_font_query = "select id, name, style, size from envelopewithfont"; //$NON-NLS-1$
 	@Override
 	public Collection<Envelope> iterate() {
 		Collection<Envelope> it = origin.iterate();

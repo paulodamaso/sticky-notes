@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.Messages;
 import main.note.Note;
 
 /**
@@ -22,14 +23,14 @@ public final class DerbyNote implements Note {
 	 */
 	private static final Logger logger = Logger.getLogger( DerbyNote.class.getName() );
 	
-	private final String database = "resources/database/sticky-notes-db";
+	private final String database = "resources/database/sticky-notes-db"; //$NON-NLS-1$
 	private final int id;
 	
 	public DerbyNote(int id) {
 //		this.database = database;
 		this.id = id;
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$
 			
 		}catch (Exception e){
 			/* @todo #12 implement better exception handling in choosing derby driver here
@@ -41,10 +42,10 @@ public final class DerbyNote implements Note {
 	
 	public Connection connect() throws Exception {
 		
-		return DriverManager.getConnection("jdbc:derby:"+ database +";");
+		return DriverManager.getConnection("jdbc:derby:"+ database +";"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	private final String description_query = "select text from note where id = ?";
+	private final String description_query = "select text from note where id = ?"; //$NON-NLS-1$
 	@Override
 	public String text() {
 		Connection conn = null;
@@ -78,7 +79,7 @@ public final class DerbyNote implements Note {
 		return id;
 	}
 
-	private final String save_query = "update note set text = ? where id = ?";
+	private final String save_query = "update note set text = ? where id = ?"; //$NON-NLS-1$
 	@Override
 	public void text(String text) {
 		Connection conn = null;
@@ -106,7 +107,7 @@ public final class DerbyNote implements Note {
 		}
 	}
 	
-	private final String delete_query = "delete from note where id = ?";
+	private final String delete_query = "delete from note where id = ?"; //$NON-NLS-1$
 
 	@Override
 	public void delete() {
@@ -117,12 +118,12 @@ public final class DerbyNote implements Note {
 			ps.setInt(1, this.id);
 			ps.executeUpdate();
 		}catch(Exception e) {
-			logger.log(Level.SEVERE, "Error deleting note", e);
+			logger.log(Level.SEVERE, Messages.getString("DerbyNote.errorDeleting"), e); //$NON-NLS-1$
 		}finally {
 			try {
 				conn.close();
 			}catch(Exception e) {
-				logger.log(Level.SEVERE, "Error closing connection after deleting note", e);
+				logger.log(Level.SEVERE, Messages.getString("DerbyNote.errorClosingConnection"), e); //$NON-NLS-1$
 			}
 		}
 	}

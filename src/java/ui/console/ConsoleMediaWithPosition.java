@@ -2,6 +2,7 @@ package ui.console;
 
 import java.awt.Point;
 
+import main.Messages;
 import main.envelope.position.EnvelopeWithPosition;
 import ui.MediaWithPosition;
 import ui.PrintMedia;
@@ -22,7 +23,7 @@ public final class ConsoleMediaWithPosition implements MediaWithPosition {
 	@Override
 	public void print() {
 		media.print();
-		System.out.println(" with position " + envelopeWithPosition.position());
+		System.out.println(Messages.getString("ConsoleMediaWithPosition.printText") + envelopeWithPosition.position()); //$NON-NLS-1$
 	}
 
 	@Override
