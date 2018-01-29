@@ -1,1 +1,0 @@
-compile iZPack.xml -b . -o ../../sticky-notes-installer.jar -k standard

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shortcuts>
+	<programGroup defaultName="sticky-notes" location="startMenu" />
+	<shortcut name="sticky-notes" target="$INSTALL_PATH\sticky-notes.bat"
+		iconFile="$INSTALL_PATH\images\sticky-notes.ico" commandLine="" workingDirectory="$INSTALL_PATH"
+		description="sticky-notes" programGroup="yes" desktop="yes"
+		applications="yes" startMenu="yes" startup="yes">
+	</shortcut>
+	<shortcut name="sticky-notes-uninstaller" target="$INSTALL_PATH\Uninstaller\uninstaller.jar"
+		iconFile="$INSTALL_PATH\images\sticky-notes-uninstall.ico" commandLine="" workingDirectory="$INSTALL_PATH"
+		description="Uninstall sticky-notes" programGroup="yes" desktop="no"
+		applications="yes" startMenu="yes" startup="no">
+	</shortcut>
+
+	<!-- <shortcut name="sticky-notes" target="$INSTALL_PATH\manual.pdf" commandLine="" 
+		workingDirectory="" description="Clique aqui para ler o manual do Produto 
+		Java" programGroup="yes" desktop="no" applications="no" startMenu="no" startup="no"> 
+		<createForPack name="Documentação"/> </shortcut> -->
+</shortcuts>
