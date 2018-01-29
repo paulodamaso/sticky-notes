@@ -44,7 +44,7 @@ import ui.PrintMedia;
  * @author paulodamaso
  *
  */
-public class CommandLineApplication implements Application {
+public final class CommandLineApplication implements Application {
 	
 	private final Notes notes;
 	private final Configuration config;

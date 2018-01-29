@@ -98,14 +98,14 @@ public final class SystemTrayApplication implements  Application {
 		 */
         MenuItem aboutItem = new MenuItem(Messages.getString("menuItem.about")); //$NON-NLS-1$
         MenuItem newNoteItem = new MenuItem(Messages.getString("menuItem.newNote")); //$NON-NLS-1$
-        MenuItem saveAllItem = new MenuItem(Messages.getString("menuItem.saveAll")); //$NON-NLS-1$
+//        MenuItem saveAllItem = new MenuItem(Messages.getString("menuItem.saveAll")); //$NON-NLS-1$
         MenuItem exitItem = new MenuItem(Messages.getString("menuItem.Exit")); //$NON-NLS-1$
         MenuItem langaugeItem = new MenuItem(Messages.getString("menuItem.Language")); //$NON-NLS-1$
         
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(newNoteItem);
-        popup.add(saveAllItem);
+//        popup.add(saveAllItem);
         popup.addSeparator();
         popup.add(langaugeItem);
         popup.addSeparator();
