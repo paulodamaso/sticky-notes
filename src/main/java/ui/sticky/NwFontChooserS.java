@@ -51,7 +51,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FontUIResource;
 
-import main.Messages;
+import main.i18n.Messages;
 
 
 //

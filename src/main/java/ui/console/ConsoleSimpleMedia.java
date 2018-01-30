@@ -2,8 +2,8 @@ package ui.console;
 
 import java.text.MessageFormat;
 
-import main.Messages;
 import main.envelope.Envelope;
+import main.i18n.Messages;
 import ui.PrintMedia;
 
 /**

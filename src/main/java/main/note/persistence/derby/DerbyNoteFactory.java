@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.Messages;
+import main.i18n.Messages;
 import main.note.Note;
 import main.note.NoteFactory;
 import main.note.Notes;

@@ -2,8 +2,8 @@ package ui.console;
 
 import java.awt.Color;
 
-import main.Messages;
 import main.envelope.color.EnvelopeWithColor;
+import main.i18n.Messages;
 import ui.MediaWithColor;
 import ui.PrintMedia;
 

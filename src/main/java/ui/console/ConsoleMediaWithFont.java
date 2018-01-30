@@ -2,8 +2,8 @@ package ui.console;
 
 import java.awt.Font;
 
-import main.Messages;
 import main.envelope.font.EnvelopeWithFont;
+import main.i18n.Messages;
 import ui.MediaWithFont;
 import ui.PrintMedia;
 

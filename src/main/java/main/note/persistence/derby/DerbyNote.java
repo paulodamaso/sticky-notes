@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.Messages;
+import main.i18n.Messages;
 import main.note.Note;
 
 /**

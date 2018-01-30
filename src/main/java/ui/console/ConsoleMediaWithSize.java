@@ -2,8 +2,8 @@ package ui.console;
 
 import java.awt.Dimension;
 
-import main.Messages;
 import main.envelope.size.EnvelopeWithSize;
+import main.i18n.Messages;
 import ui.MediaWithSize;
 import ui.PrintMedia;
 

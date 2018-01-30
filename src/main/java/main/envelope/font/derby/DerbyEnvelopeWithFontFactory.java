@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.Messages;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.font.EnvelopeWithFont;
 import main.envelope.font.EnvelopesWithFont;
+import main.i18n.Messages;
 
 /**
  * <p> Implementation of {@link EnvelopeFactory} for creation of {@link EnvelopeWithFont} persisted in a derby database.

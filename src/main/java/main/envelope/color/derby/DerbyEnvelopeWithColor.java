@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.EnvelopeWithColor;
+import main.i18n.Messages;
 
 
 /**

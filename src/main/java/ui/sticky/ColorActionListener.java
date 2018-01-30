@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JColorChooser;
 
 import main.Application;
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
+import main.i18n.Messages;
 
 public final class ColorActionListener implements ActionListener {
 	

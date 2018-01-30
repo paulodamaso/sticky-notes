@@ -2,8 +2,8 @@ package ui.console;
 
 import java.awt.Point;
 
-import main.Messages;
 import main.envelope.position.EnvelopeWithPosition;
+import main.i18n.Messages;
 import ui.MediaWithPosition;
 import ui.PrintMedia;
 

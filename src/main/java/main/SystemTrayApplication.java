@@ -33,6 +33,7 @@ import main.envelope.position.derby.DerbyEnvelopeWithPositionFactory;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
 import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
+import main.i18n.Messages;
 import main.note.Notes;
 import ui.MediaFactory;
 import ui.PrintMedia;

@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 import main.Application;
 import main.Configuration;
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
@@ -34,6 +33,7 @@ import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
 import main.envelope.size.SimpleEnvelopeWithSize;
 import main.envelope.size.derby.DerbyEnvelopeWithSizeFactory;
+import main.i18n.Messages;
 import main.note.Notes;
 import ui.MediaFactory;
 import ui.PrintMedia;

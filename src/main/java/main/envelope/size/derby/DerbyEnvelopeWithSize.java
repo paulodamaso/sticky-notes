@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.size.EnvelopeWithSize;
+import main.i18n.Messages;
 
 /**
  * <p> {@link EnvelopeWithSize} implementation with size data in derby database, in table 'envelopewithsize'.

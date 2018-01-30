@@ -2,6 +2,7 @@ package main;
 
 import java.util.Locale;
 
+import main.i18n.Messages;
 import main.note.NoteFactory;
 import main.note.Notes;
 import main.note.persistence.derby.DerbyNoteFactory;

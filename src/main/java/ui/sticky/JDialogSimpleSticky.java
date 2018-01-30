@@ -19,12 +19,12 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import main.Application;
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.color.SimpleEnvelopeWithColor;
 import main.envelope.font.SimpleEnvelopeWithFont;
 import main.envelope.position.SimpleEnvelopeWithPosition;
 import main.envelope.size.SimpleEnvelopeWithSize;
+import main.i18n.Messages;
 import ui.SimpleMedia;
 
 /**

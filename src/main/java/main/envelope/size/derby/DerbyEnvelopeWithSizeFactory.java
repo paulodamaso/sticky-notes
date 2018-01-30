@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import main.Messages;
 import main.envelope.EnvelopeFactory;
 import main.envelope.Envelopes;
 import main.envelope.size.EnvelopeWithSize;
 import main.envelope.size.EnvelopesWithSize;
+import main.i18n.Messages;
 
 public class DerbyEnvelopeWithSizeFactory implements EnvelopeFactory<EnvelopeWithSize, EnvelopesWithSize> {
 

@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import main.Messages;
 import main.envelope.Envelope;
 import main.envelope.position.EnvelopeWithPosition;
+import main.i18n.Messages;
 
 /**
  * <p> {@link EnvelopeWithPosition} implementation with position data in derby database, in table 'envelopewithposition'.
