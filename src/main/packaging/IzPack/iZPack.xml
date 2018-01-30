@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <installation version="5.0">
 	<info>
 		<appname>sticky-notes</appname>
@@ -8,7 +8,7 @@
 		</authors>
 		<url>https://github.com/paulodamaso/sticky-notes</url>
 		<javaversion>1.8</javaversion>
-		<!-- <run-privileged/>  -->
+		<!-- <run-privileged/> -->
 	</info>
 	<guiprefs width="480" height="320" resizable="no" />
 	<locale>

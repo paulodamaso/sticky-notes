@@ -17,7 +17,8 @@ public final class Configuration {
 	
 	public Configuration(Locale locale) {
 		noteFactory = new DerbyNoteFactory("resources/database/sticky-notes-db");  //$NON-NLS-1$
-		Messages.setLocale(Locale.getDefault());
+		Messages.setLocale(locale);
+		System.out.println(locale);
 	}
 	
 	public Notes notes () {
