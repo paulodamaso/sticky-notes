@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<project name="izpack" default="compile" basedir=".">
+   
+  	<property name="izpack-dist" value="IzPack/inst"/>
+  	<property name="izpack-installer" value="sticky-notes-installer.jar"/>
+   
+  <path id="lib.path">
+    <fileset dir="${izpack-dist}/lib" includes="*.jar"/>
+  </path>
+   
+  <taskdef name="izpack"
+           classname="com.izforge.izpack.ant.IzPackTask"
+           classpathref="lib.path"
+           />
+   
+  <target name="compile">
+    <echo message="Makes the installer using IzPack to ${izpack-installer}"/>
+    <izpack input="${basedir}/IzPack/iZPack.xml"
+            output="${izpack-installer}" 
+            installerType="standard"             
+            basedir="${basedir}/IzPack"
+            izPackDir="${izpack-dist}"/>
+    <echo message="${izpack-installer} created"/>
+  </target>
+   
+</project>

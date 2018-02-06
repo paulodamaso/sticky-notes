@@ -1,0 +1,33 @@
+<project name="sticky-notes">
+	
+    <property name="lib.dir" value="src/main/lib" />
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="target"/>
+    	<delete file="derby.log" />		 
+    </target>
+
+    <target name="compile">
+        <mkdir dir="target"/>
+        <javac srcdir="src/main/java" destdir="target" classpathref="classpath"/>
+		<copy todir="target/i18n">
+    	    <fileset dir="src/main/resources/i18n"/>
+		</copy>
+    	
+		<copy todir="target/images">
+    	    <fileset dir="src/main/resources/images"/>
+		</copy>
+    </target>
+
+	<target name="package">
+		<delete file="sticky-notes-installer.jar" />
+		<ant antfile="build.xml" dir="src/main/packaging" />
+	</target>
+
+
+
+</project>
