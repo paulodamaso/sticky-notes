@@ -4,14 +4,10 @@ script:
   ant clean;
   ant compile;
   ant package;
-  gem install travis;
-  travis setup releases;
-  
+
 deploy:
   provider: releases
-  api_key:
-    secure: VktV67uELdEtrIF1-5zRxg
-  file: sticky-notes-installer.jar
+  api_key: $GITHUB_OAUTH_TOKEN
   skip_cleanup: true
   on:
     tags: false
