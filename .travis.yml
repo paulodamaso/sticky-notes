@@ -7,7 +7,7 @@ script:
 
 deploy:
   provider: releases
-  api_key: "$GITHUB_OAUTH_TOKEN"
+  api_key: 905afe0a27a9e13eebb8e556e478e01a99f46be8
   skip_cleanup: true
   on:
     tags: false
