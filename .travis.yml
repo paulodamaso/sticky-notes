@@ -1,3 +1,6 @@
 language: java
 
-script: ant -v
+script: 
+  ant -v clean;
+  ant -v compile;
+  ant -v package;
