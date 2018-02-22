@@ -4,3 +4,11 @@ script:
   ant clean;
   ant compile;
   ant package;
+  
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: sticky-notes-installer.jar
+  skip_cleanup: true
+  on:
+    tags: true
