@@ -5,6 +5,8 @@ script:
   ant compile;
   ant package;
   
+travis setup releases
+
 deploy:
   provider: releases
   api_key: "GITHUB OAUTH TOKEN"
