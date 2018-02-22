@@ -5,12 +5,12 @@ script:
   ant compile;
   ant package;
   
-travis setup releases
-
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
+  api_key:
+    secure: VktV67uELdEtrIF1-5zRxg
   file: sticky-notes-installer.jar
   skip_cleanup: true
   on:
     tags: false
+
