@@ -4,6 +4,7 @@ script:
   ant clean;
   ant compile;
   ant package;
+  gem install travis;
   travis setup releases;
   
 deploy:
