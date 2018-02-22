@@ -1,6 +1,6 @@
 language: java
 
 script: 
-  ant -v clean;
-  ant -v compile;
-  ant -v package;
+  ant clean;
+  ant compile;
+  ant package;
