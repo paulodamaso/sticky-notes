@@ -1,2 +1,3 @@
-langyage: java
-ant build.xml
+language: java
+
+script: ant build.xml
