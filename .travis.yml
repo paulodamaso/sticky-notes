@@ -4,6 +4,7 @@ script:
   ant clean;
   ant compile;
   ant package;
+  travis setup releases;
   
 deploy:
   provider: releases
