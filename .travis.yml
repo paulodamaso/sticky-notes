@@ -4,6 +4,10 @@ script:
   ant clean;
   ant compile;
   ant package;
+  
+branches:
+  only:
+  - master
 
 deploy:
   provider: releases
