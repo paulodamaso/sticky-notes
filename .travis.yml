@@ -12,5 +12,5 @@ deploy:
   file: sticky-notes-installer.jar
   skip_cleanup: true
   on:
-    tags: true
+    tags: false
 
