@@ -7,3 +7,4 @@ deploy:
   file: 'sticky-notes-installer.jar'
   on:
     repo: paulodamaso/sticky-notes
+    tags: true
